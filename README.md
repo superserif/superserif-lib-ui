@@ -5,6 +5,8 @@ A control panel for creative dev — parameters, curves, presets — in the spir
 - **Panel** (drag, resize, collapse, `H`, fps, transport), **Folder** as modules (grid layout, rename, right-click, solo, drag to reorder)
 - **Number** (the digit is the control: scrub, shift ×10, alt ×0.1, click to type), **Slider** (inline mode, editable max), **Knob** (stack layout), **Pad 2D**, **Pads** (on/off bank), **Toggle**, **Select** (with preview canvas), **Color**, **Text**, **Button**, **Menu**, **Curve** (bezier / points → `toFunction()` `toCSS()` `toArray()`), **Monitor** (sparkline), **Mixer** (faders), **Presets** (save / load / export JSON)
 
+Live docs and playground: **https://superserif-ui.vercel.app** — components (`/`), the copyable starter (`/starter`), the three compositions (`/prototype`).
+
 ## Install
 
 Three ways, pick one per project.

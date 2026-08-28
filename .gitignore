@@ -5,3 +5,4 @@ dist-playground
 _ref/shots
 _ref/dev
 playground/fonts/*.woff2
+.vercel
