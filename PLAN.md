@@ -8,7 +8,13 @@ One sentence: every control is a label, a value you can scrub, and a small drawi
 - Controls: Panel, Folder, Number, Slider, Knob, Pad2D, Toggle, Select (+ preview canvas), Color, Text, Button(s), Curve (bezier + points, toFunction/toCSS/toArray), Monitor (+ sparkline), PresetBar/PresetStore, Separator, Label.
 - Playground `/` (every control light + dark bound to one state, snippets, Target dot field, Stress/Embed/Reset-survival), `/prototype.html` (picker: Ligne / Module / Instrument), `/dev-*.html`.
 
-## Phase 2 — packaging (after component review)
+## Phase 2 — packaging (built 2026-08-28; publish pending the owner's go)
+
+Done: `npm run build` → `dist/index.js` + `auto.js` (ESM), `ssui.iife.js` (global `SSUI`, CSS injected), `ssui.css`, `index.d.ts`/`auto.d.ts`; `package.json` exports `.`, `./auto`, `./css`, `./tokens`; README, CHANGELOG, MIT LICENSE; local git repo with an initial commit.
+
+Release procedure: `npm run check && npm run build` → bump `version` in package.json + CHANGELOG → `git commit -am 'vX.Y.Z' && git tag vX.Y.Z && git push --tags` → consumers install `github:superserif/superserif-ui#vX.Y.Z` or the jsDelivr GitHub URL; `npm publish` only once the `@superserif` npm org exists.
+
+Original outline:
 - `vite build` lib mode: `src/index.ts` (ESM) + `src/auto.ts` (ESM + IIFE `SSUI`, injects `styles/index.css?inline` once via adoptedStyleSheets / `<style data-ssui>`), `vite-plugin-dts` → `dist/index.d.ts`, `cssCodeSplit:false` → `dist/ssui.css`.
 - `package.json` exports: `.`, `./auto`, `./css`, `./tokens`; `files: [dist]`; `sideEffects` for auto + css; `unpkg`/`jsdelivr` → iife.
 - README: install, 10-line first panel, every add* with option table, theming (token list generated from tokens.css by a script), presets, keyboard reference, a11y, browser support (Chrome 111+, Safari 16.4+, Firefox 128+ for @property/linear/revert-layer; degrades to snap/standard easing/no shield).
