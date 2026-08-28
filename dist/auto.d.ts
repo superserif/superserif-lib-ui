@@ -722,6 +722,7 @@ export declare class Panel extends Container {
     private opts;
     private soloed;
     private footerCenter;
+    private footerRight;
     private subEl;
     private fpsEl;
     private stopFps;
@@ -1115,6 +1116,11 @@ export declare interface TransportOptions {
     onReset?: () => void;
     /** labels, default Play / Pause */
     labels?: [string, string];
+    /** a text action on the right of the footer (e.g. Randomize); replaces the link */
+    action?: {
+        label: string;
+        onClick: () => void;
+    };
 }
 
 export declare const version = "0.1.0";

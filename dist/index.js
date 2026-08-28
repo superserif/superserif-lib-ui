@@ -24,7 +24,7 @@ class K {
     this.map.clear();
   }
 }
-class _t {
+class Et {
   constructor() {
     this.requests = /* @__PURE__ */ new Set(), this.listeners = /* @__PURE__ */ new Set(), this.tickers = /* @__PURE__ */ new Set(), this.raf = 0, this.last = 0, this.frame = (t) => {
       this.raf = 0;
@@ -55,7 +55,7 @@ class _t {
     this.raf || (this.last = performance.now(), this.raf = requestAnimationFrame(this.frame));
   }
 }
-const B = new _t();
+const B = new Et();
 let At = 0;
 const ot = (a = "ssui") => `${a}-${(++At).toString(36)}`;
 function o(a, t = {}, e = []) {
@@ -82,7 +82,7 @@ function $(a) {
   const t = document.createElement("template");
   return t.innerHTML = a.trim(), t.content.firstElementChild;
 }
-const _ = {
+const E = {
   chevron: () => $('<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>'),
   check: () => $('<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>'),
   more: () => $('<svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><circle cx="3.5" cy="8" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="12.5" cy="8" r="1.2"/></svg>'),
@@ -94,7 +94,7 @@ const _ = {
   grip: () => $('<svg viewBox="0 0 12 12" width="12" height="12" fill="currentColor"><circle cx="4" cy="3" r="1"/><circle cx="8" cy="3" r="1"/><circle cx="4" cy="6" r="1"/><circle cx="8" cy="6" r="1"/><circle cx="4" cy="9" r="1"/><circle cx="8" cy="9" r="1"/></svg>'),
   close: () => $('<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>')
 }, H = (a) => a.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "item", bt = () => typeof matchMedia < "u" && matchMedia("(prefers-reduced-motion: reduce)").matches, St = (a) => !!a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable);
-class E extends K {
+class _ extends K {
   constructor(t, e, s) {
     super(), this.binding = t, this.opts = e, this.cleanups = [], this.unlisten = null, this._state = "idle", this.inputId = ot("ssui-in"), this.stacked = !1, this.serializable = !0, this.id = e.id ?? H(e.label ?? t.key ?? s), this.initial = this.clone(t.read()), this.labelEl = o("label", { class: "ssui-row__label", for: this.inputId, id: `${this.inputId}-label` }, [e.label ?? t.key ?? s]), this.controlEl = o("div", { class: "ssui-row__control" }), this.el = o("div", { class: `ssui-row ssui-row--${s}`, "data-ssui-id": this.id, "data-ssui-state": "idle" }, [this.labelEl, this.controlEl]);
   }
@@ -316,7 +316,7 @@ function q(a, t, e, s = !1) {
       return null;
   }
 }
-class S extends E {
+class S extends _ {
   constructor(t, e = {}, s = "number") {
     super(t, e, s), this.dragStart = 0, this.min = e.min ?? -1 / 0, this.max = e.max ?? 1 / 0, this.step = e.step ?? yt(t.read(), e.min, e.max), this.precision = e.precision ?? Z(this.step), this.mount();
   }
@@ -530,7 +530,7 @@ class Ot extends S {
     return this.kbox;
   }
 }
-class it extends E {
+class it extends _ {
   constructor(t, e = {}) {
     super(t, e, "pad2d"), this.ro = null, this.size = 0, this.stacked = !0;
     const s = t.read();
@@ -617,7 +617,7 @@ class it extends E {
       }
   }
 }
-class Pt extends E {
+class Pt extends _ {
   constructor(t, e = {}) {
     super(t, e, "toggle"), this.pulseTimer = 0, this.mount();
   }
@@ -637,7 +637,7 @@ class Pt extends E {
     this.btn.setAttribute("aria-checked", String(!!t));
   }
 }
-class lt extends E {
+class lt extends _ {
   constructor(t, e) {
     super(t, e, "select"), this.optionEls = [], this.active = -1, this.canvas = null, this.time = 0, this.stopAnim = null, this.typeahead = "", this.typeTimer = 0, this.items = lt.normalize(e.options), e.preview && (this.stacked = !0), this.mount();
   }
@@ -646,7 +646,7 @@ class lt extends E {
   }
   render() {
     this.indexEl = o("span", { class: "ssui-select__index", "aria-hidden": "true" }, [o("span", { class: "ssui-select__index-cur" }, ["01"]), o("span", { class: "ssui-select__index-sep" }, ["/"]), o("span", {}, [rt(this.items.length)])]), this.currentEl = o("span", { class: "ssui-select__current" });
-    const t = _.chevron();
+    const t = E.chevron();
     t.classList.add("ssui-select__chevron"), this.trigger = o("button", { class: "ssui-select__trigger", type: "button", id: this.inputId, "aria-haspopup": "listbox", "aria-expanded": "false", "aria-labelledby": `${this.inputId}-label` }, [this.indexEl, this.currentEl, t]), this.menu = o("ul", { class: "ssui-select__menu", role: "listbox", tabindex: -1, "aria-labelledby": `${this.inputId}-label` }), this.items.forEach((s, i) => {
       const n = o("li", { class: "ssui-select__option", role: "option", "aria-selected": "false", "data-i": i }, [s.label, o("span", { class: "ssui-select__option-index" }, [rt(i + 1)])]);
       n.style.setProperty("--i", String(i)), n.addEventListener("pointerenter", () => this.setActive(i)), n.addEventListener("click", (r) => {
@@ -820,11 +820,11 @@ function G(a) {
   const { r: h, g: c, b: l } = Tt(Vt(i[0]), O(j(i[1], 100)), O(j(i[2], 100)));
   return { r: h, g: c, b: l, a: r };
 }
-function Ft(a) {
+function Rt(a) {
   return G(a) ?? { r: 0, g: 0, b: 0, a: 1 };
 }
 const P = (a) => Math.round(Math.min(1, Math.max(0, a)) * 255), Q = (a) => P(a).toString(16).padStart(2, "0"), tt = (a) => Math.round(a * 10) / 10;
-function Et(a, t, e = !1) {
+function _t(a, t, e = !1) {
   const s = a.a === void 0 ? 1 : a.a;
   switch (t) {
     case "hex":
@@ -841,7 +841,7 @@ function Et(a, t, e = !1) {
       return e ? { r: a.r, g: a.g, b: a.b, a: s } : { r: a.r, g: a.g, b: a.b };
   }
 }
-function Rt(a) {
+function Ft(a) {
   if (typeof a == "number") return "number";
   if (typeof a == "object" && a !== null) return "object";
   const t = String(a).trim().toLowerCase();
@@ -854,13 +854,13 @@ function Bt(a) {
   return t.startsWith("#") ? t.length === 5 || t.length === 9 : /\/|rgba|hsla|^(rgb|hsl)\(\s*[^,]+,[^,]+,[^,]+,/.test(t);
 }
 function zt(a, t) {
-  return Et(a, "hex", t);
+  return _t(a, "hex", t);
 }
-class Ht extends E {
+class Ht extends _ {
   constructor(t, e = {}) {
     super(t, e, "color"), this.hsv = { h: 0, s: 0, v: 0 }, this.a = 1, this.mode = "hsv", this.alphaEl = null, this.hsvWidgets = [], this.rgbWidgets = [], this.dirtySinceOpen = !1, this.closeTimer = 0;
     const s = t.read();
-    this.format = e.format ?? Rt(s), this.alpha = e.alpha ?? (this.format !== "number" && Bt(s)), this.readInto(Ft(s), !0), this.mount();
+    this.format = e.format ?? Ft(s), this.alpha = e.alpha ?? (this.format !== "number" && Bt(s)), this.readInto(Rt(s), !0), this.mount();
   }
   // ---- value plumbing -----------------------------------------------------
   readInto(t, e = !1) {
@@ -871,7 +871,7 @@ class Ht extends E {
     return { ...wt(this.hsv.h, this.hsv.s, this.hsv.v), a: this.a };
   }
   out(t = this.rgba()) {
-    return Et(t, this.format, this.alpha);
+    return _t(t, this.format, this.alpha);
   }
   sanitize(t) {
     const e = G(t);
@@ -1033,7 +1033,7 @@ class Ht extends E {
     this.box.style.setProperty("--ssui-color-current", s), this.box.style.setProperty("--ssui-color-opaque", i), this.box.style.setProperty("--ssui-h", `${this.hsv.h.toFixed(1)}`), this.box.style.setProperty("--ssui-sx", `${(this.hsv.s * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-sy", `${((1 - this.hsv.v) * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-hx", `${(this.hsv.h / 360 * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-ax", `${(this.a * 100).toFixed(2)}%`), t && document.activeElement !== this.hex && (this.hex.value = zt(e, this.alpha)), this.sv.setAttribute("aria-valuetext", `s ${Math.round(this.hsv.s * 100)}% v ${Math.round(this.hsv.v * 100)}%`), this.hue.setAttribute("aria-valuenow", String(Math.round(this.hsv.h))), this.hue.setAttribute("aria-valuetext", `${Math.round(this.hsv.h)}°`), this.alphaEl?.setAttribute("aria-valuenow", String(Math.round(this.a * 100))), this.alphaEl?.setAttribute("aria-valuetext", `${Math.round(this.a * 100)}%`), (this.mode === "hsv" ? this.hsvWidgets : this.rgbWidgets).forEach((n) => n.refresh());
   }
 }
-class Nt extends E {
+class Nt extends _ {
   constructor(t, e = {}) {
     super(t, e, "text"), e.multiline && (this.stacked = !0), this.mount();
   }
@@ -1159,10 +1159,10 @@ const k = (a, t, e, s) => ({ type: "bezier", points: [a, t, e, s] }), Jt = {
   const e = document.createElementNS(Kt, a);
   for (const [s, i] of Object.entries(t)) e.setAttribute(s, String(i));
   return e;
-}, et = (a) => (Math.round(a * 1e3) / 1e3).toString().replace(/^(-?)0\./, "$1."), F = 0.2, J = 0.03;
-class Ut extends E {
+}, et = (a) => (Math.round(a * 1e3) / 1e3).toString().replace(/^(-?)0\./, "$1."), R = 0.2, J = 0.03;
+class Ut extends _ {
   constructor(t, e = {}) {
-    super(t, e, "curve"), this.modeBtns = [], this.handles = [], this.fn = (s) => s, this.time = 0, this.stopAnim = null, this.copyTimer = 0, this.dragIndex = -1, this.focusIndex = -1, this.sx = (1 + 2 * J) / 288, this.sy = (1 + 2 * F) / 128, this.presets = e.presets ?? Wt, this.stacked = !0, this.mount();
+    super(t, e, "curve"), this.modeBtns = [], this.handles = [], this.fn = (s) => s, this.time = 0, this.stopAnim = null, this.copyTimer = 0, this.dragIndex = -1, this.focusIndex = -1, this.sx = (1 + 2 * J) / 288, this.sy = (1 + 2 * R) / 128, this.presets = e.presets ?? Wt, this.stacked = !0, this.mount();
   }
   // ---- public output --------------------------------------------------------
   toFunction() {
@@ -1185,7 +1185,7 @@ class Ut extends E {
   }
   // ---- render ---------------------------------------------------------------
   render() {
-    const t = this.opts.mode ?? "both", e = _.chevron();
+    const t = this.opts.mode ?? "both", e = E.chevron();
     this.presetName = o("span", { class: "ssui-curve__preset-name" });
     const s = o("button", { class: "ssui-curve__preset", type: "button", "aria-haspopup": "listbox", "aria-expanded": "false", "aria-label": "Curve preset" }, [this.presetName, e]);
     this.presetMenu = o("ul", { class: "ssui-select__menu", role: "listbox", tabindex: -1 }), Object.keys(this.presets).forEach((l, u) => {
@@ -1209,15 +1209,15 @@ class Ut extends E {
       }
       n.append(l);
     }
-    this.labelEl.append(n), this.svg = V("svg", { class: "ssui-curve__svg", viewBox: `${-J} ${-F} ${1 + 2 * J} ${1 + 2 * F}`, preserveAspectRatio: "none", "aria-hidden": "true" });
+    this.labelEl.append(n), this.svg = V("svg", { class: "ssui-curve__svg", viewBox: `${-J} ${-R} ${1 + 2 * J} ${1 + 2 * R}`, preserveAspectRatio: "none", "aria-hidden": "true" });
     const r = V("path", { class: "ssui-curve__grid", d: "M.25 -1V2M.5 -1V2M.75 -1V2M-1 .25H2M-1 .5H2M-1 .75H2" }), h = V("path", { class: "ssui-curve__unit", d: "M-1 0H2M-1 1H2" });
-    this.arms = V("path", { class: "ssui-curve__arm" }), this.path = V("path", { class: "ssui-curve__path" }), this.ballX = V("line", { class: "ssui-curve__ball-x", y1: -F, y2: 1 + F }), this.ball = V("circle", { class: "ssui-curve__ball" }), this.handlesG = V("g"), this.svg.append(r, h, this.arms, this.path, this.ballX, this.ball, this.handlesG), this.svg.style.transform = "scaleY(-1)", this.stage = o("div", { class: "ssui-curve__stage", role: "application", "aria-label": `${this.opts.label ?? "curve"} editor`, tabindex: -1 }, [
+    this.arms = V("path", { class: "ssui-curve__arm" }), this.path = V("path", { class: "ssui-curve__path" }), this.ballX = V("line", { class: "ssui-curve__ball-x", y1: -R, y2: 1 + R }), this.ball = V("circle", { class: "ssui-curve__ball" }), this.handlesG = V("g"), this.svg.append(r, h, this.arms, this.path, this.ballX, this.ball, this.handlesG), this.svg.style.transform = "scaleY(-1)", this.stage = o("div", { class: "ssui-curve__stage", role: "application", "aria-label": `${this.opts.label ?? "curve"} editor`, tabindex: -1 }, [
       this.svg,
       o("span", { class: "ssui-curve__hint", "aria-hidden": "true" }, ["dbl-click: add"])
     ]), this.opts.height && this.stage.style.setProperty("--ssui-curve-height", `${this.opts.height}px`);
     const c = new ResizeObserver(() => {
       const l = this.stage.clientWidth, u = this.stage.clientHeight;
-      !l || !u || (this.sx = (1 + 2 * J) / l, this.sy = (1 + 2 * F) / u, this.fitHandleRadius(), this.drawBall());
+      !l || !u || (this.sx = (1 + 2 * J) / l, this.sy = (1 + 2 * R) / u, this.fitHandleRadius(), this.drawBall());
     });
     return c.observe(this.stage), this.cleanups.push(() => c.disconnect()), this.stage.addEventListener("dblclick", (l) => this.onDblClick(l)), this.stage.addEventListener("keydown", (l) => this.onStageKey(l)), this.cssOut = o("output", { class: "ssui-curve__css", title: "Click to copy", "aria-label": "CSS easing, click to copy" }), this.cssOut.addEventListener("click", () => this.copyCSS()), bt() ? this.time = 0.5 : (this.stopAnim = B.animate({ flush() {
     }, poll() {
@@ -1285,7 +1285,7 @@ class Ut extends E {
   }
   // ---- interaction ----------------------------------------------------------
   toLocal(t, e) {
-    const s = this.stage.getBoundingClientRect(), i = (t - s.left) / s.width * (1 + 2 * J) - J, n = 1 - (e - s.top) / s.height * (1 + 2 * F) + F;
+    const s = this.stage.getBoundingClientRect(), i = (t - s.left) / s.width * (1 + 2 * J) - J, n = 1 - (e - s.top) / s.height * (1 + 2 * R) + R;
     return [i, n];
   }
   moveHandle(t, e, s) {
@@ -1430,7 +1430,7 @@ class Ut extends E {
     clearTimeout(this.copyTimer), super.dispose();
   }
 }
-class Gt extends E {
+class Gt extends _ {
   constructor(t, e = {}) {
     super(t, { ...e, listen: !0 }, "monitor"), this.serializable = !1, this.canvas = null, this.head = 0, this.filled = 0, this.acc = 0, this.stopTick = null, e.graph && (this.stacked = !0), this.mount();
   }
@@ -1508,9 +1508,9 @@ class Zt extends K {
     }, this.id = s.id ?? H(t);
     const i = s.icon ?? "plus";
     this.trigger = o("button", { class: `ssui-button ssui-menu__trigger${s.variant && s.variant !== "default" ? ` ssui-button--${s.variant}` : ""}`, type: "button", "aria-haspopup": "menu", "aria-expanded": "false" }, [
-      i === "plus" ? _.plus() : i === "more" ? _.more() : null,
+      i === "plus" ? E.plus() : i === "more" ? E.more() : null,
       t,
-      i === "chevron" ? _.chevron() : null
+      i === "chevron" ? E.chevron() : null
     ]), this.menu = o("ul", { class: "ssui-select__menu ssui-menu__list", role: "menu", tabindex: -1 }), this.box = o("div", { class: `ssui-select ssui-menu${s.align === "left" ? " ssui-menu--left" : ""}` }, [this.trigger, this.menu]), this.el = o("div", { class: `ssui-row ssui-row--menu${s.full ? " ssui-row--menu-full" : ""}`, "data-ssui-id": this.id }, [o("div", { class: "ssui-row__label" }), o("div", { class: "ssui-row__control" }, [this.box])]), this.setItems(e), this.trigger.addEventListener("click", (n) => {
       n.stopPropagation(), this.isOpen ? this.close() : this.open();
     }), this.trigger.addEventListener("keydown", (n) => this.onKey(n)), this.menu.addEventListener("keydown", (n) => this.onKey(n)), document.addEventListener("pointerdown", this.outside, !0);
@@ -1575,7 +1575,7 @@ class Zt extends K {
   }
 }
 const Xt = ["Ch 1", "Ch 2", "Ch 3", "Ch 4"];
-class Yt extends E {
+class Yt extends _ {
   constructor(t, e = {}) {
     super(t, e, "mixer"), this.stacked = !0, this.mount();
   }
@@ -1717,7 +1717,7 @@ class Yt extends E {
     this.gainRead?.refresh(), this.panRead?.refresh();
   }
 }
-class Qt extends E {
+class Qt extends _ {
   constructor(t, e = {}) {
     super(t, e, "pads"), this.stacked = !0, this.mount();
   }
@@ -1751,12 +1751,12 @@ class Qt extends E {
     for (const e of this.pads) e.btn.setAttribute("aria-checked", String(!!t?.[e.key]));
   }
 }
-class R extends K {
+class F extends K {
   constructor() {
     super(...arguments), this.children = [], this.parent = null, this.ids = /* @__PURE__ */ new Set();
   }
   attach(t) {
-    return t instanceof R ? (t.parent = this, t.on("change", (e, s) => this.emit("change", e, s)), t.on("finish", (e, s) => this.emit("finish", e, s))) : t instanceof E && (t.on("change", (e) => this.emit("change", t, e)), t.on("finish", (e) => this.emit("finish", t, e))), this.children.push(t), this.bodyEl.append(t.el), this.emit("add", t), this.onChildrenChanged(), t;
+    return t instanceof F ? (t.parent = this, t.on("change", (e, s) => this.emit("change", e, s)), t.on("finish", (e, s) => this.emit("finish", e, s))) : t instanceof _ && (t.on("change", (e) => this.emit("change", t, e)), t.on("finish", (e) => this.emit("finish", t, e))), this.children.push(t), this.bodyEl.append(t.el), this.emit("add", t), this.onChildrenChanged(), t;
   }
   onChildrenChanged() {
   }
@@ -1866,17 +1866,17 @@ class R extends K {
   get(t) {
     const [e, ...s] = t.split("/"), i = this.children.find((n) => n.id === e);
     if (i)
-      return s.length ? i instanceof R ? i.get(s.join("/")) : void 0 : i;
+      return s.length ? i instanceof F ? i.get(s.join("/")) : void 0 : i;
   }
   /** flat list of value controllers, deep */
   controllers() {
     const t = [];
     for (const e of this.children)
-      e instanceof R ? t.push(...e.controllers()) : e instanceof E && t.push(e);
+      e instanceof F ? t.push(...e.controllers()) : e instanceof _ && t.push(e);
     return t;
   }
   folders() {
-    return this.children.filter((t) => t instanceof R);
+    return this.children.filter((t) => t instanceof F);
   }
   /** registers an id, deduping with -2, -3 … */
   registerId(t) {
@@ -1910,16 +1910,16 @@ class R extends K {
   toJSON() {
     const t = {};
     for (const e of this.children)
-      if (e instanceof R)
+      if (e instanceof F)
         for (const [s, i] of Object.entries(e.toJSON())) t[`${e.id}/${s}`] = i;
-      else e instanceof E && e.serializable && (t[e.id] = e.toJSON());
+      else e instanceof _ && e.serializable && (t[e.id] = e.toJSON());
     return t;
   }
   fromJSON(t, e = {}) {
     const s = [];
     for (const [i, n] of Object.entries(t)) {
       const r = this.get(i);
-      if (r instanceof E)
+      if (r instanceof _)
         try {
           r.fromJSON(n);
         } catch {
@@ -1934,13 +1934,13 @@ class R extends K {
     this.el.remove(), this.emit("dispose"), this.clear();
   }
 }
-class nt extends R {
+class nt extends F {
   constructor(t, e = {}) {
     super(), this.soloBtn = null, this.menuEl = null, this.opts = e, this._id = e.id ?? H(t);
     const s = ot("ssui-folder");
     this.titleEl = o("span", { class: "ssui-folder__title" }, [t]), this.countEl = o("span", { class: "ssui-folder__count", "aria-hidden": "true" });
-    const i = o("span", { class: "ssui-folder__chevron" }, [_.chevron()]);
-    this.gripEl = o("span", { class: "ssui-folder__grip", "aria-hidden": "true" }, [_.grip()]), this.header = o("button", { class: "ssui-folder__header", type: "button", "aria-expanded": "true", "aria-controls": s }, [this.gripEl, this.titleEl, e.count ? this.countEl : null, i]), this.bodyEl = o("div", { class: "ssui-folder__body", id: s, role: "group", "aria-label": t }), this.el = o("div", { class: "ssui-folder", "data-ssui-id": this._id }, [this.header, o("div", { class: "ssui-folder__clip" }, [this.bodyEl])]), this.header.addEventListener("click", (n) => {
+    const i = o("span", { class: "ssui-folder__chevron" }, [E.chevron()]);
+    this.gripEl = o("span", { class: "ssui-folder__grip", "aria-hidden": "true" }, [E.grip()]), this.header = o("button", { class: "ssui-folder__header", type: "button", "aria-expanded": "true", "aria-controls": s }, [this.gripEl, this.titleEl, e.count ? this.countEl : null, i]), this.bodyEl = o("div", { class: "ssui-folder__body", id: s, role: "group", "aria-label": t }), this.el = o("div", { class: "ssui-folder", "data-ssui-id": this._id }, [this.header, o("div", { class: "ssui-folder__clip" }, [this.bodyEl])]), this.header.addEventListener("click", (n) => {
       this.el.hasAttribute("data-ssui-dragged") || this.isRenaming || n.target.closest(".ssui-folder__solo") || this.toggle();
     }), e.collapsed && (this.collapsed = !0), e.layout === "grid" && (this.el.setAttribute("data-ssui-layout", "grid"), this.el.style.setProperty("--ssui-folder-cols", String(e.columns ?? 3))), this.setEditable(e);
   }
@@ -2245,7 +2245,7 @@ class ne extends K {
   watch(t) {
     const e = (s) => {
       if (!(!s || this.seen.has(s))) {
-        if (this.seen.add(s), s instanceof E) {
+        if (this.seen.add(s), s instanceof _) {
           this.offs.push(s.on("finish", () => this.checkDirty()));
           return;
         }
@@ -2274,7 +2274,7 @@ class mt {
     this.items = t.filter((e) => !e.hidden), this.el.replaceChildren(), this.lis = this.items.map((e, s) => {
       const i = o("li", { class: "ssui-select__option", role: this.role === "listbox" ? "option" : "menuitem", "aria-selected": this.role === "listbox" ? String(!!e.selected) : null, "data-ssui-danger": e.danger || null }, [
         o("span", { class: "ssui-presets__option-text" }, [e.label]),
-        e.index !== void 0 ? o("span", { class: "ssui-select__option-index" }, [e.index]) : e.selected ? _.check() : null
+        e.index !== void 0 ? o("span", { class: "ssui-select__option-index" }, [e.index]) : e.selected ? E.check() : null
       ]);
       return i.style.setProperty("--i", String(s)), i.addEventListener("pointerenter", () => this.setActive(s)), i.addEventListener("click", (n) => {
         n.stopPropagation(), this.pick(s);
@@ -2341,13 +2341,13 @@ class mt {
 class re {
   constructor(t, e = {}) {
     this.panel = t, this.opts = e, this.id = "presets", this.serializable = !1, this.editMode = null, this.offs = [], this.liveTimer = 0, this.copiedTimer = 0, this.store = t.presets, this.nameEl = o("span", { class: "ssui-select__current ssui-presets__name" }), this.dirtyEl = o("span", { class: "ssui-presets__dirty", "aria-hidden": "true" }, ["*"]);
-    const s = _.chevron();
+    const s = E.chevron();
     s.classList.add("ssui-select__chevron");
     const i = o("button", { class: "ssui-select__trigger ssui-presets__trigger", type: "button", "aria-haspopup": "listbox", "aria-expanded": "false", "aria-label": "Preset" }, [this.nameEl, this.dirtyEl, s]);
     this.input = o("input", { class: "ssui-presets__input", type: "text", name: "ssui-preset-name", "aria-label": "Preset name", autocomplete: "off", spellcheck: "false", tabindex: -1 });
     const n = o("div", { class: "ssui-select ssui-presets__pick" }, [i, this.input]);
     this.pick = new mt(n, i, "listbox", () => this.refresh()), this.saveBtn = o("button", { class: "ssui-button ssui-button--ghost ssui-presets__save", type: "button" }, ["Save"]), this.saveBtn.addEventListener("click", () => this.onSave());
-    const r = o("button", { class: "ssui-button ssui-button--ghost ssui-button--icon", type: "button", "aria-haspopup": "menu", "aria-expanded": "false", "aria-label": "More preset actions" }, [_.more()]), h = o("div", { class: "ssui-select ssui-presets__more" }, [r]);
+    const r = o("button", { class: "ssui-button ssui-button--ghost ssui-button--icon", type: "button", "aria-haspopup": "menu", "aria-expanded": "false", "aria-label": "More preset actions" }, [E.more()]), h = o("div", { class: "ssui-select ssui-presets__more" }, [r]);
     this.more = new mt(h, r, "menu", () => this.refresh()), this.fileInput = o("input", { type: "file", accept: "application/json,.json", class: "ssui-presets__file", tabindex: -1, "aria-hidden": "true" }), this.fileInput.addEventListener("change", () => this.onImportFile()), this.el = o("div", { class: "ssui-presets", "data-ssui-id": this.id, role: "group", "aria-label": "Presets" }, [
       o("span", { class: "ssui-presets__label" }, ["presets"]),
       n,
@@ -2534,11 +2534,11 @@ function ae(a) {
   };
 }
 const oe = '<svg class="ssui-panel__logo" viewBox="0 0 78 16" width="78" height="16" fill="currentColor" aria-label="superserif"><path d="M22.9082 3.7627C23.5931 3.75668 24.2639 3.95631 24.834 4.33594C25.4311 4.73889 25.9082 5.29596 26.2139 5.94824C26.5542 6.6403 26.7246 7.45836 26.7246 8.40234C26.7246 9.33403 26.5571 10.147 26.2227 10.8398C25.9239 11.4914 25.4487 12.0468 24.8516 12.4434C24.2736 12.819 23.5975 13.0156 22.9082 13.0078C22.3284 13.0062 21.7584 12.8576 21.251 12.5771C20.7426 12.3136 20.327 11.9009 20.0596 11.3945V16H17.9092V3.99512H20.0059V5.375C20.2743 4.85582 20.7006 4.43556 21.2236 4.1748C21.7438 3.90421 22.3219 3.76285 22.9082 3.7627ZM10.7393 9.24512C10.7393 10.7502 11.2775 11.5029 12.3525 11.5029C12.6286 11.5114 12.903 11.4555 13.1533 11.3389C13.4038 11.2222 13.6238 11.048 13.7949 10.8311C14.1597 10.3832 14.3414 9.77693 14.3408 9.0127V3.99609H16.4727V12.7754H14.3945V11.3955C14.1342 11.8942 13.7364 12.3077 13.248 12.5869C12.7398 12.8723 12.1648 13.0174 11.582 13.0078C10.5787 13.0078 9.82871 12.6822 9.33301 12.0312C8.8375 11.3804 8.58991 10.5416 8.58984 9.51465V3.99609H10.7393V9.24512ZM3.8877 3.76172C4.92689 3.76172 5.7606 3.98003 6.3877 4.41602C6.68665 4.61312 6.93327 4.87994 7.10645 5.19336C7.27966 5.50701 7.37426 5.85857 7.38184 6.2168H5.41113C5.4079 6.05606 5.36518 5.89835 5.28711 5.75781C5.20904 5.61733 5.09761 5.49779 4.96289 5.41016C4.67625 5.20721 4.2997 5.10547 3.83398 5.10547C3.34438 5.10551 2.96781 5.21656 2.70508 5.4375C2.57487 5.54814 2.47159 5.68712 2.40332 5.84375C2.33504 6.00048 2.30387 6.17102 2.31152 6.3418C2.30455 6.47218 2.32644 6.60283 2.37598 6.72363C2.42553 6.84443 2.50115 6.95308 2.59766 7.04102C2.78877 7.20884 3.09366 7.32834 3.51172 7.39941L5.08887 7.68555C6.76091 7.98421 7.59668 8.79727 7.59668 10.123C7.59659 11.0663 7.25948 11.7828 6.58496 12.2725C5.91015 12.7621 5.01696 13.0068 3.90625 13.0068C2.78344 13.0068 1.86599 12.7594 1.15527 12.2637C0.444751 11.768 0.0597154 11.1016 0 10.2656H1.98926C2.0125 10.4657 2.07729 10.6591 2.18066 10.832C2.28414 11.005 2.42346 11.1544 2.58887 11.2695C2.94124 11.5317 3.38068 11.6625 3.90625 11.6631C4.39572 11.663 4.78372 11.55 5.07031 11.3232C5.35699 11.0963 5.50098 10.7735 5.50098 10.3555C5.50758 10.2184 5.4849 10.0811 5.43555 9.95312C5.3862 9.82531 5.31062 9.70932 5.21387 9.6123C5.02276 9.42717 4.71221 9.2926 4.28223 9.20898L2.8125 8.94043C1.94134 8.7732 1.29653 8.50402 0.87793 8.13379C0.459296 7.76351 0.250379 7.24971 0.250977 6.59277C0.251032 5.69711 0.582357 5.00152 1.24512 4.50586C1.90799 4.0102 2.78893 3.76177 3.8877 3.76172ZM31.9346 3.76172C33.2127 3.76172 34.2195 4.14472 34.9541 4.90918C35.6884 5.6736 36.0556 6.7843 36.0557 8.24121V8.76074H29.6768C29.7012 9.62066 29.9225 10.3077 30.3398 10.8213C30.7572 11.3348 31.3127 11.5917 32.0059 11.5918C32.5075 11.5918 32.9235 11.4638 33.252 11.207C33.5675 10.9698 33.7917 10.631 33.8877 10.248H35.9482C35.8789 10.6506 35.7302 11.0354 35.5107 11.3799C35.2913 11.7244 35.0054 12.0219 34.6699 12.2549C33.9694 12.7565 33.0695 13.0068 31.9707 13.0068C31.0635 13.0068 30.2778 12.8196 29.6143 12.4434C28.9579 12.0741 28.4247 11.5193 28.082 10.8486C27.7237 10.1618 27.5449 9.34598 27.5449 8.40234C27.545 7.459 27.7239 6.64089 28.082 5.94824C28.4243 5.27269 28.9571 4.71137 29.6143 4.33496C30.2771 3.95278 31.0507 3.76173 31.9346 3.76172ZM46.8467 3.76172C47.8859 3.76172 48.7196 3.98003 49.3467 4.41602C49.6457 4.61311 49.8922 4.87993 50.0654 5.19336C50.2386 5.50701 50.3332 5.85857 50.3408 6.2168H48.3701C48.3669 6.05606 48.3242 5.89835 48.2461 5.75781C48.168 5.61737 48.0566 5.49777 47.9219 5.41016C47.6352 5.20726 47.2586 5.10547 46.793 5.10547C46.3041 5.10554 45.9283 5.21668 45.665 5.4375C45.5347 5.5482 45.4306 5.68697 45.3623 5.84375C45.294 6.00048 45.2629 6.17102 45.2705 6.3418C45.2635 6.47216 45.2854 6.60284 45.335 6.72363C45.3845 6.84439 45.4602 6.95309 45.5566 7.04102C45.7483 7.20882 46.0533 7.32834 46.4707 7.39941L48.0479 7.68555C49.72 7.98419 50.5557 8.79723 50.5557 10.123C50.5556 11.0664 50.2185 11.7828 49.5439 12.2725C48.8691 12.7622 47.976 13.0068 46.8652 13.0068C45.7432 13.0068 44.8265 12.7593 44.1152 12.2637C43.4039 11.768 43.0181 11.1018 42.959 10.2656H44.9482C44.9717 10.4658 45.0372 10.6591 45.1406 10.832C45.2441 11.0049 45.3826 11.1543 45.5479 11.2695C45.9008 11.5317 46.3403 11.6625 46.8652 11.6631C47.3553 11.6631 47.7433 11.55 48.0293 11.3232C48.3154 11.0963 48.4594 10.7735 48.46 10.3555C48.4666 10.2184 48.4439 10.0811 48.3945 9.95312C48.3452 9.82529 48.2696 9.70932 48.1729 9.6123C47.9823 9.42716 47.6718 9.2926 47.2412 9.20898L45.7725 8.94043C44.9005 8.7732 44.255 8.50408 43.8369 8.13379C43.4189 7.76351 43.21 7.24966 43.21 6.59277C43.21 5.69715 43.5414 5.00151 44.2041 4.50586C44.8669 4.01022 45.748 3.76179 46.8467 3.76172ZM55.6562 3.76172C56.9336 3.76177 57.9397 4.14477 58.6748 4.90918C59.4099 5.67361 59.7779 6.78409 59.7773 8.24121V8.76074H53.3984C53.4217 9.62076 53.6429 10.3077 54.0615 10.8213C54.4802 11.3349 55.0354 11.5918 55.7275 11.5918C56.229 11.5918 56.6442 11.4637 56.9727 11.207C57.2879 10.9695 57.5131 10.6308 57.6094 10.248H59.6689C59.5991 10.6507 59.4503 11.0354 59.2305 11.3799C59.0106 11.7243 58.7245 12.022 58.3887 12.2549C57.6899 12.7566 56.7903 13.0068 55.6914 13.0068C54.7833 13.0068 53.9981 12.8194 53.3359 12.4434C52.6796 12.0741 52.1464 11.5192 51.8037 10.8486C51.4454 10.1618 51.2666 9.34598 51.2666 8.40234C51.2666 7.45894 51.4455 6.64092 51.8037 5.94824C52.146 5.27269 52.6788 4.71137 53.3359 4.33496C53.9988 3.95287 54.7725 3.76172 55.6562 3.76172ZM69.3037 12.7754H67.1709V3.99609H69.3037V12.7754ZM42.1572 3.7627C42.2441 3.76266 42.3309 3.76831 42.417 3.78027V5.57227C42.3211 5.56062 42.2198 5.55119 42.1123 5.54492C42.005 5.53866 41.8914 5.53614 41.7725 5.53613C41.0319 5.53613 40.44 5.78077 39.998 6.27051C39.5561 6.76024 39.335 7.4114 39.335 8.22363V12.7744H37.1855V3.99512H39.2812V5.64355C39.5321 5.03441 39.8728 4.5686 40.3027 4.24609C40.7543 3.91668 41.3026 3.74689 41.8613 3.7627H42.1572ZM65.8906 3.7627C65.9774 3.7627 66.0644 3.76834 66.1504 3.78027V5.57227C66.0546 5.56063 65.9531 5.55119 65.8457 5.54492C65.7382 5.53865 65.624 5.53613 65.5049 5.53613C64.7645 5.53617 64.1733 5.78091 63.7314 6.27051C63.2895 6.76024 63.0684 7.41139 63.0684 8.22363V12.7744H60.918V3.99512H63.0146V5.64355C63.2655 5.03437 63.6061 4.5686 64.0361 4.24609C64.4878 3.91669 65.0359 3.74684 65.5947 3.7627H65.8906ZM74.4961 0C74.7775 0.00043544 75.0587 0.0183472 75.3379 0.0537109V1.54102C75.2594 1.51768 75.1776 1.50532 75.0957 1.50488H74.8359C74.4305 1.50492 74.1377 1.60373 73.958 1.80078C73.7783 1.99788 73.6889 2.30569 73.6895 2.72363V3.99512H75.3418V5.48242H73.6934V12.7744H71.5576V5.48242H70.2852V3.99512H71.5576V2.8125C71.5577 1.91688 71.8023 1.22402 72.292 0.734375C72.7817 0.244728 73.5167 0 74.4961 0ZM77.1748 12.7744H74.8809V10.4453H77.1748V12.7744ZM22.3164 5.21387C21.9887 5.20721 21.6643 5.2802 21.3711 5.42676C21.0777 5.57344 20.8242 5.78931 20.6328 6.05566C20.2028 6.61766 19.9873 7.3582 19.9873 8.27734V8.49219C19.9873 9.42374 20.2086 10.1673 20.6504 10.7227C21.0923 11.278 21.6476 11.5566 22.3164 11.5566C22.9853 11.5566 23.5236 11.2725 23.9297 10.7051C24.3357 10.1377 24.5381 9.36411 24.5381 8.38477C24.5381 7.39339 24.3264 6.61705 23.9023 6.05566C23.4783 5.49426 22.9495 5.21387 22.3164 5.21387ZM31.8984 5.15918C31.2775 5.15927 30.7757 5.37758 30.3936 5.81348C30.0114 6.2494 29.7846 6.80192 29.7129 7.4707H33.9414C33.9175 6.74219 33.7293 6.17463 33.377 5.76855C33.0246 5.36254 32.5314 5.15918 31.8984 5.15918ZM55.6201 5.15918C54.9985 5.15919 54.4968 5.37759 54.1152 5.81348C53.7336 6.2494 53.5069 6.80192 53.4346 7.4707H57.6631C57.6392 6.74219 57.451 6.17463 57.0986 5.76855C56.7463 5.36243 56.2532 5.15918 55.6201 5.15918ZM69.375 2.29395H67.0996V0.34082H69.375V2.29395Z"/></svg>';
-class le extends R {
+class le extends F {
   constructor(t = {}) {
-    super(), this.cleanups = [], this.soloed = null, this.footerCenter = null, this.fpsEl = null, this.stopFps = null, this.opts = t, this._id = t.id ?? H(t.title ?? "panel");
+    super(), this.cleanups = [], this.soloed = null, this.footerCenter = null, this.footerRight = null, this.fpsEl = null, this.stopFps = null, this.opts = t, this._id = t.id ?? H(t.title ?? "panel");
     const e = t.position ?? (t.container ? "static" : "top-right"), s = ot("ssui-body"), i = o("span", { class: "ssui-panel__title" }, [t.title ?? "Controls"]), n = t.meta ? o("span", { class: "ssui-panel__meta" }, [t.meta]) : null, r = o("span", { class: "ssui-panel__dot", "aria-hidden": "true" });
-    this.collapseBtn = o("button", { class: "ssui-panel__collapse", type: "button", "aria-expanded": "true", "aria-controls": s, "aria-label": "Collapse panel" }, [_.chevron()]);
+    this.collapseBtn = o("button", { class: "ssui-panel__collapse", type: "button", "aria-expanded": "true", "aria-controls": s, "aria-label": "Collapse panel" }, [E.chevron()]);
     const h = o("div", { class: "ssui-panel__toggle" }, [r, i, n]);
     t.fps && (this.fpsEl = o("span", { class: "ssui-panel__fps", "aria-label": "frames per second" }, ["— fps"])), this.header = o("header", { class: "ssui-panel__header" }, [h, this.fpsEl, this.collapseBtn]), this.subEl = o("div", { class: "ssui-panel__sub" }), this.bodyEl = o("div", { class: "ssui-panel__body", id: s });
     const c = o("div", { class: "ssui-panel__clip" }, [this.bodyEl]), l = [];
@@ -2547,7 +2547,7 @@ class le extends R {
       const f = document.createElement("template");
       f.innerHTML = oe, l.push(o("a", { class: "ssui-panel__brand", href: "https://superserif.studio", target: "_blank", rel: "noopener noreferrer", "aria-label": "Super Serif" }, [f.content.firstElementChild])), this.footerCenter = o("div", { class: "ssui-panel__footer-center" }), l.push(this.footerCenter);
       const g = t.link === void 0 ? { label: "see our work", href: "https://superserif.studio" } : t.link;
-      l.push(g ? o("a", { class: "ssui-panel__link", href: g.href, target: "_blank", rel: "noopener noreferrer" }, [g.label]) : o("span", { class: "ssui-panel__meta" }, ["ui"]));
+      this.footerRight = o("div", { class: "ssui-panel__footer-right" }, [g ? o("a", { class: "ssui-panel__link", href: g.href, target: "_blank", rel: "noopener noreferrer" }, [g.label]) : o("span", { class: "ssui-panel__meta" }, ["ui"])]), l.push(this.footerRight);
     }
     const u = l.length ? o("footer", { class: "ssui-panel__footer" }, l) : null, d = t.resizable === !1 ? null : o("div", { class: "ssui-panel__resize", "aria-hidden": "true" });
     if (this.el = o("section", { class: "ssui-panel", role: "region", "aria-label": t.title ?? "Controls", "data-ssui-position": e, id: t.id }, [this.header, this.subEl, c, u, d]), t.width && this.el.style.setProperty("--ssui-panel-width", `${t.width}px`), t.tokens) for (const [f, g] of Object.entries(t.tokens)) this.setToken(f, g);
@@ -2654,14 +2654,18 @@ class le extends R {
     if (!this.footerCenter) throw new Error("[ssui] setTransport needs the default footer");
     const [e, s] = t.labels ?? ["Play", "Pause"];
     let i = t.playing ?? !0;
-    const n = o("span", { class: "ssui-transport__icon", "aria-hidden": "true" }, [_.play(), _.pause()]), r = o("span", { class: "ssui-transport__label" }, [i ? s : e]), h = o("button", { class: "ssui-transport__toggle", type: "button", "aria-pressed": String(i) }, [n, r]), c = o("button", { class: "ssui-transport__reset", type: "button", "aria-label": "Reset", title: "Reset" }, [_.refresh()]), l = o("div", { class: "ssui-transport", "data-ssui-playing": i ? "" : null }, [h, c]), u = () => {
+    const n = o("span", { class: "ssui-transport__icon", "aria-hidden": "true" }, [E.play(), E.pause()]), r = o("span", { class: "ssui-transport__label" }, [i ? s : e]), h = o("button", { class: "ssui-transport__toggle", type: "button", "aria-pressed": String(i) }, [n, r]), c = o("button", { class: "ssui-transport__reset", type: "button", "aria-label": "Reset", title: "Reset" }, [E.refresh()]), l = o("div", { class: "ssui-transport", "data-ssui-playing": i ? "" : null }, [h, c]), u = () => {
       l.toggleAttribute("data-ssui-playing", i), h.setAttribute("aria-pressed", String(i)), r.textContent = i ? s : e;
     };
-    return h.addEventListener("click", () => {
+    if (h.addEventListener("click", () => {
       i = !i, u(), t.onToggle?.(i);
     }), c.addEventListener("click", () => {
       c.setAttribute("data-ssui-spin", ""), setTimeout(() => c.removeAttribute("data-ssui-spin"), 500), t.onReset ? t.onReset() : this.reset();
-    }), this.footerCenter.replaceChildren(l), {
+    }), this.footerCenter.replaceChildren(l), t.action && this.footerRight) {
+      const d = o("button", { class: "ssui-transport__action", type: "button" }, [t.action.label]);
+      d.addEventListener("click", () => t.action.onClick()), this.footerRight.replaceChildren(d);
+    }
+    return {
       el: l,
       get playing() {
         return i;
@@ -2733,8 +2737,8 @@ const he = "0.1.0";
 export {
   ct as ButtonControl,
   Ht as ColorControl,
-  R as Container,
-  E as Controller,
+  F as Container,
+  _ as Controller,
   Ut as CurveControl,
   nt as Folder,
   Ot as KnobControl,

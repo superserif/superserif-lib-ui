@@ -44,6 +44,8 @@ export interface TransportOptions {
   onReset?: () => void;
   /** labels, default Play / Pause */
   labels?: [string, string];
+  /** a text action on the right of the footer (e.g. Randomize); replaces the link */
+  action?: { label: string; onClick: () => void };
 }
 export interface Transport { playing: boolean; el: HTMLElement; dispose(): void }
 
@@ -61,6 +63,7 @@ export class Panel extends Container {
   private opts: PanelOptions;
   private soloed: Folder | null = null;
   private footerCenter: HTMLElement | null = null;
+  private footerRight: HTMLElement | null = null;
   private subEl!: HTMLElement;
   private fpsEl: HTMLElement | null = null;
   private stopFps: (() => void) | null = null;
@@ -91,7 +94,8 @@ export class Panel extends Container {
       this.footerCenter = h('div', { class: 'ssui-panel__footer-center' });
       footerChildren.push(this.footerCenter);
       const link = opts.link === undefined ? { label: 'see our work', href: 'https://superserif.studio' } : opts.link;
-      footerChildren.push(link ? h('a', { class: 'ssui-panel__link', href: link.href, target: '_blank', rel: 'noopener noreferrer' }, [link.label]) : h('span', { class: 'ssui-panel__meta' }, ['ui']));
+      this.footerRight = h('div', { class: 'ssui-panel__footer-right' }, [link ? h('a', { class: 'ssui-panel__link', href: link.href, target: '_blank', rel: 'noopener noreferrer' }, [link.label]) : h('span', { class: 'ssui-panel__meta' }, ['ui'])]);
+      footerChildren.push(this.footerRight);
     }
     const footer = footerChildren.length ? h('footer', { class: 'ssui-panel__footer' }, footerChildren) : null;
     const resize = opts.resizable === false ? null : h('div', { class: 'ssui-panel__resize', 'aria-hidden': 'true' });
@@ -217,6 +221,11 @@ export class Panel extends Container {
       if (o.onReset) o.onReset(); else this.reset();
     });
     this.footerCenter.replaceChildren(el);
+    if (o.action && this.footerRight) {
+      const act = h('button', { class: 'ssui-transport__action', type: 'button' }, [o.action.label]);
+      act.addEventListener('click', () => o.action!.onClick());
+      this.footerRight.replaceChildren(act);
+    }
     return {
       el,
       get playing() { return playing; },

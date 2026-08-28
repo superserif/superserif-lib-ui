@@ -164,6 +164,7 @@
     grid-template-rows: 1fr;
     min-height: 0;
     flex: 1;
+    overflow: hidden;
     transition: grid-template-rows var(--ssui-dur-base) var(--ssui-ease-standard);
   }
   .ssui-panel[data-ssui-collapsed] .ssui-panel__clip { grid-template-rows: 0fr; }
@@ -178,7 +179,9 @@
     padding: 0 var(--ssui-panel-padding) var(--ssui-panel-padding);
   }
   .ssui-panel__body::-webkit-scrollbar { display: none; }
-  .ssui-panel[data-ssui-collapsed] .ssui-panel__body { overflow: hidden; }
+  .ssui-panel[data-ssui-collapsed] .ssui-panel__body { overflow: hidden; padding-top: 0; padding-bottom: 0; }
+  .ssui-panel__body { transition: padding var(--ssui-dur-base) var(--ssui-ease-standard); }
+  .ssui-panel[data-ssui-collapsed] .ssui-panel__footer { border-top-color: transparent; }
 
   /* ---- footer ---- */
   .ssui-panel__footer {
@@ -489,7 +492,19 @@
   .ssui-panel__footer a.ssui-panel__link:hover { color: var(--ssui-color-text); }
   /* narrow panels: the transport takes the centre, the link steps aside */
   .ssui-panel__footer { container-type: inline-size; }
-  @container (max-width: 400px) { .ssui-panel__footer-center:not(:empty) ~ .ssui-panel__link { display: none; } }
+  .ssui-panel__footer-right { display: inline-flex; align-items: center; }
+  @container (max-width: 400px) { .ssui-panel__footer-center:not(:empty) ~ .ssui-panel__footer-right .ssui-panel__link { display: none; } }
+
+  .ssui-transport__action {
+    font-size: var(--ssui-font-size-caption);
+    letter-spacing: var(--ssui-letter-spacing-caption);
+    text-transform: uppercase;
+    color: var(--ssui-color-text);
+    opacity: 0.6;
+    transition: opacity var(--ssui-dur-fast) var(--ssui-ease-standard), scale var(--ssui-dur-slow) var(--ssui-ease-spring);
+  }
+  .ssui-transport__action:hover { opacity: 1; }
+  .ssui-transport__action:active { scale: 0.96; transition-duration: var(--ssui-dur-fast); }
 
   /* ---- transport: play/pause pill + round reset (the legacy footer, in tokens) ---- */
   .ssui-transport { display: flex; align-items: center; gap: 2px; }

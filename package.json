@@ -1,6 +1,6 @@
 {
   "name": "@superserif/ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Super Serif control panel — parameters, curves, presets for creative dev. dat.gui, the studio way.",
   "type": "module",
   "scripts": {

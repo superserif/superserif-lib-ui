@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 — 2026-08-28
+
+- Panel: collapsed state clips the body cleanly (no card edge showing); `setTransport({ action })` adds a caption-size text action on the footer right (60% → 100% opacity on hover).
+- Starter: Pad 2D leaves the default modules (still in "Add module"); Randomize in the footer.
+
 ## 0.1.0 — 2026-08-28
 
 First release. Rework of `superserif-custom-ui` into an importable library.

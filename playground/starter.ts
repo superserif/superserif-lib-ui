@@ -59,7 +59,7 @@ const panel = new Panel({ title: sketchName, meta: 'v0.1', theme, reorderable: t
 panel.addPresets();                                          // presets live right under the title
 
 type ModuleType = 'Mixer' | 'Knobs' | 'Pads' | 'Sliders' | 'Pad' | 'Monitor' | 'Curve' | 'Toggle' | 'Select' | 'Color' | 'Text';
-const MODULES: ModuleType[] = ['Mixer', 'Knobs', 'Pads', 'Sliders', 'Pad', 'Monitor', 'Curve'];
+const MODULES: ModuleType[] = ['Mixer', 'Knobs', 'Pads', 'Sliders', 'Monitor', 'Curve'];   // Pad 2D stays in "Add module"
 
 // persisted: titles (renames) and modules added at runtime
 const TITLES_KEY = 'ssui-starter:titles', ADDED_KEY = 'ssui-starter:modules';
@@ -169,10 +169,19 @@ panel.on('panel-solo', (f) => { soloId = f ? f.id : null; });
 // ---------------------------------------------------------------------------
 // transport (panel footer): play / pause pill + reset — the lib's own
 // ---------------------------------------------------------------------------
+const rnd = (a: number, b: number, d = 2): number => +(a + Math.random() * (b - a)).toFixed(d);
+function randomize(): void {
+  S.amplitude = rnd(0.2, 1); S.frequency = rnd(0.5, 6); S.phase = rnd(0, 360, 0);
+  S.speed = rnd(0.3, 2.5); S.decay = rnd(0, 1);
+  S.mix.channels.forEach(c => { c.gain = rnd(20, 100, 0); });
+  for (const k of TRACES) S.pads[k] = Math.random() > 0.3;
+  panel.refresh();
+}
 const transport = panel.setTransport({
   playing: S.playing,
   onToggle: (p) => { S.playing = p; },
   onReset: () => panel.reset(),
+  action: { label: 'Randomize', onClick: randomize },
 });
 
 // space toggles play (not while typing)
@@ -198,7 +207,7 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if
 // ---------------------------------------------------------------------------
 const canvas = document.getElementById('scope') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d')!;
-const curveCtrl = panel.get('curve-07/falloff') as { toFunction?: () => (t: number) => number } | undefined;
+const curveCtrl = panel.get('curve-06/falloff') as { toFunction?: () => (t: number) => number } | undefined;
 let t = 0, last = performance.now();
 
 /** a block's effect applies when nothing is soloed or when it is the soloed block */
@@ -210,8 +219,8 @@ function draw(now: number): void {
   // effective parameters (neutral when their block is not playing)
   const A = plays('knobs-02') ? S.amplitude : 0.6, F = plays('knobs-02') ? S.frequency : 2, P = plays('knobs-02') ? S.phase : 0;
   const speed = plays('sliders-04') ? S.speed : 1, decay = plays('sliders-04') ? S.decay : 0;
-  const off = plays('pad-05') ? S.offset : { x: 0, y: 0 };
-  const fall = plays('curve-07') ? (curveCtrl?.toFunction?.() ?? ((x: number) => x)) : (x: number) => x;
+  const off = plays('pad-05') || !panel.get('pad-05') ? S.offset : { x: 0, y: 0 };
+  const fall = plays('curve-06') ? (curveCtrl?.toFunction?.() ?? ((x: number) => x)) : (x: number) => x;
   const gains = TRACES.map((_, i) => plays('mixer-01') ? (S.mix.channels[i]?.gain ?? 70) / 100 : 0.7);
   const on = TRACES.map(k => plays('pads-03') ? S.pads[k] !== false : true);
   if (S.playing) t += (dt / 1000) * speed;
