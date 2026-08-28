@@ -12,13 +12,13 @@ One sentence: every control is a label, a value you can scrub, and a small drawi
 
 Done: `npm run build` → `dist/index.js` + `auto.js` (ESM), `ssui.iife.js` (global `SSUI`, CSS injected), `ssui.css`, `index.d.ts`/`auto.d.ts`; `package.json` exports `.`, `./auto`, `./css`, `./tokens`; README, CHANGELOG, MIT LICENSE; local git repo with an initial commit.
 
-Release procedure: `npm run check && npm run build` → bump `version` in package.json + CHANGELOG → `git commit -am 'vX.Y.Z' && git tag vX.Y.Z && git push --tags` → consumers install `github:superserif/superserif-ui#vX.Y.Z` or the jsDelivr GitHub URL; `npm publish` only once the `@superserif` npm org exists.
+Release procedure: `npm run check && npm run build` → bump `version` in package.json + CHANGELOG → `git commit -am 'vX.Y.Z' && git tag vX.Y.Z && git push --tags` → consumers install `github:superserif/superserif-lib-ui#vX.Y.Z` or the jsDelivr GitHub URL; `npm publish` only once the `@superserif` npm org exists.
 
 Original outline:
 - `vite build` lib mode: `src/index.ts` (ESM) + `src/auto.ts` (ESM + IIFE `SSUI`, injects `styles/index.css?inline` once via adoptedStyleSheets / `<style data-ssui>`), `vite-plugin-dts` → `dist/index.d.ts`, `cssCodeSplit:false` → `dist/ssui.css`.
 - `package.json` exports: `.`, `./auto`, `./css`, `./tokens`; `files: [dist]`; `sideEffects` for auto + css; `unpkg`/`jsdelivr` → iife.
 - README: install, 10-line first panel, every add* with option table, theming (token list generated from tokens.css by a script), presets, keyboard reference, a11y, browser support (Chrome 111+, Safari 16.4+, Firefox 128+ for @property/linear/revert-layer; degrades to snap/standard easing/no shield).
-- Repo `github.com/superserif/superserif-ui`, npm `@superserif/ui` (check name availability first), semver from 0.1.0, hand-written CHANGELOG, GitHub Actions check+test on PR and `npm publish --provenance` on `v*` tag, playground to GitHub Pages.
+- Repo `github.com/superserif/superserif-lib-ui`, npm `@superserif/ui` (check name availability first), semver from 0.1.0, hand-written CHANGELOG, GitHub Actions check+test on PR and `npm publish --provenance` on `v*` tag, playground to GitHub Pages.
 
 ## Open decisions for the owner
 - Default composition: Ligne / Module / Instrument (see `/prototype.html`); whichever wins becomes the documented default recipe and its token set the defaults.

@@ -23,9 +23,9 @@
   "author": "Super Serif <tools@superserif.studio> (https://superserif.studio)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/superserif/superserif-ui.git"
+    "url": "git+https://github.com/superserif/superserif-lib-ui.git"
   },
-  "homepage": "https://github.com/superserif/superserif-ui#readme",
+  "homepage": "https://github.com/superserif/superserif-lib-ui#readme",
   "keywords": [
     "gui",
     "control-panel",

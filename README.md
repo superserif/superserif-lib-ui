@@ -25,7 +25,7 @@ import '@superserif/ui/css';
 **2. From GitHub (no npm publish needed)**
 
 ```sh
-npm i github:superserif/superserif-ui#v0.1.0
+npm i github:superserif/superserif-lib-ui#v0.1.0
 ```
 
 Same imports as above — `dist/` is committed on tagged releases.
@@ -33,13 +33,13 @@ Same imports as above — `dist/` is committed on tagged releases.
 **3. Script tag (Framer, Webflow, CodePen, plain HTML)**
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/superserif/superserif-ui@v0.1.0/dist/ssui.iife.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/superserif/superserif-lib-ui@v0.1.0/dist/ssui.iife.js"></script>
 <script>
   const { Panel } = SSUI;
 </script>
 ```
 
-Or as a module from the same CDN: `import { Panel } from 'https://cdn.jsdelivr.net/gh/superserif/superserif-ui@v0.1.0/dist/auto.js'`.
+Or as a module from the same CDN: `import { Panel } from 'https://cdn.jsdelivr.net/gh/superserif/superserif-lib-ui@v0.1.0/dist/auto.js'`.
 
 The library never loads a font. It uses `Inter` if the page has it, then the system sans. Load Inter yourself if you want the reference look.
 
