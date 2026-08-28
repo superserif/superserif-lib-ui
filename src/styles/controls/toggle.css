@@ -1,0 +1,47 @@
+@layer ssui.controls {
+  .ssui-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ssui-space-2);
+    height: var(--ssui-control-height);
+    border-radius: var(--ssui-radius-full);
+    cursor: pointer;
+  }
+  /* hit area >= 40px tall */
+  .ssui-toggle::before { content: ""; position: absolute; inset: -8px -4px; }
+  .ssui-toggle__track {
+    position: relative;
+    width: 28px;
+    height: 16px;
+    padding: 2px;
+    border-radius: var(--ssui-radius-full);
+    background: var(--ssui-color-surface-2);
+    box-shadow: inset 0 0 0 1px var(--ssui-color-border);
+    transition: background-color var(--ssui-dur-base) var(--ssui-ease-standard), box-shadow var(--ssui-dur-base) var(--ssui-ease-standard);
+  }
+  .ssui-toggle__thumb {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: var(--ssui-radius-full);
+    background: var(--ssui-color-text-3);
+    transform: translateX(0);
+    transition: transform var(--ssui-dur-slow) var(--ssui-ease-spring), background-color var(--ssui-dur-base) var(--ssui-ease-standard), scale var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-toggle:active .ssui-toggle__thumb { scale: 0.92; }
+  .ssui-toggle[aria-checked="true"] .ssui-toggle__track { background: var(--ssui-color-fill); box-shadow: inset 0 0 0 1px var(--ssui-color-fill); }
+  .ssui-toggle[aria-checked="true"] .ssui-toggle__thumb { transform: translateX(12px); background: var(--ssui-color-bg); }
+  .ssui-toggle__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: var(--ssui-radius-full);
+    background: var(--ssui-color-text-3);
+    transition: background-color var(--ssui-dur-base) var(--ssui-ease-standard), transform var(--ssui-dur-slow) var(--ssui-ease-spring);
+  }
+  .ssui-toggle[aria-checked="true"] .ssui-toggle__dot { background: var(--ssui-color-accent); }
+  .ssui-toggle[data-ssui-pulse] .ssui-toggle__dot { animation: ssui-pulse var(--ssui-dur-slow) var(--ssui-ease-standard) 1; }
+  @keyframes ssui-pulse { 0% { transform: scale(1); } 40% { transform: scale(1.8); } 100% { transform: scale(1); } }
+  .ssui-toggle:focus-visible { box-shadow: none; }
+  .ssui-toggle:focus-visible .ssui-toggle__track { box-shadow: var(--ssui-focus-ring); }
+}

@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><title>dist smoke · esm</title><link rel="stylesheet" href="/dist/ssui.css"><style>body{margin:0;background:#f4f4f4;height:100vh}</style></head>
+<body>
+<script type="module">
+  import { Panel, version } from '/dist/index.js';
+  const S = { speed: 1, decay: 0.4, gain: 64 };
+  const p = new Panel({ title: 'dist · esm', theme: 'light', position: 'top-left', fps: true });
+  const f = p.addFolder('Sliders'); f.addSlider(S, 'speed', { min: 0, max: 3, inline: true }); f.addSlider(S, 'decay', { min: 0, max: 1, inline: true });
+  p.addFolder('Knobs', { layout: 'grid' }).addKnob(S, 'gain', { min: 0, max: 100, layout: 'stack' });
+  window.__ok = typeof version === 'string' && !document.getElementById('ssui-styles');
+</script>
+</body></html>

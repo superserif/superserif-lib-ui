@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>@superserif/ui — starter</title>
+  <link rel="icon" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./starter.css" />
+</head>
+<body>
+  <canvas id="scope" aria-hidden="true"></canvas>
+  <header class="st-top">
+    <div class="st-brand">@superserif/ui <span>· starter</span></div>
+    <div class="st-seg" role="group" aria-label="Theme" style="margin-left: 16px">
+      <button type="button" data-theme="light">Light</button>
+      <button type="button" data-theme="dark" aria-pressed="true">Dark</button>
+      <button type="button" data-theme="auto">Auto</button>
+    </div>
+  </header>
+  <footer class="st-foot">An empty panel to copy. Drag a module header to reorder, <kbd>H</kbd> hides the panel, <kbd>space</kbd> plays.</footer>
+  <script type="module" src="./starter.ts"></script>
+</body>
+</html>

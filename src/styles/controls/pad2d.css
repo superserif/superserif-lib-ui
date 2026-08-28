@@ -1,0 +1,64 @@
+@layer ssui.controls {
+  .ssui-pad2d { display: flex; }
+  .ssui-pad2d__readouts {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ssui-space-1);
+    margin-left: auto;
+    min-width: 0;
+  }
+  .ssui-pad2d__axis {
+    font-size: var(--ssui-font-size-xs);
+    color: var(--ssui-color-text-3);
+    letter-spacing: var(--ssui-letter-spacing-label);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8em;
+  }
+  .ssui-pad2d__axis + .ssui-number { margin-right: var(--ssui-space-1); }
+  .ssui-pad2d__axis + .ssui-number:last-child { margin-right: 0; }
+  .ssui-pad2d__surface {
+    position: relative;
+    width: var(--ssui-pad-size);
+    max-width: 100%;
+    margin-left: auto; /* sits under the value column, like every other control */
+    aspect-ratio: 1;
+    border-radius: var(--ssui-radius-md);
+    background: var(--ssui-color-surface-2);
+    box-shadow: inset 0 0 0 1px var(--ssui-color-border);
+    cursor: crosshair;
+    touch-action: none;
+    overflow: hidden;
+    transition: box-shadow var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-pad2d__surface:hover { box-shadow: inset 0 0 0 1px var(--ssui-color-border-strong); }
+  .ssui-pad2d__surface:focus-visible { box-shadow: inset 0 0 0 1px var(--ssui-color-border-strong), var(--ssui-focus-ring); border-radius: var(--ssui-radius-md); }
+  .ssui-pad2d__dots { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .ssui-pad2d__thumb {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: var(--ssui-radius-full);
+    background: var(--ssui-color-thumb);
+    box-shadow: var(--ssui-shadow-thumb);
+    transform: translate(calc(var(--ssui-pad-x, 0.5) * var(--ssui-pad-w, 0px) - 50%), calc(var(--ssui-pad-y, 0.5) * var(--ssui-pad-w, 0px) - 50%));
+    transition: transform var(--ssui-dur-base) var(--ssui-ease-standard), scale var(--ssui-dur-slow) var(--ssui-ease-spring);
+    pointer-events: none;
+    will-change: transform;
+  }
+  .ssui-pad2d[data-ssui-state="dragging"] .ssui-pad2d__thumb { transition-duration: 0ms, var(--ssui-dur-slow); scale: 1.1; }
+  .ssui-pad2d__letter {
+    position: absolute;
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-xs);
+    letter-spacing: var(--ssui-letter-spacing-mono);
+    color: var(--ssui-color-text-3);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .ssui-pad2d__letter--x { right: var(--ssui-space-2); bottom: var(--ssui-space-2); }
+  .ssui-pad2d__letter--y { left: var(--ssui-space-2); top: var(--ssui-space-2); }
+}

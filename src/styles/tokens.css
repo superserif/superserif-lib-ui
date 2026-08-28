@@ -1,0 +1,193 @@
+/* ==========================================================================
+   @superserif/ui — tokens
+   Everything is scoped to .ssui-panel (not :root) so several panels can hold
+   different themes and so any unlayered consumer rule wins over @layer ssui.
+   ========================================================================== */
+
+@layer ssui.tokens {
+  /* Registered color roles: makes theme switching a real crossfade
+     (the custom properties interpolate; every descendant follows). */
+  @property --ssui-color-bg            { syntax: '<color>'; inherits: true; initial-value: #f4f4f4; }
+  @property --ssui-color-surface       { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+  @property --ssui-color-surface-2     { syntax: '<color>'; inherits: true; initial-value: #ebebeb; }
+  @property --ssui-color-border        { syntax: '<color>'; inherits: true; initial-value: #e3e3e3; }
+  @property --ssui-color-border-strong { syntax: '<color>'; inherits: true; initial-value: #c4c4c4; }
+  @property --ssui-color-text          { syntax: '<color>'; inherits: true; initial-value: #1b1b1b; }
+  @property --ssui-color-text-2        { syntax: '<color>'; inherits: true; initial-value: #8d8d8d; }
+  @property --ssui-color-text-3        { syntax: '<color>'; inherits: true; initial-value: #bdbdbd; }
+  @property --ssui-color-fill          { syntax: '<color>'; inherits: true; initial-value: #1b1b1b; }
+  @property --ssui-color-thumb         { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+  @property --ssui-color-canvas-grid   { syntax: '<color>'; inherits: true; initial-value: #d0d0d0; }
+  @property --ssui-color-canvas-line   { syntax: '<color>'; inherits: true; initial-value: #8d8d8d; }
+  @property --ssui-color-accent        { syntax: '<color>'; inherits: true; initial-value: #f09526; }
+
+  .ssui-panel {
+    /* ---- type ---- */
+    /* one family, one voice (Linear): labels, values, captions all in the sans; numbers tabular via font features */
+    --ssui-font-family: "Inter", "PP Neue Montreal", system-ui, -apple-system, sans-serif;
+    --ssui-font-family-mono: var(--ssui-font-family);
+    --ssui-font-features: "tnum" 1, "cv11" 1;
+    /* one body size: labels, values, captions, indices all read at the same corps */
+    --ssui-font-size: 11px;
+    --ssui-font-size-xs: var(--ssui-font-size);
+    --ssui-font-size-sm: var(--ssui-font-size);
+    --ssui-font-size-md: var(--ssui-font-size);
+    --ssui-font-size-lg: var(--ssui-font-size);
+    /* micro captions: uppercase pills and section labels (SOLO, PRESETS, PLAY) */
+    --ssui-font-size-caption: 9px;
+    --ssui-letter-spacing-caption: 0.06em;
+    --ssui-font-weight: 500;
+    --ssui-font-weight-label: 500;
+    --ssui-line-height: 1;
+    --ssui-letter-spacing-label: 0;
+    --ssui-letter-spacing-mono: 0;
+    --ssui-text-transform-label: none;
+
+    /* ---- spacing / sizing ---- */
+    --ssui-space-1: 4px;
+    --ssui-space-2: 8px;
+    --ssui-space-3: 12px;
+    --ssui-space-4: 16px;
+    --ssui-space-5: 20px;
+    --ssui-space-6: 24px;
+    --ssui-space-8: 32px;
+
+    --ssui-panel-width: 320px;
+    --ssui-panel-min-width: 260px;
+    --ssui-panel-max-width: 560px;
+    --ssui-panel-padding: var(--ssui-space-2);
+    --ssui-row-height: 30px;
+    --ssui-control-height: 24px;
+    --ssui-label-width: 44%;
+    --ssui-knob-size: 96px;
+    --ssui-pad-size: 128px;
+    --ssui-curve-height: 128px;
+    --ssui-thumb-size: 18px;
+    --ssui-hairline: 1px;
+    --ssui-hairline-thin: 0.5px;
+
+    /* ---- radius (concentric: panel = card + padding) ---- */
+    --ssui-radius-xs: 3px;
+    --ssui-radius-sm: 6px;
+    --ssui-radius-md: 8px;
+    --ssui-radius-lg: 8px;
+    --ssui-radius-panel: calc(var(--ssui-radius-lg) + var(--ssui-panel-padding));
+    --ssui-radius-full: 999px;
+
+    /* ---- motion ---- */
+    --ssui-dur-fast: 120ms;
+    --ssui-dur-base: 220ms;
+    --ssui-dur-slow: 420ms;
+    --ssui-dur-theme: 320ms;
+    --ssui-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+    --ssui-ease-spring: linear(0, 0.0897, 0.1632, 0.228, 0.2864, 0.3399, 0.3892, 0.4349, 0.4775, 0.5173, 0.5547, 0.5897, 0.6227, 0.6537, 0.6829, 0.7105, 0.7365, 0.761, 0.7842, 0.806, 0.8265, 0.8459, 0.8641, 0.8812, 0.8973, 0.9124, 0.9265, 0.9397, 0.952, 0.9635, 0.9741, 0.984, 0.993, 1.0013, 1.0089, 1.0158, 1.022, 1.0275, 1.0324, 1.0366, 1.0402, 1.0433, 1.0457, 1.0476, 1.049, 1.0497, 1.05, 1.0499, 1.0494, 1.0487, 1.0477, 1.0465, 1.045, 1.0434, 1.0416, 1.0397, 1.0378, 1.0359, 1.0339, 1.032, 1.0301, 1.0283, 1.0265, 1.0248, 1.0232, 1.0216, 1.0201, 1.0187, 1.0173, 1.016, 1.0148, 1.0136, 1.0125, 1.0115, 1.0105, 1.0096, 1.0087, 1.0079, 1.0072, 1.0064, 1.0058, 1.0051, 1.0046, 1.004, 1.0035, 1.0031, 1.0026, 1.0022, 1.0019, 1.0016, 1.0013, 1.001, 1.0008, 1.0006, 1.0004, 1.0003, 1.0002, 1.0001, 1, 1, 1);
+
+    /* ---- accent: theme-independent by default ---- */
+    --ssui-color-accent: #f09526;
+    --ssui-color-accent-text: #1b1b1b;
+    --ssui-color-danger: #d8452b;
+    --ssui-color-focus: color-mix(in oklab, var(--ssui-color-accent) 55%, transparent);
+    --ssui-focus-ring: 0 0 0 2px var(--ssui-color-focus);
+    --ssui-z-popover: 10;
+  }
+
+  /* ---- light (default) ---- */
+  .ssui-panel,
+  .ssui-panel[data-ssui-theme="light"] {
+    color-scheme: light;
+    --ssui-color-bg: #f4f4f4;
+    --ssui-color-surface: #ffffff;
+    --ssui-color-surface-2: #ebebeb;
+    --ssui-color-border: #e3e3e3;
+    --ssui-color-border-strong: #c4c4c4;
+    --ssui-color-text: #1b1b1b;
+    --ssui-color-text-2: #8d8d8d;
+    --ssui-color-text-3: #bdbdbd;
+    --ssui-color-fill: #1b1b1b;
+    --ssui-color-thumb: #ffffff;
+    --ssui-color-thumb-shadow: rgb(0 0 0 / 0.18);
+    --ssui-color-canvas-grid: #d0d0d0;
+    --ssui-color-canvas-line: #8d8d8d;
+    --ssui-shadow-panel: 0 0 0 1px rgb(0 0 0 / 0.06), 0 12px 32px -8px rgb(0 0 0 / 0.14);
+    --ssui-shadow-popover: 0 0 0 1px rgb(0 0 0 / 0.06), 0 8px 24px -6px rgb(0 0 0 / 0.16);
+    --ssui-shadow-thumb: 0 0 0 1px rgb(0 0 0 / 0.08), 0 1px 3px rgb(0 0 0 / 0.18);
+  }
+
+  /* ---- dark ---- */
+  .ssui-panel[data-ssui-theme="dark"] {
+    color-scheme: dark;
+    --ssui-color-bg: #060606;
+    --ssui-color-surface: #161616;
+    --ssui-color-surface-2: #202020;
+    --ssui-color-border: rgb(255 255 255 / 0.08);
+    --ssui-color-border-strong: rgb(255 255 255 / 0.2);
+    --ssui-color-text: #f2f2f2;
+    --ssui-color-text-2: #8a8a8a;
+    --ssui-color-text-3: #4c4c4c;
+    --ssui-color-fill: #f2f2f2;
+    --ssui-color-thumb: #f2f2f2;
+    --ssui-color-thumb-shadow: rgb(0 0 0 / 0.6);
+    --ssui-color-canvas-grid: #333333;
+    --ssui-color-canvas-line: #8a8a8a;
+    --ssui-color-accent-text: #060606;
+    --ssui-shadow-panel: 0 0 0 1px rgb(255 255 255 / 0.08);
+    --ssui-shadow-popover: 0 0 0 1px rgb(255 255 255 / 0.1), 0 8px 24px -6px rgb(0 0 0 / 0.6);
+    --ssui-shadow-thumb: 0 0 0 1px rgb(0 0 0 / 0.5);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .ssui-panel[data-ssui-theme="auto"] {
+      color-scheme: dark;
+      --ssui-color-bg: #060606;
+      --ssui-color-surface: #161616;
+      --ssui-color-surface-2: #202020;
+      --ssui-color-border: rgb(255 255 255 / 0.08);
+      --ssui-color-border-strong: rgb(255 255 255 / 0.2);
+      --ssui-color-text: #f2f2f2;
+      --ssui-color-text-2: #8a8a8a;
+      --ssui-color-text-3: #4c4c4c;
+      --ssui-color-fill: #f2f2f2;
+      --ssui-color-thumb: #f2f2f2;
+      --ssui-color-thumb-shadow: rgb(0 0 0 / 0.6);
+      --ssui-color-canvas-grid: #333333;
+      --ssui-color-canvas-line: #8a8a8a;
+      --ssui-color-accent-text: #060606;
+      --ssui-shadow-panel: 0 0 0 1px rgb(255 255 255 / 0.08);
+      --ssui-shadow-popover: 0 0 0 1px rgb(255 255 255 / 0.1), 0 8px 24px -6px rgb(0 0 0 / 0.6);
+      --ssui-shadow-thumb: 0 0 0 1px rgb(0 0 0 / 0.5);
+    }
+  }
+
+  /* Theme crossfade: only while switching, so hover states never drag. */
+  .ssui-panel[data-ssui-switching] {
+    transition-property: --ssui-color-bg, --ssui-color-surface, --ssui-color-surface-2,
+      --ssui-color-border, --ssui-color-border-strong, --ssui-color-text, --ssui-color-text-2,
+      --ssui-color-text-3, --ssui-color-fill, --ssui-color-thumb, --ssui-color-canvas-grid,
+      --ssui-color-canvas-line;
+    transition-duration: var(--ssui-dur-theme);
+    transition-timing-function: var(--ssui-ease-standard);
+  }
+
+  @supports not (animation-timing-function: linear(0, 1)) {
+    .ssui-panel { --ssui-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ssui-panel {
+      --ssui-dur-fast: 0ms;
+      --ssui-dur-base: 0ms;
+      --ssui-dur-slow: 0ms;
+      --ssui-dur-theme: 0ms;
+    }
+  }
+  .ssui-panel[data-ssui-motion="reduce"] {
+    --ssui-dur-fast: 0ms;
+    --ssui-dur-base: 0ms;
+    --ssui-dur-slow: 0ms;
+    --ssui-dur-theme: 0ms;
+  }
+
+  @media (pointer: coarse) {
+    .ssui-panel { --ssui-row-height: 40px; --ssui-control-height: 28px; }
+  }
+}

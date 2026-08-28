@@ -1,0 +1,76 @@
+@layer ssui.controls {
+  .ssui-knob {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--ssui-space-2);
+    padding: var(--ssui-space-1) 0;
+  }
+  .ssui-knob__dial {
+    position: relative;
+    width: var(--ssui-knob-size);
+    height: var(--ssui-knob-size);
+    flex-shrink: 0;
+    border-radius: var(--ssui-radius-full);
+    cursor: ns-resize;
+    touch-action: none;
+  }
+  .ssui-knob__dial:focus-visible { box-shadow: none; }
+  .ssui-knob__dial:focus-visible .ssui-knob__face { box-shadow: var(--ssui-shadow-thumb), var(--ssui-focus-ring); }
+  .ssui-knob__ticks {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  .ssui-knob__tick {
+    r: 1.8px;
+    fill: var(--ssui-color-text-3);
+    transform-box: fill-box;
+    transform-origin: center;
+    transform: scale(calc(0.8 + var(--ssui-tick-w, 0) * 0.8));
+    transition: transform var(--ssui-dur-slow) var(--ssui-ease-spring), fill var(--ssui-dur-base) var(--ssui-ease-standard);
+  }
+  .ssui-knob__tick[data-ssui-on] {
+    fill: color-mix(in oklab, var(--ssui-color-accent) calc(55% + var(--ssui-tick-w, 0) * 45%), var(--ssui-color-text-3));
+  }
+  .ssui-knob__face {
+    position: absolute;
+    inset: 14%;
+    border-radius: var(--ssui-radius-full);
+    background: var(--ssui-color-surface);
+    box-shadow: var(--ssui-shadow-thumb);
+    transform: rotate(var(--ssui-knob-angle, 0deg));
+    transition: transform var(--ssui-dur-base) var(--ssui-ease-standard), scale var(--ssui-dur-slow) var(--ssui-ease-spring), box-shadow var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-knob__dial:hover .ssui-knob__face { box-shadow: var(--ssui-shadow-thumb), 0 0 0 1px var(--ssui-color-border-strong); }
+  .ssui-knob[data-ssui-state="dragging"] .ssui-knob__face { transition-duration: 0ms, var(--ssui-dur-slow), var(--ssui-dur-fast); scale: 0.96; }
+  .ssui-knob[data-ssui-state="dragging"] .ssui-knob__tick { transition-duration: var(--ssui-dur-fast), var(--ssui-dur-fast); }
+  .ssui-knob__indicator {
+    position: absolute;
+    left: 50%;
+    top: 12%;
+    width: 2px;
+    height: 26%;
+    border-radius: 1px;
+    background: var(--ssui-color-fill);
+    transform: translateX(-50%);
+    transition: background-color var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-knob[data-ssui-state="dragging"] .ssui-knob__indicator { background: var(--ssui-color-accent); }
+  .ssui-knob--lg .ssui-knob__indicator { height: 28%; }
+  .ssui-knob--sm .ssui-knob__tick { r: 2.4px; }
+  .ssui-knob--lg .ssui-knob__tick { r: 1.5px; }
+  .ssui-knob--sm .ssui-knob__indicator { width: 1.5px; }
+  .ssui-row--knob { align-items: center; }
+  .ssui-row--knob > .ssui-row__control { height: auto; }
+  /* stack layout (Figma knob bank): value, dial, label — centered */
+  .ssui-row--knob-stack { grid-template-columns: 1fr; justify-items: center; padding: var(--ssui-space-2) var(--ssui-space-1); row-gap: var(--ssui-space-2); }
+  .ssui-row--knob-stack > .ssui-row__label { text-align: center; height: auto; display: block; }
+  .ssui-row--knob-stack > .ssui-row__control { flex-direction: column; align-items: center; }
+  .ssui-knob--stack { flex-direction: column; gap: var(--ssui-space-2); padding: 0; }
+  .ssui-knob--stack .ssui-number { order: -1; justify-content: center; }
+  .ssui-knob--stack .ssui-number__input { text-align: center; }
+}

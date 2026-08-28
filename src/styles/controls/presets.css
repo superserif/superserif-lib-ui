@@ -1,0 +1,73 @@
+@layer ssui.controls {
+  /* ---- Preset bar: pick / save / more ---- */
+  .ssui-presets {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--ssui-space-2);
+    min-height: var(--ssui-row-height);
+    padding: 0 var(--ssui-space-1) 0 var(--ssui-space-3);
+    background: var(--ssui-color-surface);
+    border-radius: var(--ssui-radius-lg);
+  }
+  .ssui-presets__label {
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-caption);
+    letter-spacing: var(--ssui-letter-spacing-caption);
+    text-transform: uppercase;
+    color: var(--ssui-color-text-3);
+    white-space: nowrap;
+  }
+  .ssui-presets__pick { flex: 1; min-width: 0; justify-content: flex-start; }
+  .ssui-presets__pick .ssui-select__menu { left: 0; right: auto; min-width: 160px; }
+  .ssui-presets__trigger { max-width: 100%; padding-left: var(--ssui-space-2); }
+  .ssui-presets__trigger .ssui-select__chevron { margin-left: auto; }
+  .ssui-presets__name { display: inline-block; }
+  .ssui-presets__name[data-ssui-swap] { animation: ssui-presets-swap var(--ssui-dur-fast) var(--ssui-ease-standard) 1; }
+  @keyframes ssui-presets-swap { 0% { opacity: 0; transform: translateY(4px); } 100% { opacity: 1; transform: translateY(0); } }
+  .ssui-presets__dirty {
+    color: var(--ssui-color-text-3);
+    font-family: var(--ssui-font-family-mono);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity var(--ssui-dur-fast) var(--ssui-ease-standard), transform var(--ssui-dur-slow) var(--ssui-ease-spring);
+  }
+  .ssui-presets__dirty[data-ssui-on] { opacity: 1; transform: scale(1); }
+
+  /* inline name field replaces the trigger while editing */
+  .ssui-presets__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 var(--ssui-space-2);
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-md);
+    letter-spacing: var(--ssui-letter-spacing-mono);
+    color: var(--ssui-color-text);
+    background: var(--ssui-color-surface-2);
+    border-radius: var(--ssui-radius-sm);
+    box-shadow: inset 0 0 0 1px var(--ssui-color-border-strong);
+    display: none;
+  }
+  .ssui-presets[data-ssui-editing] .ssui-presets__input { display: block; }
+  .ssui-presets[data-ssui-editing] .ssui-presets__trigger { visibility: hidden; }
+
+  .ssui-presets__actions { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+  .ssui-presets__save { padding: 0 var(--ssui-space-2); }
+  .ssui-presets__more .ssui-select__menu { min-width: 140px; }
+  .ssui-presets__file { display: none; }
+
+  .ssui-select__option[data-ssui-danger] { color: var(--ssui-color-danger); }
+  .ssui-select__option[data-ssui-danger]:hover,
+  .ssui-select__option[data-ssui-danger][data-ssui-active] { color: var(--ssui-color-danger); }
+
+  /* "Copy JSON" feedback: the whole bar's label flashes accent once */
+  .ssui-presets[data-ssui-copied] .ssui-presets__label { color: var(--ssui-color-accent); transition: color var(--ssui-dur-fast) var(--ssui-ease-standard); }
+
+  .ssui-presets[data-ssui-disabled] { opacity: 0.4; pointer-events: none; }
+  .ssui-presets[data-ssui-hidden] { display: none; }
+
+  /* pinned under the panel title: flat, no card */
+  .ssui-presets[data-ssui-placement="header"] { background: transparent; border-radius: 0; padding: 0 var(--ssui-space-1); min-height: var(--ssui-control-height); }
+}

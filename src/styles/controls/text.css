@@ -1,0 +1,75 @@
+@layer ssui.controls {
+  .ssui-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--ssui-control-height);
+  }
+  .ssui-text__input {
+    width: 100%;
+    height: 100%;
+    padding: 0 var(--ssui-space-1);
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-md);
+    letter-spacing: var(--ssui-letter-spacing-mono);
+    text-align: right;
+    color: var(--ssui-color-text);
+    border-radius: var(--ssui-radius-xs);
+    background: transparent;
+    transition: background-color var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-text__input::placeholder { color: var(--ssui-color-text-3); }
+  .ssui-text__input:hover { background: var(--ssui-color-surface-2); }
+  .ssui-text__input:focus { background: var(--ssui-color-surface-2); box-shadow: none; }
+  .ssui-text::after {
+    content: "";
+    position: absolute;
+    left: var(--ssui-space-1);
+    right: var(--ssui-space-1);
+    bottom: 2px;
+    height: 1px;
+    background: var(--ssui-color-text);
+    transform: scaleX(0);
+    transform-origin: 100% 50%;
+    transition: transform var(--ssui-dur-base) var(--ssui-ease-standard);
+    pointer-events: none;
+  }
+  .ssui-text:focus-within::after { transform: scaleX(1); }
+  .ssui-text--multiline { height: auto; }
+  .ssui-text--multiline .ssui-text__input { min-height: calc(var(--ssui-control-height) * 2.5); padding: var(--ssui-space-1); text-align: left; resize: vertical; line-height: 1.4; }
+
+  /* ---- Button ---- */
+  .ssui-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--ssui-space-1);
+    height: var(--ssui-control-height);
+    padding: 0 var(--ssui-space-3);
+    border-radius: var(--ssui-radius-sm);
+    font-size: var(--ssui-font-size-sm);
+    font-weight: var(--ssui-font-weight);
+    letter-spacing: var(--ssui-letter-spacing-label);
+    color: var(--ssui-color-text);
+    background: var(--ssui-color-surface-2);
+    box-shadow: inset 0 0 0 1px var(--ssui-color-border);
+    white-space: nowrap;
+    transition: scale var(--ssui-dur-slow) var(--ssui-ease-spring), background-color var(--ssui-dur-fast) var(--ssui-ease-standard), color var(--ssui-dur-fast) var(--ssui-ease-standard), box-shadow var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-button:hover { box-shadow: inset 0 0 0 1px var(--ssui-color-border-strong); }
+  .ssui-button:active { scale: 0.96; transition-duration: var(--ssui-dur-fast); }
+  .ssui-button--primary { background: var(--ssui-color-fill); color: var(--ssui-color-bg); box-shadow: none; }
+  .ssui-button--primary:hover { box-shadow: none; opacity: 0.9; }
+  .ssui-button--ghost { background: transparent; box-shadow: none; color: var(--ssui-color-text-2); }
+  .ssui-button--ghost:hover { background: var(--ssui-color-surface-2); color: var(--ssui-color-text); box-shadow: none; }
+  .ssui-button--icon { width: var(--ssui-control-height); padding: 0; }
+  .ssui-button svg { width: 14px; height: 14px; }
+  .ssui-button-group { display: flex; gap: var(--ssui-space-1); justify-content: flex-end; flex-wrap: wrap; }
+  .ssui-row--button > .ssui-row__control { justify-content: flex-end; }
+  .ssui-row--buttons { grid-template-columns: 1fr; }
+  .ssui-row--buttons > .ssui-row__label { display: none; }
+  .ssui-row--buttons > .ssui-row__control { justify-content: stretch; }
+  .ssui-row--buttons .ssui-button-group { width: 100%; }
+  .ssui-row--buttons .ssui-button { flex: 1; }
+}

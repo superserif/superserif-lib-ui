@@ -1,0 +1,109 @@
+@layer ssui.controls {
+  .ssui-curve { display: flex; flex-direction: column; gap: var(--ssui-space-1); width: 100%; }
+
+  /* header: sits in the label row (stacked layout) */
+  .ssui-curve__head { display: inline-flex; align-items: center; gap: var(--ssui-space-1); min-width: 0; }
+  .ssui-curve__preset {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ssui-space-1);
+    height: var(--ssui-control-height);
+    max-width: 100%;
+    padding: 0 var(--ssui-space-1) 0 var(--ssui-space-2);
+    border-radius: var(--ssui-radius-sm);
+    color: var(--ssui-color-text);
+    font-size: var(--ssui-font-size-md);
+    transition: background-color var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-curve__preset:hover, .ssui-curve[data-ssui-open] .ssui-curve__preset { background: var(--ssui-color-surface-2); }
+  .ssui-curve__preset-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ssui-curve__preset-name[data-ssui-custom] { color: var(--ssui-color-text-2); }
+  .ssui-curve__preset svg { width: 14px; height: 14px; color: var(--ssui-color-text-3); transition: transform var(--ssui-dur-base) var(--ssui-ease-standard); }
+  .ssui-curve[data-ssui-open] .ssui-curve__preset svg { transform: rotate(180deg); }
+  .ssui-curve__menu-wrap { position: relative; display: inline-flex; }
+
+  .ssui-curve__mode {
+    display: inline-flex;
+    height: var(--ssui-control-height);
+    padding: 2px;
+    border-radius: var(--ssui-radius-sm);
+    background: var(--ssui-color-surface-2);
+    gap: 2px;
+  }
+  .ssui-curve__mode button {
+    padding: 0 var(--ssui-space-2);
+    border-radius: calc(var(--ssui-radius-sm) - 2px);
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-xs);
+    letter-spacing: var(--ssui-letter-spacing-mono);
+    color: var(--ssui-color-text-3);
+    transition: color var(--ssui-dur-fast) var(--ssui-ease-standard), background-color var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-curve__mode button:hover { color: var(--ssui-color-text-2); }
+  .ssui-curve__mode button[aria-pressed="true"] { background: var(--ssui-color-surface); color: var(--ssui-color-text); }
+
+  /* stage */
+  .ssui-curve__stage {
+    position: relative;
+    width: 100%;
+    height: var(--ssui-curve-height);
+    border-radius: var(--ssui-radius-md);
+    background: var(--ssui-color-surface-2);
+    overflow: hidden;
+    touch-action: none;
+    cursor: crosshair;
+  }
+  .ssui-curve__stage:focus-visible { box-shadow: var(--ssui-focus-ring); border-radius: var(--ssui-radius-md); }
+  .ssui-curve__svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .ssui-curve__grid { stroke: var(--ssui-color-canvas-grid); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; }
+  .ssui-curve__unit { stroke: var(--ssui-color-border-strong); stroke-width: 1; fill: none; vector-effect: non-scaling-stroke; }
+  .ssui-curve__path { stroke: var(--ssui-color-fill); stroke-width: 1.5; fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .ssui-curve__arm { stroke: var(--ssui-color-text-3); stroke-width: 1; stroke-dasharray: 3 3; fill: none; vector-effect: non-scaling-stroke; }
+  .ssui-curve__handle {
+    fill: var(--ssui-color-thumb);
+    stroke: var(--ssui-color-fill);
+    stroke-width: 1;
+    r: 5px;
+    cursor: grab;
+    transition: r var(--ssui-dur-fast) var(--ssui-ease-standard), fill var(--ssui-dur-fast) var(--ssui-ease-standard), stroke var(--ssui-dur-fast) var(--ssui-ease-standard);
+    outline: none;
+  }
+  .ssui-curve__handle:hover { r: 7px; }
+  .ssui-curve__handle:focus-visible { stroke: var(--ssui-color-accent); stroke-width: 2; box-shadow: none; }
+  .ssui-curve__handle[data-ssui-dragging] { r: 7px; fill: var(--ssui-color-accent); stroke: var(--ssui-color-accent); cursor: grabbing; }
+  .ssui-curve__handle[data-ssui-locked] { cursor: ns-resize; }
+  .ssui-curve__ball { fill: var(--ssui-color-accent); r: 3px; pointer-events: none; }
+  .ssui-curve__ball-x { stroke: var(--ssui-color-accent); stroke-width: 1; opacity: 0.35; pointer-events: none; vector-effect: non-scaling-stroke; }
+  .ssui-curve__hint {
+    position: absolute;
+    right: var(--ssui-space-2);
+    bottom: var(--ssui-space-1);
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-xs);
+    letter-spacing: var(--ssui-letter-spacing-mono);
+    color: var(--ssui-color-text-3);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--ssui-dur-fast) var(--ssui-ease-standard);
+  }
+  .ssui-curve[data-ssui-mode="points"] .ssui-curve__stage:hover .ssui-curve__hint { opacity: 1; }
+
+  /* css readout */
+  .ssui-curve__css {
+    display: block;
+    width: 100%;
+    padding: var(--ssui-space-1) var(--ssui-space-1) 0;
+    font-family: var(--ssui-font-family-mono);
+    font-size: var(--ssui-font-size-xs);
+    letter-spacing: var(--ssui-letter-spacing-mono);
+    color: var(--ssui-color-text-2);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: copy;
+    border-radius: var(--ssui-radius-xs);
+    transition: color var(--ssui-dur-base) var(--ssui-ease-standard);
+  }
+  .ssui-curve__css:hover { color: var(--ssui-color-text); }
+  .ssui-curve__css[data-ssui-copied] { color: var(--ssui-color-accent); transition-duration: var(--ssui-dur-fast); }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>@superserif/ui — prototype: three panel directions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./prototype.css" />
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <header class="pt-top">
+    <div class="pt-brand">@superserif/ui <span>prototype · same state, same lib, three compositions</span></div>
+    <div class="pt-right">
+      <div class="pt-seg" role="group" aria-label="Theme">
+        <button type="button" data-theme="light">Light</button>
+        <button type="button" data-theme="dark" aria-pressed="true">Dark</button>
+        <button type="button" data-theme="auto">Auto</button>
+      </div>
+      <a class="pt-link" href="./index.html">components →</a>
+    </div>
+  </header>
+  <aside class="pt-note" id="note"></aside>
+  <div id="stage"></div>
+
+  <nav class="proto-picker" aria-label="Prototype variants">
+    <span class="proto-picker-highlight" aria-hidden="true"></span>
+    <button class="proto-picker-item" data-active aria-current="true">Ligne</button>
+    <button class="proto-picker-item">Module</button>
+    <button class="proto-picker-item">Instrument</button>
+    <span class="proto-picker-divider" aria-hidden="true"></span>
+    <button class="proto-picker-item proto-picker-replay" aria-label="Replay animation (R)">↻</button>
+  </nav>
+  <script type="module" src="./prototype.ts"></script>
+</body>
+</html>

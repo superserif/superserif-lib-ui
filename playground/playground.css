@@ -1,0 +1,68 @@
+/* Page chrome only. Never targets .ssui-* — if the lib looks wrong here, the lib is wrong. */
+:root {
+  --pg-bg: #fafafa; --pg-fg: #1b1b1b; --pg-fg-2: #8d8d8d; --pg-line: rgb(0 0 0 / 0.08); --pg-well: #f0f0f0;
+  color-scheme: light;
+}
+:root[data-theme="dark"] { --pg-bg: #0a0a0a; --pg-fg: #f2f2f2; --pg-fg-2: #8a8a8a; --pg-line: rgb(255 255 255 / 0.1); --pg-well: #111; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--pg-bg); color: var(--pg-fg); font: 450 14px/1.5 "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; transition: background-color 320ms cubic-bezier(.2,0,0,1), color 320ms cubic-bezier(.2,0,0,1); }
+#app { display: grid; grid-template-columns: 220px minmax(0, 1fr); min-height: 100dvh; }
+.pg-side { position: sticky; top: 0; height: 100dvh; padding: 24px 20px; border-right: 1px solid var(--pg-line); display: flex; flex-direction: column; gap: 24px; overflow-y: auto; }
+.pg-brand { font-weight: 500; letter-spacing: -0.01em; }
+.pg-brand small { display: block; color: var(--pg-fg-2); font-weight: 450; font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .04em; margin-top: 4px; }
+.pg-nav { display: flex; flex-direction: column; gap: 2px; }
+.pg-nav a { color: var(--pg-fg-2); text-decoration: none; font-size: 13px; padding: 4px 8px; margin-left: -8px; border-radius: 6px; }
+.pg-nav a:hover, .pg-nav a[aria-current] { color: var(--pg-fg); background: var(--pg-well); }
+.pg-side-group { display: flex; flex-direction: column; gap: 8px; }
+.pg-side-group h4 { margin: 0; font-size: 11px; font-weight: 500; color: var(--pg-fg-2); font-family: "DM Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+.pg-seg { display: inline-flex; background: var(--pg-well); border-radius: 8px; padding: 2px; gap: 2px; }
+.pg-seg button { border: 0; background: transparent; color: var(--pg-fg-2); font: inherit; font-size: 12px; padding: 4px 10px; border-radius: 6px; cursor: pointer; }
+.pg-seg button[aria-pressed="true"] { background: var(--pg-bg); color: var(--pg-fg); box-shadow: 0 1px 2px rgb(0 0 0 / .08); }
+.pg-check { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--pg-fg-2); }
+.pg-main { padding: 48px 56px 120px; max-width: 1180px; display: flex; flex-direction: column; gap: 72px; }
+.pg-card { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: 32px; }
+.pg-card > header { display: flex; flex-direction: column; gap: 6px; max-width: 60ch; }
+.pg-card h2 { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
+.pg-card h2 small { color: var(--pg-fg-2); font-weight: 450; font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .04em; margin-left: 10px; vertical-align: middle; }
+.pg-card header p { margin: 0; color: var(--pg-fg-2); text-wrap: pretty; }
+.pg-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+.pg-slot { display: flex; justify-content: center; padding: 32px; border-radius: 24px; background: var(--slot-bg); position: relative; min-height: 120px; }
+.pg-slot[data-theme="light"] { --slot-bg: #ececec; }
+.pg-slot[data-theme="dark"] { --slot-bg: #141414; }
+.pg-slot::before { content: attr(data-theme); position: absolute; top: 12px; left: 16px; font: 500 10px/1 "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: rgb(128 128 128 / .7); }
+.pg-code { margin: 0; padding: 16px 20px; border-radius: 12px; background: var(--pg-well); font: 12px/1.6 "DM Mono", monospace; color: var(--pg-fg); overflow-x: auto; tab-size: 2; }
+.pg-code .c { color: var(--pg-fg-2); }
+.pg-target { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.pg-canvas { aspect-ratio: 4 / 3; border-radius: 24px; background: var(--pg-well); overflow: hidden; position: relative; }
+.pg-canvas canvas { width: 100%; height: 100%; display: block; }
+.pg-status { font: 500 11px/1.7 "DM Mono", monospace; letter-spacing: .04em; color: var(--pg-fg-2); }
+@media (max-width: 900px) { #app { grid-template-columns: 1fr; } .pg-side { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--pg-line); } .pg-main { padding: 32px 20px 96px; } .pg-pair, .pg-target { grid-template-columns: 1fr; } }
+
+/* ---- additions: target, extras, runner ---- */
+.pg-card--target .pg-target__panel { display: flex; justify-content: flex-end; }
+.pg-canvas { background: var(--pg-well); }
+.pg-slot--wide { width: 100%; }
+.pg-custom { display: flex; flex-direction: column; gap: 24px; }
+.pg-runner { position: absolute; left: 32px; right: 32px; bottom: 12px; display: flex; align-items: center; gap: 12px; pointer-events: none; }
+.pg-runner__dot { width: 8px; height: 8px; border-radius: 999px; background: #f09526; transition: transform 1.2s; flex: 0 0 auto; }
+.pg-runner__css { margin-left: auto; font: 500 10px/1 "DM Mono", monospace; letter-spacing: .04em; color: rgb(128 128 128 / .8); white-space: nowrap; max-width: 55%; overflow: hidden; text-overflow: ellipsis; }
+.pg-slot:has(.pg-runner) { padding-bottom: 44px; }
+
+.pg-embed { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 32px; padding: 32px; border-radius: 24px; background: var(--pg-well); align-items: start; }
+.pg-embed__site { display: flex; flex-direction: column; gap: 16px; font-family: Georgia, "Times New Roman", serif; }
+.pg-embed__nav { display: flex; gap: 20px; font: 500 12px/1 "Inter", system-ui, sans-serif; letter-spacing: .02em; color: var(--pg-fg-2); padding-bottom: 12px; border-bottom: 1px solid var(--pg-line); }
+.pg-embed__site h3 { margin: 8px 0 0; font-size: 28px; font-weight: 400; letter-spacing: -0.01em; line-height: 1.15; }
+.pg-embed__site p { margin: 0; color: var(--pg-fg-2); max-width: 44ch; font-size: 15px; line-height: 1.6; }
+.pg-embed__art { height: 180px; border-radius: 16px; background: repeating-linear-gradient(90deg, var(--pg-line) 0 1px, transparent 1px 14px); }
+.pg-embed__col { display: flex; justify-content: flex-end; }
+
+/* hostile page reset: the panel must be unaffected */
+.pg-hostile { font-family: Georgia, serif; text-transform: uppercase; letter-spacing: .2em; line-height: 2; font-size: 15px; color: red; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.pg-hostile button { background: none; border: 0; padding: 20px; font-family: serif; color: red; text-decoration: underline; }
+.pg-hostile input, .pg-hostile textarea { border: 1px solid red; padding: 12px; font-family: serif; font-size: 20px; background: yellow; }
+.pg-hostile p, .pg-hostile h1, .pg-hostile h2, .pg-hostile h3 { margin: 1em 0; }
+.pg-hostile label { display: block; font-weight: 700; }
+.pg-hostile svg { fill: red; }
+.pg-hostile__note { font-size: 10px; letter-spacing: .2em; color: rgb(128 128 128 / .8); margin: 0 !important; }
+@media (max-width: 900px) { .pg-embed { grid-template-columns: 1fr; } }

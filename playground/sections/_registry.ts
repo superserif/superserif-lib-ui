@@ -1,0 +1,21 @@
+import type { Section } from './_types';
+import { section as panel } from './panel';
+import { section as folder } from './folder';
+import { section as number } from './number';
+import { section as slider } from './slider';
+import { section as knob } from './knob';
+import { section as pad2d } from './pad2d';
+import { section as toggle } from './toggle';
+import { section as select } from './select';
+import { section as color } from './color';
+import { section as text } from './text';
+import { section as button } from './button';
+import { section as curve } from './curve';
+import { section as monitor } from './monitor';
+import { section as presets } from './presets';
+import { section as misc } from './misc';
+import { stress, embed, reset } from './extras';
+
+export const registry: Section[] = [panel, folder, number, slider, knob, pad2d, toggle, select, color, text, button, curve, monitor, presets, misc, stress, embed, reset];
+export type { Section } from './_types';
+export { snippet } from './_types';

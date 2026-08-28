@@ -1,0 +1,15 @@
+<!doctype html><html><head><meta charset="utf-8"><title>dist smoke · iife</title><style>body{margin:0;background:#111;height:100vh}</style></head>
+<body>
+<script src="/dist/ssui.iife.js"></script>
+<script>
+  const { Panel } = SSUI;
+  const S = { count: 24, amp: 0.5, mode: 'sine', ink: '#f09526', on: true, pads: { a: true, b: false, c: true, d: false } };
+  const p = new Panel({ title: 'dist · iife', theme: 'dark', fps: true, editable: true, reorderable: true });
+  p.addPresets();
+  const f = p.addFolder('Params');
+  f.add(S, 'count', { min: 4, max: 64, step: 1 }); f.add(S, 'amp', { min: 0, max: 1 }); f.add(S, 'mode', { options: ['sine', 'ripple'] }); f.add(S, 'ink'); f.add(S, 'on');
+  p.addFolder('Pads').addPads(S, 'pads');
+  p.setTransport({ playing: true });
+  window.__ok = typeof SSUI.version === 'string' && document.getElementById('ssui-styles') !== null;
+</script>
+</body></html>

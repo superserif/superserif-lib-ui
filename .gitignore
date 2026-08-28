@@ -1,0 +1,7 @@
+node_modules
+dist-playground
+.DS_Store
+*.log
+_ref/shots
+_ref/dev
+playground/fonts/*.woff2
