@@ -46,7 +46,10 @@ const slot = (id: string, init: () => any): any => (extra[id] ??= init());
 // ---------------------------------------------------------------------------
 // theme control (page chrome + panel)
 // ---------------------------------------------------------------------------
-let theme: ThemeMode = 'dark';
+const query = new URLSearchParams(location.search);
+const embedded = query.has('embed');                        // hosted inside the docs page: no page chrome, theme driven by the host
+if (embedded) document.documentElement.setAttribute('data-embed', '');
+let theme: ThemeMode = (['light', 'dark', 'auto'].includes(query.get('theme') ?? '') ? query.get('theme') : 'dark') as ThemeMode;
 const resolved = (): 'light' | 'dark' => theme === 'auto' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme;
 document.documentElement.dataset.theme = resolved();
 
@@ -191,13 +194,16 @@ document.addEventListener('keydown', (e) => {
   e.preventDefault(); S.playing = !S.playing; transport.playing = S.playing;
 });
 
-// theme buttons
-document.querySelectorAll<HTMLButtonElement>('.st-seg button').forEach(b => b.addEventListener('click', () => {
-  theme = b.dataset.theme as ThemeMode;
-  document.querySelectorAll('.st-seg button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+// theme: buttons on the page, or a message from the docs page when embedded
+function setTheme(t: ThemeMode): void {
+  theme = t;
+  document.querySelectorAll<HTMLButtonElement>('.st-seg button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.theme === t)));
   document.documentElement.dataset.theme = resolved();
   panel.setTheme(theme);
-}));
+}
+document.querySelectorAll<HTMLButtonElement>('.st-seg button').forEach(b => b.addEventListener('click', () => setTheme(b.dataset.theme as ThemeMode)));
+window.addEventListener('message', (e) => { if (e.data && e.data.type === 'ssui-theme') setTheme(e.data.theme); });
+setTheme(theme);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (theme === 'auto') document.documentElement.dataset.theme = resolved(); });
 
 // ---------------------------------------------------------------------------

@@ -25,7 +25,12 @@ const main = el('main', 'pg-main');
 app.append(side, main);
 
 side.innerHTML = `
-  <div class="pg-brand">@superserif/ui<small>components · v0.1</small></div>
+  <div class="pg-brand">@superserif/ui<small>docs · v0.1</small></div>
+  <nav class="pg-tabs" aria-label="Pages">
+    <a href="./starter.html" class="pg-tab">Starter</a>
+    <a href="./index.html" class="pg-tab" aria-current="page">Components</a>
+    <a href="./prototype.html" class="pg-tab">Prototype</a>
+  </nav>
   <nav class="pg-nav" aria-label="Sections"></nav>
   <div class="pg-side-group">
     <h4>Theme</h4>
@@ -47,6 +52,7 @@ function applyMode(m: Mode): void {
   const dark = m === 'dark' || (m === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
   side.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+  document.querySelector<HTMLIFrameElement>('.pg-starter__frame')?.contentWindow?.postMessage({ type: 'ssui-theme', theme: m }, '*');
   for (const { panel, slot, slotTheme } of panels) {
     const t: Mode = m === 'auto' ? slotTheme : m;
     panel.setTheme(t);
@@ -70,6 +76,30 @@ document.fonts.ready.then(() => {
   const inter = document.fonts.check('500 11px Inter');
   document.getElementById('pg-fonts')!.textContent = `Inter: ${inter ? 'loaded' : 'fallback (system-ui)'}`;
 });
+
+/* ---------------- starter card (first: this is the base of every panel) ---------------- */
+{
+  const card = el('section', 'pg-card pg-card--starter'); card.id = 'starter';
+  card.append(el('header', '', `<h2>Starter <small>template</small></h2><p>The base of every panel: mixer, knobs, pads, sliders, monitor, curve, presets under the title, transport in the footer. Modules reorder by drag, rename on double-click, right-click to remove, hover for SOLO. Copy <code>playground/starter.ts</code>, change the state object and the scene.</p>`));
+  const frame = el('div', 'pg-starter');
+  const iframe = document.createElement('iframe');
+  iframe.className = 'pg-starter__frame'; iframe.title = 'Starter — live'; iframe.loading = 'lazy';
+  iframe.src = `./starter.html?embed=1&theme=${mode}`;
+  frame.append(iframe);
+  const links = el('div', 'pg-starter__links', `<a href="./starter.html">Open full screen →</a><a href="https://github.com/superserif/superserif-lib-ui/blob/main/playground/starter.ts" target="_blank" rel="noopener noreferrer">starter.ts on GitHub →</a>`);
+  const code = el('pre', 'pg-code', `<code>npm i github:superserif/superserif-lib-ui#v0.1.1
+
+import { Panel } from '@superserif/ui/auto';
+const panel = new Panel({ title: 'sketch_01', reorderable: true, editable: true, fps: true, storageKey: 'sketch_01' });
+panel.addPresets();
+panel.addFolder('Knobs', { layout: 'grid', columns: 3 }).addKnob(S, 'amplitude', { min: 0, max: 1, layout: 'stack', size: 'lg' });
+panel.addFolder('Pads').addPads(S, 'pads');
+panel.addFolder('Sliders').addSlider(S, 'speed', { min: 0, max: 3, inline: true });
+panel.setTransport({ onToggle: p => (S.playing = p), action: { label: 'Randomize', onClick: randomize } });</code>`);
+  card.append(frame, links, code);
+  nav.append(Object.assign(el('a', '', 'Starter'), { href: '#starter' }));
+  main.append(card);
+}
 
 /* ---------------- target card ---------------- */
 {

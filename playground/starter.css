@@ -13,3 +13,10 @@ body { background: var(--st-bg); color: var(--st-fg); font: 500 12px/1.5 "Inter"
 .st-seg button[aria-pressed="true"] { background: var(--st-bg); color: var(--st-fg); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
 .st-foot { position: fixed; left: 24px; bottom: 20px; color: var(--st-fg-2); font-weight: 400; max-width: 40ch; text-wrap: pretty; }
 .st-foot kbd { font: inherit; color: var(--st-fg); }
+
+.st-tabs { display: inline-flex; gap: 2px; padding: 2px; background: var(--st-well); border-radius: 8px; margin-left: 16px; }
+.st-tabs a { font-size: 12px; padding: 4px 10px; border-radius: 6px; color: var(--st-fg-2); text-decoration: none; }
+.st-tabs a:hover { color: var(--st-fg); }
+.st-tabs a[aria-current="page"] { background: var(--st-bg); color: var(--st-fg); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+/* embedded in the docs page: no chrome, the host drives the theme */
+html[data-embed] .st-top, html[data-embed] .st-foot { display: none; }

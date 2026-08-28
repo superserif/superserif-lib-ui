@@ -34,3 +34,9 @@ body { background: var(--pt-bg); color: var(--pt-fg); font: 450 13px/1.5 "Inter"
 .proto-picker-divider { width: 1px; height: 16px; margin: 0 4px; background: rgba(255, 255, 255, 0.12); }
 .proto-picker-replay { padding: 0 10px; font-size: 14px; }
 .proto-picker[data-position="top"] { bottom: auto; top: 24px; }
+
+.pt-brand { display: flex; align-items: center; }
+.pt-tabs { display: inline-flex; gap: 2px; padding: 2px; background: var(--pt-well); border-radius: 8px; margin-left: 16px; }
+.pt-tabs a { font-size: 12px; padding: 4px 10px; border-radius: 6px; color: var(--pt-fg-2); text-decoration: none; }
+.pt-tabs a:hover { color: var(--pt-fg); }
+.pt-tabs a[aria-current="page"] { background: var(--pt-bg); color: var(--pt-fg); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
