@@ -58,14 +58,16 @@ document.documentElement.dataset.theme = resolved();
 // ---------------------------------------------------------------------------
 const d = new Date();
 const sketchName = `sketch_${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
-const panel = new Panel({ title: sketchName, meta: 'v0.1', theme, reorderable: true, editable: true, fps: true, storageKey: 'ssui-starter', position: 'top-right', width: 320 });
+// the docs embed keeps its own storage so it always opens clean
+const panel = new Panel({ title: sketchName, meta: 'v0.1', theme, reorderable: true, editable: true, fps: true, storageKey: embedded ? 'ssui-starter-embed' : 'ssui-starter', position: 'top-right', width: 320 });
 panel.addPresets();                                          // presets live right under the title
 
 type ModuleType = 'Mixer' | 'Knobs' | 'Pads' | 'Sliders' | 'Pad' | 'Monitor' | 'Curve' | 'Toggle' | 'Select' | 'Color' | 'Text';
 const MODULES: ModuleType[] = ['Mixer', 'Knobs', 'Pads', 'Sliders', 'Monitor', 'Curve'];   // Pad 2D stays in "Add module"
 
 // persisted: titles (renames) and modules added at runtime
-const TITLES_KEY = 'ssui-starter:titles', ADDED_KEY = 'ssui-starter:modules';
+const NS = embedded ? 'ssui-starter-embed' : 'ssui-starter';
+const TITLES_KEY = `${NS}:titles`, ADDED_KEY = `${NS}:modules`;
 const load = <T,>(k: string, fb: T): T => { try { return JSON.parse(localStorage.getItem(k) ?? 'null') ?? fb; } catch { return fb; } };
 const save = (k: string, v: unknown): void => { try { localStorage.setItem(k, JSON.stringify(v)); } catch { /* noop */ } };
 const titles: Record<string, string> = load(TITLES_KEY, {});
