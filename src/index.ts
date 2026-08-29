@@ -4,6 +4,7 @@ export { Controller, type BaseOptions } from './core/Controller';
 export { Container } from './core/Container';
 export { NumberControl, type NumberOptions } from './controls/NumberControl';
 export { SliderControl, type SliderOptions } from './controls/SliderControl';
+export { RangeControl, type RangeOptions } from './controls/RangeControl';
 export { KnobControl, type KnobOptions } from './controls/KnobControl';
 export { Pad2DControl, type Pad2DOptions } from './controls/Pad2DControl';
 export { ToggleControl, type ToggleOptions } from './controls/ToggleControl';
@@ -20,7 +21,7 @@ export { PadBankControl, type PadBankOptions, type PadBankValue, type PadSpec } 
 export { makeReorderable } from './core/reorder';
 export { PresetStore, type Preset, type PresetFile, type StorageAdapter } from './presets/PresetStore';
 export { Theme, type ThemeMode, type ResolvedTheme } from './core/Theme';
-export { bindKey, bindValue, bindXY, bindXYObject, type Binding, type XY } from './core/Binding';
+export { bindKey, bindValue, bindPair, bindXY, bindXYObject, type Binding, type XY, type Pair } from './core/Binding';
 export { Scheduler } from './core/Scheduler';
 export { trackPointer } from './core/pointer';
-export const version = '0.1.0';
+export const version = '0.1.1';

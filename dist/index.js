@@ -1,4 +1,4 @@
-class K {
+class U {
   constructor() {
     this.map = /* @__PURE__ */ new Map();
   }
@@ -93,10 +93,10 @@ const E = {
   refresh: () => $('<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.6 6.2A5 5 0 1 0 13 8.6"/><path d="M12.8 3v3.4H9.4"/></svg>'),
   grip: () => $('<svg viewBox="0 0 12 12" width="12" height="12" fill="currentColor"><circle cx="4" cy="3" r="1"/><circle cx="8" cy="3" r="1"/><circle cx="4" cy="6" r="1"/><circle cx="8" cy="6" r="1"/><circle cx="4" cy="9" r="1"/><circle cx="8" cy="9" r="1"/></svg>'),
   close: () => $('<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>')
-}, H = (a) => a.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "item", bt = () => typeof matchMedia < "u" && matchMedia("(prefers-reduced-motion: reduce)").matches, St = (a) => !!a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable);
-class _ extends K {
+}, j = (a) => a.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "item", vt = () => typeof matchMedia < "u" && matchMedia("(prefers-reduced-motion: reduce)").matches, St = (a) => !!a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable);
+class x extends U {
   constructor(t, e, s) {
-    super(), this.binding = t, this.opts = e, this.cleanups = [], this.unlisten = null, this._state = "idle", this.inputId = ot("ssui-in"), this.stacked = !1, this.serializable = !0, this.id = e.id ?? H(e.label ?? t.key ?? s), this.initial = this.clone(t.read()), this.labelEl = o("label", { class: "ssui-row__label", for: this.inputId, id: `${this.inputId}-label` }, [e.label ?? t.key ?? s]), this.controlEl = o("div", { class: "ssui-row__control" }), this.el = o("div", { class: `ssui-row ssui-row--${s}`, "data-ssui-id": this.id, "data-ssui-state": "idle" }, [this.labelEl, this.controlEl]);
+    super(), this.binding = t, this.opts = e, this.cleanups = [], this.unlisten = null, this._state = "idle", this.inputId = ot("ssui-in"), this.stacked = !1, this.serializable = !0, this.id = e.id ?? j(e.label ?? t.key ?? s), this.initial = this.clone(t.read()), this.labelEl = o("label", { class: "ssui-row__label", for: this.inputId, id: `${this.inputId}-label` }, [e.label ?? t.key ?? s]), this.controlEl = o("div", { class: "ssui-row__control" }), this.el = o("div", { class: `ssui-row ssui-row--${s}`, "data-ssui-id": this.id, "data-ssui-state": "idle" }, [this.labelEl, this.controlEl]);
   }
   /** call at the end of subclass constructors */
   mount() {
@@ -201,12 +201,12 @@ function N(a, t = Object.is) {
     e = s;
   } };
 }
-const vt = (a, t) => a.x === t.x && a.y === t.y;
+const yt = (a, t) => a.x === t.x && a.y === t.y;
 function Ct(a, t, e) {
   return {
     target: a,
     key: `${t},${e}`,
-    equals: vt,
+    equals: yt,
     read: () => ({ x: a[t], y: a[e] }),
     write: (s) => {
       a[t] = s.x, a[e] = s.y;
@@ -217,40 +217,52 @@ function Mt(a, t) {
   return {
     target: a,
     key: t,
-    equals: vt,
+    equals: yt,
     read: () => ({ x: a[t].x, y: a[t].y }),
     write: (e) => {
       a[t].x = e.x, a[t].y = e.y;
     }
   };
 }
-const Y = (a, t) => JSON.stringify(a) === JSON.stringify(t), m = (a, t, e) => Math.min(e, Math.max(t, a)), st = (a, t, e, s, i) => s + (a - t) / (e - t || 1) * (i - s);
-function Z(a) {
+const $t = (a, t) => a[0] === t[0] && a[1] === t[1];
+function Lt(a, t) {
+  return {
+    target: a,
+    key: t,
+    equals: $t,
+    read: () => [a[t][0], a[t][1]],
+    write: (e) => {
+      a[t][0] = e[0], a[t][1] = e[1];
+    }
+  };
+}
+const Q = (a, t) => JSON.stringify(a) === JSON.stringify(t), g = (a, t, e) => Math.min(e, Math.max(t, a)), J = (a, t, e, s, i) => s + (a - t) / (e - t || 1) * (i - s);
+function G(a) {
   if (!isFinite(a) || a === 0) return 2;
   const t = a.toString();
   if (t.includes("e-")) return parseInt(t.split("e-")[1], 10);
   const e = t.indexOf(".");
   return e === -1 ? 0 : t.length - e - 1;
 }
-function W(a, t, e = 0) {
+function H(a, t, e = 0) {
   if (!t) return a;
-  const s = Z(t);
+  const s = G(t);
   return +(Math.round((a - e) / t) * t + e).toFixed(s);
 }
-function yt(a, t, e) {
+function ht(a, t, e) {
   if (isFinite(t) && isFinite(e)) {
     const i = e - t;
     return i <= 1 ? 1e-3 : i <= 10 ? 0.01 : i <= 100 ? 0.1 : 1;
   }
-  const s = Z(a);
+  const s = G(a);
   return s ? +Math.pow(10, -s).toFixed(s) : 1;
 }
-function I(a, t = {}) {
-  const e = t.precision ?? (t.step !== void 0 ? Z(t.step) : 2);
+function T(a, t = {}) {
+  const e = t.precision ?? (t.step !== void 0 ? G(t.step) : 2);
   let s = Math.abs(a) >= 1e6 ? a.toExponential(2) : a.toFixed(e);
   return (s === "-0" || /^-0\.0*$/.test(s)) && (s = s.slice(1)), t.unit ? `${s}${t.unit}` : s;
 }
-function ht(a) {
+function ut(a) {
   const t = a.replace(/[^0-9eE+\-.,]/g, "").replace(",", ".");
   if (!t) return null;
   try {
@@ -264,14 +276,14 @@ function ht(a) {
   return isFinite(e) ? e : null;
 }
 const rt = (a) => String(a).padStart(2, "0");
-function D(a, t) {
+function O(a, t) {
   const e = t.threshold ?? 3;
   let s = null, i = !1, n = "";
-  const r = () => a.closest(".ssui-panel"), h = (d) => {
-    d.button !== 0 || s || t.ignore?.(d) || (s = { x: d.clientX, y: d.clientY, x0: d.clientX, y0: d.clientY, dx: 0, dy: 0, mx: 0, my: 0, shift: d.shiftKey, alt: d.altKey, meta: d.metaKey || d.ctrlKey, moved: !1 }, i = !1, a.setPointerCapture(d.pointerId), a.addEventListener("pointermove", l), a.addEventListener("pointerup", u), a.addEventListener("pointercancel", u), a.addEventListener("lostpointercapture", u), t.immediate && c(d));
+  const r = () => a.closest(".ssui-panel"), l = (d) => {
+    d.button !== 0 || s || t.ignore?.(d) || (s = { x: d.clientX, y: d.clientY, x0: d.clientX, y0: d.clientY, dx: 0, dy: 0, mx: 0, my: 0, shift: d.shiftKey, alt: d.altKey, meta: d.metaKey || d.ctrlKey, moved: !1 }, i = !1, a.setPointerCapture(d.pointerId), a.addEventListener("pointermove", h), a.addEventListener("pointerup", u), a.addEventListener("pointercancel", u), a.addEventListener("lostpointercapture", u), t.immediate && c(d));
   }, c = (d) => {
     !s || i || (i = !0, r()?.setAttribute("data-ssui-dragging", ""), t.cursor && (n = document.body.style.cursor, document.body.style.cursor = t.cursor), t.onStart?.(s, d));
-  }, l = (d) => {
+  }, h = (d) => {
     if (s) {
       if (s.mx = d.clientX - s.x, s.my = d.clientY - s.y, s.x = d.clientX, s.y = d.clientY, s.dx = s.x - s.x0, s.dy = s.y - s.y0, s.shift = d.shiftKey, s.alt = d.altKey, s.meta = d.metaKey || d.ctrlKey, !i) {
         if (Math.hypot(s.dx, s.dy) < e) return;
@@ -282,22 +294,22 @@ function D(a, t) {
   }, u = (d) => {
     if (!s) return;
     const p = s;
-    s = null, a.removeEventListener("pointermove", l), a.removeEventListener("pointerup", u), a.removeEventListener("pointercancel", u), a.removeEventListener("lostpointercapture", u);
+    s = null, a.removeEventListener("pointermove", h), a.removeEventListener("pointerup", u), a.removeEventListener("pointercancel", u), a.removeEventListener("lostpointercapture", u);
     try {
       a.hasPointerCapture(d.pointerId) && a.releasePointerCapture(d.pointerId);
     } catch {
     }
     i ? (r()?.removeAttribute("data-ssui-dragging"), t.cursor && (document.body.style.cursor = n), t.onEnd?.(p, d)) : d.type === "pointerup" && t.onTap?.(d), i = !1;
   };
-  return a.addEventListener("pointerdown", h), () => {
-    a.removeEventListener("pointerdown", h), a.removeEventListener("pointermove", l), a.removeEventListener("pointerup", u), a.removeEventListener("pointercancel", u), a.removeEventListener("lostpointercapture", u);
+  return a.addEventListener("pointerdown", l), () => {
+    a.removeEventListener("pointerdown", l), a.removeEventListener("pointermove", h), a.removeEventListener("pointerup", u), a.removeEventListener("pointercancel", u), a.removeEventListener("lostpointercapture", u);
   };
 }
 const L = (a) => {
   const t = "shift" in a ? a.shift : !!a.shiftKey, e = "alt" in a ? a.alt : !!a.altKey;
   return t ? 10 : e ? 0.1 : 1;
 };
-function q(a, t, e, s = !1) {
+function I(a, t, e, s = !1) {
   const i = s ? "ArrowRight" : "ArrowUp", n = s ? "ArrowLeft" : "ArrowDown", r = L(a);
   switch (a.key) {
     case i:
@@ -316,22 +328,22 @@ function q(a, t, e, s = !1) {
       return null;
   }
 }
-class S extends _ {
+class A extends x {
   constructor(t, e = {}, s = "number") {
-    super(t, e, s), this.dragStart = 0, this.min = e.min ?? -1 / 0, this.max = e.max ?? 1 / 0, this.step = e.step ?? yt(t.read(), e.min, e.max), this.precision = e.precision ?? Z(this.step), this.mount();
+    super(t, e, s), this.dragStart = 0, this.min = e.min ?? -1 / 0, this.max = e.max ?? 1 / 0, this.step = e.step ?? ht(t.read(), e.min, e.max), this.precision = e.precision ?? G(this.step), this.mount();
   }
   /** the standalone widget (also used embedded by Slider / Knob / Pad2D) */
   static widget(t, e) {
-    return new S(t, { ...e, bare: !0 });
+    return new A(t, { ...e, bare: !0 });
   }
   render() {
-    return this.valueEl = o("span", { class: "ssui-number__value", id: this.inputId, role: "spinbutton", tabindex: 0, "aria-labelledby": `${this.inputId}-label` }), this.inputEl = o("input", { class: "ssui-number__input", type: "text", inputmode: "decimal", name: this.id, "aria-label": this.opts.label ?? this.id, tabindex: -1 }), this.box = o("div", { class: `ssui-number${this.opts.dim ? " ssui-number--dim" : ""}`, "data-ssui-state": "idle" }, [this.valueEl, this.inputEl]), isFinite(this.min) && this.valueEl.setAttribute("aria-valuemin", String(this.min)), isFinite(this.max) && this.valueEl.setAttribute("aria-valuemax", String(this.max)), this.cleanups.push(D(this.box, {
+    return this.valueEl = o("span", { class: "ssui-number__value", id: this.inputId, role: "spinbutton", tabindex: 0, "aria-labelledby": `${this.inputId}-label` }), this.inputEl = o("input", { class: "ssui-number__input", type: "text", inputmode: "decimal", name: this.id, "aria-label": this.opts.label ?? this.id, tabindex: -1 }), this.box = o("div", { class: `ssui-number${this.opts.dim ? " ssui-number--dim" : ""}`, "data-ssui-state": "idle" }, [this.valueEl, this.inputEl]), isFinite(this.min) && this.valueEl.setAttribute("aria-valuemin", String(this.min)), isFinite(this.max) && this.valueEl.setAttribute("aria-valuemax", String(this.max)), this.cleanups.push(O(this.box, {
       cursor: "ns-resize",
       onStart: () => {
         this.dragStart = this.binding.read(), this.setState("dragging"), this.box.setAttribute("data-ssui-state", "dragging");
       },
       onMove: (t) => {
-        const e = (this.opts.scrubSpeed ?? this.step) * L(t), s = m(Math.abs(t.dy) / 80, 0, 1);
+        const e = (this.opts.scrubSpeed ?? this.step) * L(t), s = g(Math.abs(t.dy) / 80, 0, 1);
         this.box.style.setProperty("--ssui-number-stretch", s.toFixed(3)), this.setValue(this.dragStart - t.dy * e);
       },
       onEnd: () => {
@@ -343,7 +355,7 @@ class S extends _ {
         t.preventDefault(), this.edit();
         return;
       }
-      const e = q(t, this, this.binding.read());
+      const e = I(t, this, this.binding.read());
       e !== null && (t.preventDefault(), this.setValue(this.binding.read() + e, !0));
     }), this.inputEl.addEventListener("keydown", (t) => {
       if (t.key === "Enter")
@@ -354,10 +366,10 @@ class S extends _ {
         this.commitEdit(!1);
       else if (t.key === "ArrowUp" || t.key === "ArrowDown") {
         t.preventDefault();
-        const e = ht(this.inputEl.value);
+        const e = ut(this.inputEl.value);
         if (e === null) return;
         const s = (t.key === "ArrowUp" ? 1 : -1) * this.step * L(t);
-        this.inputEl.value = I(this.sanitize(e + s), { precision: this.precision });
+        this.inputEl.value = T(this.sanitize(e + s), { precision: this.precision });
       }
       t.stopPropagation();
     }), this.inputEl.addEventListener("blur", () => {
@@ -369,17 +381,17 @@ class S extends _ {
   sanitize(t) {
     if (!isFinite(t)) return this.binding.read();
     const e = isFinite(this.min) ? this.min : 0;
-    return m(W(t, this.step, e), this.min, this.max);
+    return g(H(t, this.step, e), this.min, this.max);
   }
   update(t) {
-    const e = I(t, { precision: this.precision });
+    const e = T(t, { precision: this.precision });
     this.valueEl.textContent = "", this.valueEl.append(e), this.opts.unit && this.valueEl.append(o("span", { class: "ssui-number__unit" }, [this.opts.unit])), this.valueEl.setAttribute("aria-valuenow", String(t)), this.valueEl.setAttribute("aria-valuetext", e + (this.opts.unit ?? ""));
   }
   edit() {
-    this._state !== "editing" && (this.setState("editing"), this.box.setAttribute("data-ssui-state", "editing"), this.inputEl.value = I(this.binding.read(), { precision: this.precision }), this.inputEl.focus(), this.inputEl.select());
+    this._state !== "editing" && (this.setState("editing"), this.box.setAttribute("data-ssui-state", "editing"), this.inputEl.value = T(this.binding.read(), { precision: this.precision }), this.inputEl.focus(), this.inputEl.select());
   }
   commitEdit(t = !0) {
-    const e = ht(this.inputEl.value);
+    const e = ut(this.inputEl.value);
     this.setState("idle"), this.box.setAttribute("data-ssui-state", "idle"), e !== null ? this.setValue(e, !0) : this.flush(), t && this.valueEl.focus();
   }
   cancelEdit() {
@@ -390,14 +402,14 @@ class S extends _ {
     return this.box;
   }
 }
-class $t extends S {
+class Ot extends A {
   constructor(t, e) {
     super(t, e, "slider"), this.rangeEl = null, this.maxRead = null, this.ro = null;
   }
   render() {
     const t = N(this.binding.read());
-    t.read = () => this.binding.read(), t.write = (l) => this.setValue(l), this.readout = S.widget(t, { min: this.min, max: this.max, step: this.step, precision: this.precision, unit: this.opts.unit, label: this.opts.label, id: this.id + "-value" }), this.readout.on("finish", (l) => this.emit("finish", l)), this.readout.on("state", (l) => {
-      l === "editing" || l === "dragging" ? this.setState(l) : this.setState("idle");
+    t.read = () => this.binding.read(), t.write = (h) => this.setValue(h), this.readout = A.widget(t, { min: this.min, max: this.max, step: this.step, precision: this.precision, unit: this.opts.unit, label: this.opts.label, id: this.id + "-value" }), this.readout.on("finish", (h) => this.emit("finish", h)), this.readout.on("state", (h) => {
+      h === "editing" || h === "dragging" ? this.setState(h) : this.setState("idle");
     }), this.cleanups.push(() => this.readout.dispose());
     const e = o("div", { class: "ssui-slider__fill" }), s = o("div", { class: "ssui-slider__thumb" });
     this.track = o("div", {
@@ -410,38 +422,38 @@ class $t extends S {
       "aria-valuemax": String(this.max),
       "aria-orientation": "horizontal"
     }, [o("div", { class: "ssui-slider__rail" }), e, s]);
-    const i = this.opts, n = !!i.inline, r = o("div", { class: `ssui-slider${n ? " ssui-slider--inline" : ""}`, "data-ssui-state": "idle" }, [this.track]), h = o("div", { class: "ssui-slider__readout" }, [this.readout.widget]);
-    if (i.showRange || n)
-      if (this.rangeEl = o("span", { class: "ssui-value ssui-slider__range" }, ["/"]), h.append(this.rangeEl), i.editableMax !== !1) {
-        const l = N(this.max);
-        l.read = () => this.max, l.write = (u) => this.setMax(u), this.maxRead = S.widget(l, { min: this.min + this.step, step: this.step, precision: this.precision, unit: this.opts.unit, label: `${this.opts.label ?? this.id} max`, id: this.id + "-max", dim: !0, scrubSpeed: this.step * 2 }), this.maxRead.on("state", (u) => {
+    const i = this.opts, n = !!i.inline, r = o("div", { class: `ssui-slider${n ? " ssui-slider--inline" : ""}`, "data-ssui-state": "idle" }, [this.track]), l = o("div", { class: "ssui-slider__readout" }, [this.readout.widget]);
+    if (i.showRange)
+      if (this.rangeEl = o("span", { class: "ssui-value ssui-slider__range" }, ["/"]), l.append(this.rangeEl), i.editableMax !== !1) {
+        const h = N(this.max);
+        h.read = () => this.max, h.write = (u) => this.setMax(u), this.maxRead = A.widget(h, { min: this.min + this.step, step: this.step, precision: this.precision, unit: this.opts.unit, label: `${this.opts.label ?? this.id} max`, id: this.id + "-max", dim: !0, scrubSpeed: this.step * 2 }), this.maxRead.on("state", (u) => {
           u === "editing" || u === "dragging" ? this.setState(u) : this.setState("idle");
-        }), this.cleanups.push(() => this.maxRead?.dispose()), h.append(this.maxRead.widget);
+        }), this.cleanups.push(() => this.maxRead?.dispose()), l.append(this.maxRead.widget);
       } else
-        h.append(o("span", { class: "ssui-value ssui-slider__range" }, [I(this.max, { precision: this.precision })]));
-    n ? (this.el.classList.add("ssui-row--stack", "ssui-row--slider-inline"), this.labelEl.append(h)) : r.append(h);
-    const c = (l) => {
+        l.append(o("span", { class: "ssui-value ssui-slider__range" }, [T(this.max, { precision: this.precision })]));
+    n ? (this.el.classList.add("ssui-row--stack", "ssui-row--slider-inline"), this.labelEl.append(l)) : r.append(l);
+    const c = (h) => {
       const u = this.track.getBoundingClientRect();
-      this.setValue(st(m((l - u.left) / u.width, 0, 1), 0, 1, this.min, this.max));
+      this.setValue(J(g((h - u.left) / u.width, 0, 1), 0, 1, this.min, this.max));
     };
-    return this.cleanups.push(D(this.track, {
+    return this.cleanups.push(O(this.track, {
       immediate: !0,
       cursor: "ew-resize",
-      onStart: (l) => {
-        this.setState("dragging"), r.setAttribute("data-ssui-state", "dragging"), c(l.x);
+      onStart: (h) => {
+        this.setState("dragging"), r.setAttribute("data-ssui-state", "dragging"), c(h.x);
       },
-      onMove: (l) => c(l.x),
+      onMove: (h) => c(h.x),
       onEnd: () => {
         this.setState("idle"), r.setAttribute("data-ssui-state", "idle"), this.emit("finish", this.binding.read());
       }
-    })), this.track.addEventListener("keydown", (l) => {
-      const u = q(l, this, this.binding.read(), !0) ?? q(l, this, this.binding.read(), !1);
-      u !== null && (l.preventDefault(), this.setValue(this.binding.read() + u, !0));
+    })), this.track.addEventListener("keydown", (h) => {
+      const u = I(h, this, this.binding.read(), !0) ?? I(h, this, this.binding.read(), !1);
+      u !== null && (h.preventDefault(), this.setValue(this.binding.read() + u, !0));
     }), this.ro = new ResizeObserver(() => this.track.style.setProperty("--ssui-track-w", `${this.track.clientWidth}px`)), this.ro.observe(this.track), this.cleanups.push(() => this.ro?.disconnect()), r;
   }
   update(t) {
-    const e = m(st(t, this.min, this.max, 0, 1), 0, 1);
-    this.track.style.setProperty("--ssui-p", e.toFixed(4)), this.track.setAttribute("aria-valuenow", String(t)), this.track.setAttribute("aria-valuetext", I(t, { precision: this.precision }) + (this.opts.unit ?? "")), this.readout?.refresh();
+    const e = g(J(t, this.min, this.max, 0, 1), 0, 1);
+    this.track.style.setProperty("--ssui-p", e.toFixed(4)), this.track.setAttribute("aria-valuenow", String(t)), this.track.setAttribute("aria-valuetext", T(t, { precision: this.precision }) + (this.opts.unit ?? "")), this.readout?.refresh();
   }
   /** raise or lower the range; the current value is clamped into it */
   setMax(t) {
@@ -452,22 +464,98 @@ class $t extends S {
     this.readout.edit();
   }
 }
-const Lt = { sm: 40, md: 56, lg: 72 }, ut = "http://www.w3.org/2000/svg";
-let dt = !1;
-class Ot extends S {
+class Pt extends x {
+  constructor(t, e) {
+    super(t, e, "range"), this.readouts = [], this.active = 1, this.ro = null, this.min = e.min, this.max = e.max, this.step = e.step ?? ht(t.read()[1], e.min, e.max), this.precision = e.precision ?? G(this.step), this.mount();
+  }
+  render() {
+    const t = this.opts, e = !!t.inline, s = (u) => o("div", {
+      class: `ssui-slider__thumb ssui-slider__thumb--${u === 0 ? "lo" : "hi"}`,
+      role: "slider",
+      tabindex: 0,
+      "aria-label": `${t.label ?? this.id} ${u === 0 ? "min" : "max"}`,
+      "aria-valuemin": String(this.min),
+      "aria-valuemax": String(this.max),
+      "aria-orientation": "horizontal"
+    });
+    this.loThumb = s(0), this.hiThumb = s(1), this.track = o(
+      "div",
+      { class: "ssui-slider__track", id: this.inputId },
+      [o("div", { class: "ssui-slider__rail" }), o("div", { class: "ssui-slider__fill" }), this.loThumb, this.hiThumb]
+    );
+    const i = o("div", { class: `ssui-slider ssui-slider--range${e ? " ssui-slider--inline" : ""}`, "data-ssui-state": "idle" }, [this.track]), n = (u) => {
+      const d = N(this.binding.read()[u]);
+      d.read = () => this.binding.read()[u], d.write = (f) => this.setEnd(u, f);
+      const p = A.widget(d, { min: this.min, max: this.max, step: this.step, precision: this.precision, unit: t.unit, label: `${t.label ?? this.id} ${u === 0 ? "min" : "max"}`, id: `${this.id}-${u === 0 ? "lo" : "hi"}` });
+      return p.on("finish", () => this.emit("finish", this.binding.read())), p.on("state", (f) => {
+        f === "editing" || f === "dragging" ? this.setState(f) : this.setState("idle");
+      }), this.cleanups.push(() => p.dispose()), p;
+    };
+    this.readouts = [n(0), n(1)];
+    const r = o("div", { class: "ssui-slider__readout" }, [
+      this.readouts[0].widget,
+      o("span", { class: "ssui-value ssui-slider__range" }, ["–"]),
+      this.readouts[1].widget
+    ]);
+    e ? (this.el.classList.add("ssui-row--stack", "ssui-row--slider-inline"), this.labelEl.append(r)) : i.append(r);
+    const l = (u) => {
+      const d = this.track.getBoundingClientRect();
+      return J(g((u - d.left) / d.width, 0, 1), 0, 1, this.min, this.max);
+    }, c = (u) => this.setEnd(this.active, l(u));
+    this.cleanups.push(O(this.track, {
+      immediate: !0,
+      cursor: "ew-resize",
+      onStart: (u) => {
+        const [d, p] = this.binding.read(), f = l(u.x);
+        this.active = Math.abs(f - d) <= Math.abs(f - p) ? 0 : 1, this.setState("dragging"), i.setAttribute("data-ssui-state", "dragging"), c(u.x);
+      },
+      onMove: (u) => c(u.x),
+      onEnd: () => {
+        this.setState("idle"), i.setAttribute("data-ssui-state", "idle"), this.emit("finish", this.binding.read());
+      }
+    }));
+    const h = (u, d) => u.addEventListener("keydown", (p) => {
+      const f = I(p, this, this.binding.read()[d], !0) ?? I(p, this, this.binding.read()[d], !1);
+      f !== null && (p.preventDefault(), this.setEnd(d, this.binding.read()[d] + f, !0));
+    });
+    return h(this.loThumb, 0), h(this.hiThumb, 1), this.ro = new ResizeObserver(() => this.track.style.setProperty("--ssui-track-w", `${this.track.clientWidth}px`)), this.ro.observe(this.track), this.cleanups.push(() => this.ro?.disconnect()), i;
+  }
+  setEnd(t, e, s = !1) {
+    const [i, n] = this.binding.read();
+    this.active = t, this.setValue(t === 0 ? [e, n] : [i, e], s);
+  }
+  sanitize(t) {
+    let e = g(H(t[0], this.step, this.min), this.min, this.max), s = g(H(t[1], this.step, this.min), this.min, this.max);
+    return e > s && (this.active === 0 ? e = s : s = e), [e, s];
+  }
+  update(t) {
+    this.track.style.setProperty("--ssui-p0", g(J(t[0], this.min, this.max, 0, 1), 0, 1).toFixed(4)), this.track.style.setProperty("--ssui-p1", g(J(t[1], this.min, this.max, 0, 1), 0, 1).toFixed(4));
+    const e = (s, i) => {
+      s.setAttribute("aria-valuenow", String(i)), s.setAttribute("aria-valuetext", T(i, { precision: this.precision }) + (this.opts.unit ?? ""));
+    };
+    e(this.loThumb, t[0]), e(this.hiThumb, t[1]), this.loThumb.setAttribute("aria-valuemax", String(t[1])), this.hiThumb.setAttribute("aria-valuemin", String(t[0])), this.readouts.forEach((s) => s.refresh());
+  }
+  /** the Number's edit() targets the hi readout */
+  edit() {
+    this.readouts[1]?.edit();
+  }
+}
+const Dt = { sm: 40, md: 56, lg: 72 }, dt = "http://www.w3.org/2000/svg";
+let ct = !1;
+class Tt extends A {
   constructor(t, e = {}) {
     super(t, e, "knob");
   }
   render() {
     const t = this.opts;
-    (!isFinite(this.min) || !isFinite(this.max)) && (dt || (console.warn("[ssui] Knob needs min/max; defaulting to 0..100"), dt = !0), isFinite(this.min) || (this.min = 0), isFinite(this.max) || (this.max = 100)), this.sweep = t.sweep ?? 270, this.ticks = [], this.kStart = 0, this.prevAngle = 0, this.dragAngle = 0;
+    (!isFinite(this.min) || !isFinite(this.max)) && (ct || (console.warn("[ssui] Knob needs min/max; defaulting to 0..100"), ct = !0), isFinite(this.min) || (this.min = 0), isFinite(this.max) || (this.max = 100)), this.sweep = t.sweep ?? 270, this.ticks = [], this.kStart = 0, this.prevAngle = 0, this.dragAngle = 0;
     const e = Math.max(2, t.ticks ?? 15), s = N(this.binding.read());
-    s.read = () => this.binding.read(), s.write = (u) => this.setValue(u), this.readout = S.widget(s, { min: this.min, max: this.max, step: this.step, precision: this.precision, unit: this.opts.unit, label: this.opts.label, id: this.id + "-value" }), this.readout.on("finish", (u) => this.emit("finish", u)), this.readout.on("state", (u) => this.setState(u === "editing" || u === "dragging" ? u : "idle")), this.cleanups.push(() => this.readout.dispose());
-    const i = document.createElementNS(ut, "svg");
+    s.read = () => this.binding.read(), s.write = (u) => this.setValue(u), this.readout = A.widget(s, { min: this.min, max: this.max, step: this.step, precision: this.precision, unit: this.opts.unit, label: this.opts.label, id: this.id + "-value" }), this.readout.on("finish", (u) => this.emit("finish", u)), this.readout.on("state", (u) => this.setState(u === "editing" || u === "dragging" ? u : "idle")), this.cleanups.push(() => this.readout.dispose());
+    const i = document.createElementNS(dt, "svg");
     i.setAttribute("class", "ssui-knob__ticks"), i.setAttribute("viewBox", "0 0 100 100"), i.setAttribute("aria-hidden", "true");
     const n = 46;
     for (let u = 0; u < e; u++) {
-      const d = -this.sweep / 2 + u / (e - 1) * this.sweep, p = (d - 90) * Math.PI / 180, f = document.createElementNS(ut, "circle");
+      const d = -this.sweep / 2 + u / (e - 1) * this.sweep, p = (d - 90) * Math.PI / 180, f = document.createElementNS(dt, "circle");
       f.setAttribute("cx", (50 + n * Math.cos(p)).toFixed(2)), f.setAttribute("cy", (50 + n * Math.sin(p)).toFixed(2)), f.setAttribute("r", "1.6"), f.setAttribute("class", "ssui-knob__tick"), i.append(f), this.ticks.push({ el: f, angle: d });
     }
     const r = o("div", { class: "ssui-knob__face" }, [o("div", { class: "ssui-knob__indicator" })]);
@@ -479,24 +567,24 @@ class Ot extends S {
       "aria-labelledby": `${this.inputId}-label`,
       "aria-valuemin": String(this.min),
       "aria-valuemax": String(this.max)
-    }, [i, r]), this.kbox = o("div", { class: `ssui-knob ssui-knob--${t.size ?? "md"}${t.layout === "stack" ? " ssui-knob--stack" : ""}`, "data-ssui-state": "idle" }, [this.dial, this.readout.widget]), this.kbox.style.setProperty("--ssui-knob-size", `${Lt[t.size ?? "md"]}px`), t.layout === "stack" && (this.el.classList.add("ssui-row--stack", "ssui-row--knob-stack"), this.el.append(this.labelEl));
-    const h = this.max - this.min, c = t.mode === "rotary", l = (u, d) => {
+    }, [i, r]), this.kbox = o("div", { class: `ssui-knob ssui-knob--${t.size ?? "md"}${t.layout === "stack" ? " ssui-knob--stack" : ""}`, "data-ssui-state": "idle" }, [this.dial, this.readout.widget]), this.kbox.style.setProperty("--ssui-knob-size", `${Dt[t.size ?? "md"]}px`), t.layout === "stack" && (this.el.classList.add("ssui-row--stack", "ssui-row--knob-stack"), this.el.append(this.labelEl));
+    const l = this.max - this.min, c = t.mode === "rotary", h = (u, d) => {
       const p = this.dial.getBoundingClientRect();
       return Math.atan2(d - (p.top + p.height / 2), u - (p.left + p.width / 2)) * 180 / Math.PI + 90;
     };
-    return this.cleanups.push(D(this.dial, {
+    return this.cleanups.push(O(this.dial, {
       cursor: c ? "grabbing" : "ns-resize",
       immediate: c,
       onStart: (u) => {
-        this.kStart = this.binding.read(), this.dragAngle = this.valueToAngle(this.kStart), this.prevAngle = l(u.x, u.y), this.setState("dragging"), this.kbox.setAttribute("data-ssui-state", "dragging");
+        this.kStart = this.binding.read(), this.dragAngle = this.valueToAngle(this.kStart), this.prevAngle = h(u.x, u.y), this.setState("dragging"), this.kbox.setAttribute("data-ssui-state", "dragging");
       },
       onMove: (u) => {
         if (c) {
-          const d = l(u.x, u.y);
+          const d = h(u.x, u.y);
           let p = d - this.prevAngle;
-          p > 180 ? p -= 360 : p < -180 && (p += 360), this.prevAngle = d, this.dragAngle = m(this.dragAngle + p, -this.sweep / 2, this.sweep / 2), this.setValue(st(this.dragAngle, -this.sweep / 2, this.sweep / 2, this.min, this.max));
+          p > 180 ? p -= 360 : p < -180 && (p += 360), this.prevAngle = d, this.dragAngle = g(this.dragAngle + p, -this.sweep / 2, this.sweep / 2), this.setValue(J(this.dragAngle, -this.sweep / 2, this.sweep / 2, this.min, this.max));
         } else {
-          const d = (this.opts.scrubSpeed ?? h / 150) * L(u);
+          const d = (this.opts.scrubSpeed ?? l / 150) * L(u);
           this.setValue(this.kStart - u.dy * d);
         }
       },
@@ -504,21 +592,21 @@ class Ot extends S {
         this.setState("idle"), this.kbox.setAttribute("data-ssui-state", "idle"), this.emit("finish", this.binding.read());
       }
     })), this.dial.addEventListener("dblclick", () => this.setValue(this.initial, !0)), this.dial.addEventListener("keydown", (u) => {
-      const d = q(u, this, this.binding.read());
+      const d = I(u, this, this.binding.read());
       d !== null && (u.preventDefault(), this.setValue(this.binding.read() + d, !0));
     }), this.opts.wheel && this.dial.addEventListener("wheel", (u) => {
       u.preventDefault(), this.setValue(this.binding.read() - Math.sign(u.deltaY) * this.step * L(u), !0);
     }, { passive: !1 }), this.kbox;
   }
   valueToAngle(t) {
-    return st(m(t, this.min, this.max), this.min, this.max, -this.sweep / 2, this.sweep / 2);
+    return J(g(t, this.min, this.max), this.min, this.max, -this.sweep / 2, this.sweep / 2);
   }
   update(t) {
     const e = this.valueToAngle(t);
-    this.dial.style.setProperty("--ssui-knob-angle", `${e.toFixed(2)}deg`), this.dial.setAttribute("aria-valuenow", String(t)), this.dial.setAttribute("aria-valuetext", I(t, { precision: this.precision }) + (this.opts.unit ?? ""));
+    this.dial.style.setProperty("--ssui-knob-angle", `${e.toFixed(2)}deg`), this.dial.setAttribute("aria-valuenow", String(t)), this.dial.setAttribute("aria-valuetext", T(t, { precision: this.precision }) + (this.opts.unit ?? ""));
     const s = this.sweep / (this.ticks.length - 1) * 3;
     for (const i of this.ticks) {
-      const n = m(1 - Math.abs(i.angle - e) / s, 0, 1);
+      const n = g(1 - Math.abs(i.angle - e) / s, 0, 1);
       i.el.style.setProperty("--ssui-tick-w", (n * n).toFixed(3)), i.el.toggleAttribute("data-ssui-on", i.angle <= e + 0.01);
     }
     this.readout?.refresh();
@@ -530,22 +618,22 @@ class Ot extends S {
     return this.kbox;
   }
 }
-class it extends _ {
+class it extends x {
   constructor(t, e = {}) {
     super(t, e, "pad2d"), this.ro = null, this.size = 0, this.stacked = !0;
     const s = t.read();
     this.ax = it.axis(e.x, s.x, "x", !1), this.ay = it.axis(e.y, s.y, "y", !0), this.mount();
   }
   static axis(t = {}, e, s, i) {
-    const n = t.min ?? -1, r = t.max ?? 1, h = t.step ?? yt(e, n, r);
-    return { min: n, max: r, step: h, precision: Z(h), label: t.label ?? s, invert: t.invert ?? i };
+    const n = t.min ?? -1, r = t.max ?? 1, l = t.step ?? ht(e, n, r);
+    return { min: n, max: r, step: l, precision: G(l), label: t.label ?? s, invert: t.invert ?? i };
   }
   render() {
     const t = (i, n) => {
       const r = N(this.binding.read()[n]);
       r.read = () => this.binding.read()[n], r.write = (c) => this.setValue({ ...this.binding.read(), [n]: c });
-      const h = S.widget(r, { min: i.min, max: i.max, step: i.step, precision: i.precision, label: `${this.opts.label ?? this.id} ${i.label}`, id: `${this.id}-${n}` });
-      return h.on("finish", () => this.emit("finish", this.binding.read())), h.on("state", (c) => this.setState(c === "editing" || c === "dragging" ? c : "idle")), this.cleanups.push(() => h.dispose()), h;
+      const l = A.widget(r, { min: i.min, max: i.max, step: i.step, precision: i.precision, label: `${this.opts.label ?? this.id} ${i.label}`, id: `${this.id}-${n}` });
+      return l.on("finish", () => this.emit("finish", this.binding.read())), l.on("state", (c) => this.setState(c === "editing" || c === "dragging" ? c : "idle")), this.cleanups.push(() => l.dispose()), l;
     };
     this.rx = t(this.ax, "x"), this.ry = t(this.ay, "y"), this.labelEl.append(o("span", { class: "ssui-pad2d__readouts" }, [
       o("span", { class: "ssui-pad2d__axis" }, [this.ax.label]),
@@ -567,10 +655,10 @@ class it extends _ {
     const e = o("div", { class: "ssui-pad2d", "data-ssui-state": "idle" }, [this.surface]);
     this.opts.size && e.style.setProperty("--ssui-pad-size", `${this.opts.size}px`);
     const s = (i, n) => {
-      const r = this.surface.getBoundingClientRect(), h = m((i - r.left) / r.width, 0, 1), c = m((n - r.top) / r.height, 0, 1), l = this.ax.min + (this.ax.invert ? 1 - h : h) * (this.ax.max - this.ax.min), u = this.ay.min + (this.ay.invert ? 1 - c : c) * (this.ay.max - this.ay.min);
-      this.setValue({ x: l, y: u });
+      const r = this.surface.getBoundingClientRect(), l = g((i - r.left) / r.width, 0, 1), c = g((n - r.top) / r.height, 0, 1), h = this.ax.min + (this.ax.invert ? 1 - l : l) * (this.ax.max - this.ax.min), u = this.ay.min + (this.ay.invert ? 1 - c : c) * (this.ay.max - this.ay.min);
+      this.setValue({ x: h, y: u });
     };
-    return this.cleanups.push(D(this.surface, {
+    return this.cleanups.push(O(this.surface, {
       immediate: !0,
       cursor: "crosshair",
       onStart: (i) => {
@@ -581,23 +669,23 @@ class it extends _ {
         this.setState("idle"), e.setAttribute("data-ssui-state", "idle"), this.emit("finish", this.binding.read());
       }
     })), this.surface.addEventListener("dblclick", () => this.setValue(this.clone(this.initial), !0)), this.surface.addEventListener("keydown", (i) => {
-      const n = this.binding.read(), r = q(i, this.ax, n.x, !0), h = r === null ? q(i, this.ay, n.y, !1) : null;
-      r === null && h === null || (i.preventDefault(), this.setValue({ x: n.x + (r ?? 0), y: n.y + (h ?? 0) }, !0));
+      const n = this.binding.read(), r = I(i, this.ax, n.x, !0), l = r === null ? I(i, this.ay, n.y, !1) : null;
+      r === null && l === null || (i.preventDefault(), this.setValue({ x: n.x + (r ?? 0), y: n.y + (l ?? 0) }, !0));
     }), this.ro = new ResizeObserver(() => {
       this.size = this.surface.clientWidth, this.surface.style.setProperty("--ssui-pad-w", `${this.size}px`), this.draw(this.binding.read());
     }), this.ro.observe(this.surface), this.cleanups.push(() => this.ro?.disconnect()), e;
   }
   sanitize(t) {
-    const e = m(W(t.x, this.ax.step, this.ax.min), this.ax.min, this.ax.max), s = m(W(t.y, this.ay.step, this.ay.min), this.ay.min, this.ay.max);
+    const e = g(H(t.x, this.ax.step, this.ax.min), this.ax.min, this.ax.max), s = g(H(t.y, this.ay.step, this.ay.min), this.ay.min, this.ay.max);
     return { x: isFinite(e) ? e : this.binding.read().x, y: isFinite(s) ? s : this.binding.read().y };
   }
   norm(t) {
     let e = (t.x - this.ax.min) / (this.ax.max - this.ax.min || 1), s = (t.y - this.ay.min) / (this.ay.max - this.ay.min || 1);
-    return this.ax.invert && (e = 1 - e), this.ay.invert && (s = 1 - s), { x: m(e, 0, 1), y: m(s, 0, 1) };
+    return this.ax.invert && (e = 1 - e), this.ay.invert && (s = 1 - s), { x: g(e, 0, 1), y: g(s, 0, 1) };
   }
   update(t) {
     const e = this.norm(t);
-    this.surface.style.setProperty("--ssui-pad-x", e.x.toFixed(4)), this.surface.style.setProperty("--ssui-pad-y", e.y.toFixed(4)), this.surface.setAttribute("aria-valuetext", `x ${I(t.x, { precision: this.ax.precision })} · y ${I(t.y, { precision: this.ay.precision })}`), this.rx?.refresh(), this.ry?.refresh(), this.draw(t);
+    this.surface.style.setProperty("--ssui-pad-x", e.x.toFixed(4)), this.surface.style.setProperty("--ssui-pad-y", e.y.toFixed(4)), this.surface.setAttribute("aria-valuetext", `x ${T(t.x, { precision: this.ax.precision })} · y ${T(t.y, { precision: this.ay.precision })}`), this.rx?.refresh(), this.ry?.refresh(), this.draw(t);
   }
   onThemeChange() {
     this.draw(this.binding.read());
@@ -609,15 +697,15 @@ class it extends _ {
     this.canvas.width !== e * s && (this.canvas.width = e * s, this.canvas.height = e * s);
     const i = this.canvas.getContext("2d");
     i.setTransform(s, 0, 0, s, 0, 0), i.clearRect(0, 0, e, e);
-    const n = this.el.closest(".ssui-panel"), r = n ? getComputedStyle(n) : null, h = r?.getPropertyValue("--ssui-color-canvas-grid").trim() || "#ccc", c = r?.getPropertyValue("--ssui-color-fill").trim() || "#000", l = this.norm(t), u = l.x * e, d = l.y * e, p = Math.max(2, this.opts.grid ?? 8), f = e / p, g = e * 0.45, b = Math.max(1, e / 128);
+    const n = this.el.closest(".ssui-panel"), r = n ? getComputedStyle(n) : null, l = r?.getPropertyValue("--ssui-color-canvas-grid").trim() || "#ccc", c = r?.getPropertyValue("--ssui-color-fill").trim() || "#000", h = this.norm(t), u = h.x * e, d = h.y * e, p = Math.max(2, this.opts.grid ?? 8), f = e / p, m = e * 0.45, b = Math.max(1, e / 128);
     for (let v = 0; v < p; v++)
-      for (let x = 0; x < p; x++) {
-        const A = (v + 0.5) * f, y = (x + 0.5) * f, w = Math.hypot(A - u, y - d), C = w < g ? 1 - w / g : 0, T = b * (1 + C * 1.5);
-        i.beginPath(), i.arc(A, y, T, 0, Math.PI * 2), i.fillStyle = h, i.fill(), C > 0 && (i.globalAlpha = C * C, i.fillStyle = c, i.fill(), i.globalAlpha = 1);
+      for (let w = 0; w < p; w++) {
+        const k = (v + 0.5) * f, y = (w + 0.5) * f, _ = Math.hypot(k - u, y - d), C = _ < m ? 1 - _ / m : 0, V = b * (1 + C * 1.5);
+        i.beginPath(), i.arc(k, y, V, 0, Math.PI * 2), i.fillStyle = l, i.fill(), C > 0 && (i.globalAlpha = C * C, i.fillStyle = c, i.fill(), i.globalAlpha = 1);
       }
   }
 }
-class Pt extends _ {
+class Vt extends x {
   constructor(t, e = {}) {
     super(t, e, "toggle"), this.pulseTimer = 0, this.mount();
   }
@@ -637,7 +725,7 @@ class Pt extends _ {
     this.btn.setAttribute("aria-checked", String(!!t));
   }
 }
-class lt extends _ {
+class lt extends x {
   constructor(t, e) {
     super(t, e, "select"), this.optionEls = [], this.active = -1, this.canvas = null, this.time = 0, this.stopAnim = null, this.typeahead = "", this.typeTimer = 0, this.items = lt.normalize(e.options), e.preview && (this.stacked = !0), this.mount();
   }
@@ -663,7 +751,7 @@ class lt extends _ {
       const s = o("div", { class: "ssui-select__preview" }, [this.canvas]);
       this.labelEl.append(this.box);
       const i = new ResizeObserver(() => this.draw());
-      return i.observe(s), this.cleanups.push(() => i.disconnect()), this.opts.previewAnimate && !bt() && (this.stopAnim = B.animate({ flush() {
+      return i.observe(s), this.cleanups.push(() => i.disconnect()), this.opts.previewAnimate && !vt() && (this.stopAnim = B.animate({ flush() {
       }, poll() {
       }, tick: (n) => {
         this.time += n / 1e3, this.draw();
@@ -734,7 +822,7 @@ class lt extends _ {
     const e = this.items.findIndex((r) => r.value === t), s = this.items[e];
     this.currentEl.textContent = s ? s.label : String(t);
     const i = this.indexEl.firstElementChild, n = rt(Math.max(0, e) + 1);
-    i.textContent !== n && (i.textContent = n, i.removeAttribute("data-ssui-flip"), i.offsetWidth, i.setAttribute("data-ssui-flip", "")), this.optionEls.forEach((r, h) => r.setAttribute("aria-selected", String(h === e))), this.draw();
+    i.textContent !== n && (i.textContent = n, i.removeAttribute("data-ssui-flip"), i.offsetWidth, i.setAttribute("data-ssui-flip", "")), this.optionEls.forEach((r, l) => r.setAttribute("aria-selected", String(l === e))), this.draw();
   }
   onThemeChange() {
     this.draw();
@@ -747,8 +835,8 @@ class lt extends _ {
     (this.canvas.width !== e * i || this.canvas.height !== s * i) && (this.canvas.width = e * i, this.canvas.height = s * i);
     const n = this.canvas.getContext("2d");
     n.setTransform(i, 0, 0, i, 0, 0), n.clearRect(0, 0, e, s);
-    const r = this.el.closest(".ssui-panel"), h = (c) => r ? getComputedStyle(r).getPropertyValue(`--ssui-${c}`).trim() : "";
-    this.opts.preview(n, this.binding.read(), e, s, this.time, h);
+    const r = this.el.closest(".ssui-panel"), l = (c) => r ? getComputedStyle(r).getPropertyValue(`--ssui-${c}`).trim() : "";
+    this.opts.preview(n, this.binding.read(), e, s, this.time, l);
   }
 }
 function xt(a, t, e) {
@@ -759,30 +847,30 @@ function xt(a, t, e) {
 function wt(a, t, e) {
   a = (a % 360 + 360) % 360;
   const s = e * t, i = s * (1 - Math.abs(a / 60 % 2 - 1)), n = e - s;
-  let r = 0, h = 0, c = 0;
-  return a < 60 ? [r, h, c] = [s, i, 0] : a < 120 ? [r, h, c] = [i, s, 0] : a < 180 ? [r, h, c] = [0, s, i] : a < 240 ? [r, h, c] = [0, i, s] : a < 300 ? [r, h, c] = [i, 0, s] : [r, h, c] = [s, 0, i], { r: r + n, g: h + n, b: c + n };
+  let r = 0, l = 0, c = 0;
+  return a < 60 ? [r, l, c] = [s, i, 0] : a < 120 ? [r, l, c] = [i, s, 0] : a < 180 ? [r, l, c] = [0, s, i] : a < 240 ? [r, l, c] = [0, i, s] : a < 300 ? [r, l, c] = [i, 0, s] : [r, l, c] = [s, 0, i], { r: r + n, g: l + n, b: c + n };
 }
-function Dt(a, t, e) {
-  const { h: s, s: i, v: n } = xt(a, t, e), r = n * (1 - i / 2), h = r === 0 || r === 1 ? 0 : (n - r) / Math.min(r, 1 - r);
-  return { h: s, s: h, l: r };
+function Rt(a, t, e) {
+  const { h: s, s: i, v: n } = xt(a, t, e), r = n * (1 - i / 2), l = r === 0 || r === 1 ? 0 : (n - r) / Math.min(r, 1 - r);
+  return { h: s, s: l, l: r };
 }
-function Tt(a, t, e) {
+function It(a, t, e) {
   const s = e + t * Math.min(e, 1 - e), i = s === 0 ? 0 : 2 * (1 - e / s);
   return wt(a, i, s);
 }
-const O = (a) => Math.min(1, Math.max(0, a));
-function j(a, t) {
+const P = (a) => Math.min(1, Math.max(0, a));
+function W(a, t) {
   const e = a.trim();
   if (e === "none") return 0;
   if (e.endsWith("%")) return parseFloat(e) / 100;
   const s = parseFloat(e);
   return t === 1 ? s : s / t;
 }
-function Vt(a) {
+function Ft(a) {
   const t = a.trim();
   return t.endsWith("deg") ? parseFloat(t) : t.endsWith("rad") ? parseFloat(t) * 180 / Math.PI : t.endsWith("turn") ? parseFloat(t) * 360 : t.endsWith("grad") ? parseFloat(t) * 0.9 : parseFloat(t);
 }
-function It(a) {
+function zt(a) {
   let t = null, e = a;
   if (a.includes("/")) {
     const [i, n] = a.split("/");
@@ -791,7 +879,7 @@ function It(a) {
   const s = e.split(/[\s,]+/).filter(Boolean);
   return s.length === 4 && t === null && (t = s.pop()), { c: s, a: t };
 }
-function G(a) {
+function Z(a) {
   if (typeof a == "number") {
     if (!isFinite(a)) return null;
     const u = Math.max(0, Math.min(16777215, Math.round(a)));
@@ -800,7 +888,7 @@ function G(a) {
   if (typeof a == "object" && a !== null) {
     if (typeof a.r != "number" || typeof a.g != "number" || typeof a.b != "number") return null;
     const d = Math.max(a.r, a.g, a.b) > 1 ? 255 : 1;
-    return { r: O(a.r / d), g: O(a.g / d), b: O(a.b / d), a: a.a === void 0 ? 1 : O(a.a) };
+    return { r: P(a.r / d), g: P(a.g / d), b: P(a.b / d), a: a.a === void 0 ? 1 : P(a.a) };
   }
   if (typeof a != "string") return null;
   const t = a.trim().toLowerCase(), e = t.match(/^#?([0-9a-f]{3,8})$/);
@@ -812,55 +900,55 @@ function G(a) {
   }
   const s = t.match(/^(rgba?|hsla?)\((.*)\)$/);
   if (!s) return null;
-  const { c: i, a: n } = It(s[2]);
+  const { c: i, a: n } = zt(s[2]);
   if (i.length !== 3) return null;
-  const r = n === null ? 1 : O(j(n, 1));
+  const r = n === null ? 1 : P(W(n, 1));
   if (s[1].startsWith("rgb"))
-    return { r: O(j(i[0], 255)), g: O(j(i[1], 255)), b: O(j(i[2], 255)), a: r };
-  const { r: h, g: c, b: l } = Tt(Vt(i[0]), O(j(i[1], 100)), O(j(i[2], 100)));
-  return { r: h, g: c, b: l, a: r };
+    return { r: P(W(i[0], 255)), g: P(W(i[1], 255)), b: P(W(i[2], 255)), a: r };
+  const { r: l, g: c, b: h } = It(Ft(i[0]), P(W(i[1], 100)), P(W(i[2], 100)));
+  return { r: l, g: c, b: h, a: r };
 }
-function Rt(a) {
-  return G(a) ?? { r: 0, g: 0, b: 0, a: 1 };
+function Bt(a) {
+  return Z(a) ?? { r: 0, g: 0, b: 0, a: 1 };
 }
-const P = (a) => Math.round(Math.min(1, Math.max(0, a)) * 255), Q = (a) => P(a).toString(16).padStart(2, "0"), tt = (a) => Math.round(a * 10) / 10;
+const D = (a) => Math.round(Math.min(1, Math.max(0, a)) * 255), tt = (a) => D(a).toString(16).padStart(2, "0"), et = (a) => Math.round(a * 10) / 10;
 function _t(a, t, e = !1) {
   const s = a.a === void 0 ? 1 : a.a;
   switch (t) {
     case "hex":
-      return `#${Q(a.r)}${Q(a.g)}${Q(a.b)}${e ? Q(s) : ""}`;
+      return `#${tt(a.r)}${tt(a.g)}${tt(a.b)}${e ? tt(s) : ""}`;
     case "rgb":
-      return e ? `rgb(${P(a.r)} ${P(a.g)} ${P(a.b)} / ${tt(s * 100)}%)` : `rgb(${P(a.r)} ${P(a.g)} ${P(a.b)})`;
+      return e ? `rgb(${D(a.r)} ${D(a.g)} ${D(a.b)} / ${et(s * 100)}%)` : `rgb(${D(a.r)} ${D(a.g)} ${D(a.b)})`;
     case "hsl": {
-      const { h: i, s: n, l: r } = Dt(a.r, a.g, a.b), h = `${Math.round(i)} ${tt(n * 100)}% ${tt(r * 100)}%`;
-      return e ? `hsl(${h} / ${tt(s * 100)}%)` : `hsl(${h})`;
+      const { h: i, s: n, l: r } = Rt(a.r, a.g, a.b), l = `${Math.round(i)} ${et(n * 100)}% ${et(r * 100)}%`;
+      return e ? `hsl(${l} / ${et(s * 100)}%)` : `hsl(${l})`;
     }
     case "number":
-      return P(a.r) << 16 | P(a.g) << 8 | P(a.b);
+      return D(a.r) << 16 | D(a.g) << 8 | D(a.b);
     case "object":
       return e ? { r: a.r, g: a.g, b: a.b, a: s } : { r: a.r, g: a.g, b: a.b };
   }
 }
-function Ft(a) {
+function Ht(a) {
   if (typeof a == "number") return "number";
   if (typeof a == "object" && a !== null) return "object";
   const t = String(a).trim().toLowerCase();
   return t.startsWith("rgb") ? "rgb" : t.startsWith("hsl") ? "hsl" : "hex";
 }
-function Bt(a) {
+function Nt(a) {
   if (typeof a == "number") return !1;
   if (typeof a == "object" && a !== null) return typeof a.a == "number";
   const t = String(a).trim();
   return t.startsWith("#") ? t.length === 5 || t.length === 9 : /\/|rgba|hsla|^(rgb|hsl)\(\s*[^,]+,[^,]+,[^,]+,/.test(t);
 }
-function zt(a, t) {
+function qt(a, t) {
   return _t(a, "hex", t);
 }
-class Ht extends _ {
+class jt extends x {
   constructor(t, e = {}) {
     super(t, e, "color"), this.hsv = { h: 0, s: 0, v: 0 }, this.a = 1, this.mode = "hsv", this.alphaEl = null, this.hsvWidgets = [], this.rgbWidgets = [], this.dirtySinceOpen = !1, this.closeTimer = 0;
     const s = t.read();
-    this.format = e.format ?? Ft(s), this.alpha = e.alpha ?? (this.format !== "number" && Bt(s)), this.readInto(Rt(s), !0), this.mount();
+    this.format = e.format ?? Ht(s), this.alpha = e.alpha ?? (this.format !== "number" && Nt(s)), this.readInto(Bt(s), !0), this.mount();
   }
   // ---- value plumbing -----------------------------------------------------
   readInto(t, e = !1) {
@@ -874,7 +962,7 @@ class Ht extends _ {
     return _t(t, this.format, this.alpha);
   }
   sanitize(t) {
-    const e = G(t);
+    const e = Z(t);
     return e ? this.out(e) : this.binding.read();
   }
   /** object format: mutate the consumer's object in place (references stay valid) */
@@ -895,21 +983,21 @@ class Ht extends _ {
     this.dirtySinceOpen = !0, this.setValue(this.out(), t);
   }
   setHSV(t, e = !1) {
-    t.h !== void 0 && (this.hsv.h = (t.h % 360 + 360) % 360), t.s !== void 0 && (this.hsv.s = m(t.s, 0, 1)), t.v !== void 0 && (this.hsv.v = m(t.v, 0, 1)), t.a !== void 0 && (this.a = m(t.a, 0, 1)), this.apply(e), this.paint();
+    t.h !== void 0 && (this.hsv.h = (t.h % 360 + 360) % 360), t.s !== void 0 && (this.hsv.s = g(t.s, 0, 1)), t.v !== void 0 && (this.hsv.v = g(t.v, 0, 1)), t.a !== void 0 && (this.a = g(t.a, 0, 1)), this.apply(e), this.paint();
   }
   setRGBChannel(t, e, s = !1) {
     const i = this.rgba();
-    i[t] = m(e, 0, 255) / 255, this.readInto(i), this.apply(s), this.paint();
+    i[t] = g(e, 0, 255) / 255, this.readInto(i), this.apply(s), this.paint();
   }
   // ---- DOM ----------------------------------------------------------------
   render() {
     this.swatch = o("button", { class: "ssui-color__swatch", type: "button", id: this.inputId, "aria-haspopup": "dialog", "aria-expanded": "false", "aria-labelledby": `${this.inputId}-label`, title: "Pick color" }), this.hex = o("input", { class: "ssui-color__hex", type: "text", name: this.id, spellcheck: "false", autocomplete: "off", "aria-label": `${this.opts.label ?? this.id} hex`, size: this.alpha ? 9 : 7 }), this.sv = o("div", { class: "ssui-color__sv", role: "slider", tabindex: 0, "aria-label": "Saturation and value" }, [o("span", { class: "ssui-color__thumb" })]), this.hue = o("div", { class: "ssui-color__hue", role: "slider", tabindex: 0, "aria-label": "Hue", "aria-valuemin": 0, "aria-valuemax": 360 }, [o("span", { class: "ssui-color__thumb" })]), this.alpha && (this.alphaEl = o("div", { class: "ssui-color__alpha", role: "slider", tabindex: 0, "aria-label": "Alpha", "aria-valuemin": 0, "aria-valuemax": 100 }, [o("span", { class: "ssui-color__thumb" })]));
     const t = (s, i, n, r) => {
-      const h = N(i());
-      h.read = i, h.write = (l) => n(l);
-      const c = S.widget(h, { min: 0, max: r, step: 1, precision: 0, label: s, id: `${this.id}-${s.toLowerCase()}`, dim: !0 });
-      return c.on("finish", () => this.apply(!0)), c.on("state", (l) => {
-        l === "dragging" ? this.dragging(!0) : l === "idle" && this.dragging(!1);
+      const l = N(i());
+      l.read = i, l.write = (h) => n(h);
+      const c = A.widget(l, { min: 0, max: r, step: 1, precision: 0, label: s, id: `${this.id}-${s.toLowerCase()}`, dim: !0 });
+      return c.on("finish", () => this.apply(!0)), c.on("state", (h) => {
+        h === "dragging" ? this.dragging(!0) : h === "idle" && this.dragging(!1);
       }), this.cleanups.push(() => c.dispose()), c;
     };
     this.hsvWidgets = [
@@ -932,7 +1020,7 @@ class Ht extends _ {
   }
   wireHex() {
     this.hex.addEventListener("input", () => {
-      const t = G(this.hex.value.trim());
+      const t = Z(this.hex.value.trim());
       this.hex.toggleAttribute("data-ssui-invalid", !t), t && (this.readInto(t), this.setValue(this.out(t)), this.paint(!1));
     }), this.hex.addEventListener("focus", () => this.setState("editing")), this.hex.addEventListener("blur", () => {
       this.hex.removeAttribute("data-ssui-invalid"), this.setState("idle"), this.paint();
@@ -940,7 +1028,7 @@ class Ht extends _ {
       const e = t;
       if (e.stopPropagation(), e.key === "Enter") {
         e.preventDefault();
-        const s = G(this.hex.value.trim());
+        const s = Z(this.hex.value.trim());
         s && (this.readInto(s), this.setValue(this.out(s), !0)), this.hex.blur();
       } else e.key === "Escape" && (e.preventDefault(), this.paint(), this.hex.blur());
     });
@@ -952,10 +1040,10 @@ class Ht extends _ {
   wireSliders() {
     const t = (e, s) => {
       const i = (n, r) => {
-        const h = e.getBoundingClientRect();
-        s(m((n - h.left) / h.width, 0, 1), m((r - h.top) / h.height, 0, 1));
+        const l = e.getBoundingClientRect();
+        s(g((n - l.left) / l.width, 0, 1), g((r - l.top) / l.height, 0, 1));
       };
-      this.cleanups.push(D(e, {
+      this.cleanups.push(O(e, {
         immediate: !0,
         cursor: "crosshair",
         onStart: (n) => {
@@ -994,9 +1082,9 @@ class Ht extends _ {
         return;
       }
       if (n.key !== "Tab") return;
-      const r = [...this.pop.querySelectorAll('[tabindex="0"],button,input')].filter((l) => !l.hidden && l.offsetParent !== null);
+      const r = [...this.pop.querySelectorAll('[tabindex="0"],button,input')].filter((h) => !h.hidden && h.offsetParent !== null);
       if (!r.length) return;
-      const h = r.indexOf(document.activeElement), c = n.shiftKey ? h <= 0 ? r[r.length - 1] : r[h - 1] : h === -1 || h >= r.length - 1 ? r[0] : r[h + 1];
+      const l = r.indexOf(document.activeElement), c = n.shiftKey ? l <= 0 ? r[r.length - 1] : r[l - 1] : l === -1 || l >= r.length - 1 ? r[0] : r[l + 1];
       n.preventDefault(), c.focus();
     }), this.open = /* @__PURE__ */ ((n) => () => {
       i || (i = s(), i?.addEventListener("scroll", e, { passive: !0 }), window.addEventListener("resize", e), this.cleanups.push(() => window.removeEventListener("resize", e))), n();
@@ -1018,22 +1106,22 @@ class Ht extends _ {
   /** position: fixed popover so it escapes the panel's overflow clip; clip origin = swatch center */
   place() {
     const t = this.swatch.getBoundingClientRect(), e = this.el.getBoundingClientRect(), s = this.pop.offsetWidth || 208, i = this.pop.offsetHeight || 220, n = 6;
-    let r = m(e.right - s, 8, innerWidth - s - 8), h = t.bottom + n;
-    h + i > innerHeight - 8 && (h = Math.max(8, t.top - n - i)), this.pop.style.left = `${Math.round(r)}px`, this.pop.style.top = `${Math.round(h)}px`;
-    const c = t.left + t.width / 2 - r, l = t.top + t.height / 2 - h;
-    this.pop.style.setProperty("--ssui-cx", `${Math.round(c)}px`), this.pop.style.setProperty("--ssui-cy", `${Math.round(l)}px`);
+    let r = g(e.right - s, 8, innerWidth - s - 8), l = t.bottom + n;
+    l + i > innerHeight - 8 && (l = Math.max(8, t.top - n - i)), this.pop.style.left = `${Math.round(r)}px`, this.pop.style.top = `${Math.round(l)}px`;
+    const c = t.left + t.width / 2 - r, h = t.top + t.height / 2 - l;
+    this.pop.style.setProperty("--ssui-cx", `${Math.round(c)}px`), this.pop.style.setProperty("--ssui-cy", `${Math.round(h)}px`);
   }
   // ---- paint --------------------------------------------------------------
   update(t) {
-    const e = G(t);
+    const e = Z(t);
     e && this._state !== "dragging" && this.readInto(e), this.paint();
   }
   paint(t = !0) {
     const e = this.rgba(), s = `rgb(${Math.round(e.r * 255)} ${Math.round(e.g * 255)} ${Math.round(e.b * 255)} / ${this.a})`, i = `rgb(${Math.round(e.r * 255)} ${Math.round(e.g * 255)} ${Math.round(e.b * 255)})`;
-    this.box.style.setProperty("--ssui-color-current", s), this.box.style.setProperty("--ssui-color-opaque", i), this.box.style.setProperty("--ssui-h", `${this.hsv.h.toFixed(1)}`), this.box.style.setProperty("--ssui-sx", `${(this.hsv.s * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-sy", `${((1 - this.hsv.v) * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-hx", `${(this.hsv.h / 360 * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-ax", `${(this.a * 100).toFixed(2)}%`), t && document.activeElement !== this.hex && (this.hex.value = zt(e, this.alpha)), this.sv.setAttribute("aria-valuetext", `s ${Math.round(this.hsv.s * 100)}% v ${Math.round(this.hsv.v * 100)}%`), this.hue.setAttribute("aria-valuenow", String(Math.round(this.hsv.h))), this.hue.setAttribute("aria-valuetext", `${Math.round(this.hsv.h)}°`), this.alphaEl?.setAttribute("aria-valuenow", String(Math.round(this.a * 100))), this.alphaEl?.setAttribute("aria-valuetext", `${Math.round(this.a * 100)}%`), (this.mode === "hsv" ? this.hsvWidgets : this.rgbWidgets).forEach((n) => n.refresh());
+    this.box.style.setProperty("--ssui-color-current", s), this.box.style.setProperty("--ssui-color-opaque", i), this.box.style.setProperty("--ssui-h", `${this.hsv.h.toFixed(1)}`), this.box.style.setProperty("--ssui-sx", `${(this.hsv.s * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-sy", `${((1 - this.hsv.v) * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-hx", `${(this.hsv.h / 360 * 100).toFixed(2)}%`), this.box.style.setProperty("--ssui-ax", `${(this.a * 100).toFixed(2)}%`), t && document.activeElement !== this.hex && (this.hex.value = qt(e, this.alpha)), this.sv.setAttribute("aria-valuetext", `s ${Math.round(this.hsv.s * 100)}% v ${Math.round(this.hsv.v * 100)}%`), this.hue.setAttribute("aria-valuenow", String(Math.round(this.hsv.h))), this.hue.setAttribute("aria-valuetext", `${Math.round(this.hsv.h)}°`), this.alphaEl?.setAttribute("aria-valuenow", String(Math.round(this.a * 100))), this.alphaEl?.setAttribute("aria-valuetext", `${Math.round(this.a * 100)}%`), (this.mode === "hsv" ? this.hsvWidgets : this.rgbWidgets).forEach((n) => n.refresh());
   }
 }
-class Nt extends _ {
+class Jt extends x {
   constructor(t, e = {}) {
     super(t, e, "text"), e.multiline && (this.stacked = !0), this.mount();
   }
@@ -1053,9 +1141,9 @@ class Nt extends _ {
     this.input.value !== t && (this.input.value = t);
   }
 }
-class ct extends K {
+class pt extends U {
   constructor(t, e) {
-    super(), this.serializable = !1, this.buttons = [], this.id = t.length === 1 ? t[0].id ?? H(t[0].label) : H(e ?? t.map((n) => n.label).join("-"));
+    super(), this.serializable = !1, this.buttons = [], this.id = t.length === 1 ? t[0].id ?? j(t[0].label) : j(e ?? t.map((n) => n.label).join("-"));
     const s = o("div", { class: "ssui-button-group" });
     for (const n of t) {
       const r = o("button", { class: `ssui-button${n.variant && n.variant !== "default" ? ` ssui-button--${n.variant}` : ""}${n.icon && !n.label ? " ssui-button--icon" : ""}`, type: "button", title: n.title }, [
@@ -1063,7 +1151,7 @@ class ct extends K {
         n.label || null
       ]);
       r.addEventListener("click", () => {
-        n.onClick?.(), this.emit("click", n.id ?? H(n.label));
+        n.onClick?.(), this.emit("click", n.id ?? j(n.label));
       }), this.buttons.push(r), s.append(r);
     }
     const i = t.length > 1 && !e;
@@ -1085,84 +1173,84 @@ class ct extends K {
     this.el.remove(), this.emit("dispose"), this.clear();
   }
 }
-function pt(a, t, e, s) {
-  const i = (u, d) => 1 - 3 * d + 3 * u, n = (u, d) => 3 * d - 6 * u, r = (u) => 3 * u, h = (u, d, p) => ((i(d, p) * u + n(d, p)) * u + r(d)) * u, c = (u, d, p) => 3 * i(d, p) * u * u + 2 * n(d, p) * u + r(d);
+function ft(a, t, e, s) {
+  const i = (u, d) => 1 - 3 * d + 3 * u, n = (u, d) => 3 * d - 6 * u, r = (u) => 3 * u, l = (u, d, p) => ((i(d, p) * u + n(d, p)) * u + r(d)) * u, c = (u, d, p) => 3 * i(d, p) * u * u + 2 * n(d, p) * u + r(d);
   if (a === t && e === s) return (u) => u;
-  const l = (u) => {
+  const h = (u) => {
     let d = u;
-    for (let g = 0; g < 8; g++) {
+    for (let m = 0; m < 8; m++) {
       const b = c(d, a, e);
       if (Math.abs(b) < 1e-6) break;
-      const v = h(d, a, e) - u;
+      const v = l(d, a, e) - u;
       if (Math.abs(v) < 1e-7) return d;
       d -= v / b;
     }
     let p = 0, f = 1;
     d = u;
-    for (let g = 0; g < 32 && f - p > 1e-7; g++)
-      h(d, a, e) < u ? p = d : f = d, d = (p + f) / 2;
+    for (let m = 0; m < 32 && f - p > 1e-7; m++)
+      l(d, a, e) < u ? p = d : f = d, d = (p + f) / 2;
     return d;
   };
-  return (u) => u <= 0 ? 0 : u >= 1 ? 1 : h(l(u), t, s);
+  return (u) => u <= 0 ? 0 : u >= 1 ? 1 : l(h(u), t, s);
 }
-function ft(a) {
-  const t = [...a].sort((l, u) => l[0] - u[0]), e = t.length;
-  if (e === 0) return (l) => l;
+function gt(a) {
+  const t = [...a].sort((h, u) => h[0] - u[0]), e = t.length;
+  if (e === 0) return (h) => h;
   if (e === 1) return () => t[0][1];
-  const s = t.map((l) => l[0]), i = t.map((l) => l[1]), n = [], r = [], h = [];
-  for (let l = 0; l < e - 1; l++)
-    n.push(s[l + 1] - s[l] || 1e-9), r.push(i[l + 1] - i[l]), h.push(r[l] / n[l]);
+  const s = t.map((h) => h[0]), i = t.map((h) => h[1]), n = [], r = [], l = [];
+  for (let h = 0; h < e - 1; h++)
+    n.push(s[h + 1] - s[h] || 1e-9), r.push(i[h + 1] - i[h]), l.push(r[h] / n[h]);
   const c = new Array(e).fill(0);
-  c[0] = h[0], c[e - 1] = h[e - 2];
-  for (let l = 1; l < e - 1; l++)
-    if (h[l - 1] * h[l] <= 0) c[l] = 0;
+  c[0] = l[0], c[e - 1] = l[e - 2];
+  for (let h = 1; h < e - 1; h++)
+    if (l[h - 1] * l[h] <= 0) c[h] = 0;
     else {
-      const u = 2 * n[l] + n[l - 1], d = n[l] + 2 * n[l - 1];
-      c[l] = (u + d) / (u / h[l - 1] + d / h[l]);
+      const u = 2 * n[h] + n[h - 1], d = n[h] + 2 * n[h - 1];
+      c[h] = (u + d) / (u / l[h - 1] + d / l[h]);
     }
-  return (l) => {
-    if (l <= s[0]) return i[0];
-    if (l >= s[e - 1]) return i[e - 1];
+  return (h) => {
+    if (h <= s[0]) return i[0];
+    if (h >= s[e - 1]) return i[e - 1];
     let u = 0;
-    for (; u < e - 2 && l > s[u + 1]; ) u++;
-    const d = n[u], p = (l - s[u]) / d, f = 2 * p ** 3 - 3 * p ** 2 + 1, g = p ** 3 - 2 * p ** 2 + p, b = -2 * p ** 3 + 3 * p ** 2, v = p ** 3 - p ** 2;
-    return f * i[u] + g * d * c[u] + b * i[u + 1] + v * d * c[u + 1];
+    for (; u < e - 2 && h > s[u + 1]; ) u++;
+    const d = n[u], p = (h - s[u]) / d, f = 2 * p ** 3 - 3 * p ** 2 + 1, m = p ** 3 - 2 * p ** 2 + p, b = -2 * p ** 3 + 3 * p ** 2, v = p ** 3 - p ** 2;
+    return f * i[u] + m * d * c[u] + b * i[u + 1] + v * d * c[u + 1];
   };
 }
-const qt = (a) => {
+const Wt = (a) => {
   const t = a.toFixed(4).replace(/\.?0+$/, "");
   return t === "" || t === "-0" ? "0" : t;
 };
-function jt(a, t = 24) {
+function Kt(a, t = 24) {
   const e = [];
-  for (let s = 0; s <= t; s++) e.push(qt(a(s / t)));
+  for (let s = 0; s <= t; s++) e.push(Wt(a(s / t)));
   return `linear(${e.join(", ")})`;
 }
-const k = (a, t, e, s) => ({ type: "bezier", points: [a, t, e, s] }), Jt = {
+const S = (a, t, e, s) => ({ type: "bezier", points: [a, t, e, s] }), Ut = {
   type: "points",
   points: [[0, 0], [0.12, 0.34], [0.25, 0.7], [0.36, 0.94], [0.46, 1.05], [0.58, 1.045], [0.72, 1.02], [0.86, 1.005], [1, 1]]
-}, Wt = {
-  linear: k(0, 0, 1, 1),
-  ease: k(0.25, 0.1, 0.25, 1),
-  easeIn: k(0.42, 0, 1, 1),
-  easeOut: k(0, 0, 0.58, 1),
-  easeInOut: k(0.42, 0, 0.58, 1),
-  easeInQuad: k(0.11, 0, 0.5, 0),
-  easeInCubic: k(0.32, 0, 0.67, 0),
-  easeInExpo: k(0.7, 0, 0.84, 0),
-  easeOutQuad: k(0.5, 1, 0.89, 1),
-  easeOutCubic: k(0.33, 1, 0.68, 1),
-  easeOutExpo: k(0.16, 1, 0.3, 1),
-  easeInOutCubic: k(0.65, 0, 0.35, 1),
-  spring: Jt
-}, Kt = "http://www.w3.org/2000/svg", V = (a, t = {}) => {
-  const e = document.createElementNS(Kt, a);
+}, Gt = {
+  linear: S(0, 0, 1, 1),
+  ease: S(0.25, 0.1, 0.25, 1),
+  easeIn: S(0.42, 0, 1, 1),
+  easeOut: S(0, 0, 0.58, 1),
+  easeInOut: S(0.42, 0, 0.58, 1),
+  easeInQuad: S(0.11, 0, 0.5, 0),
+  easeInCubic: S(0.32, 0, 0.67, 0),
+  easeInExpo: S(0.7, 0, 0.84, 0),
+  easeOutQuad: S(0.5, 1, 0.89, 1),
+  easeOutCubic: S(0.33, 1, 0.68, 1),
+  easeOutExpo: S(0.16, 1, 0.3, 1),
+  easeInOutCubic: S(0.65, 0, 0.35, 1),
+  spring: Ut
+}, Xt = "http://www.w3.org/2000/svg", R = (a, t = {}) => {
+  const e = document.createElementNS(Xt, a);
   for (const [s, i] of Object.entries(t)) e.setAttribute(s, String(i));
   return e;
-}, et = (a) => (Math.round(a * 1e3) / 1e3).toString().replace(/^(-?)0\./, "$1."), R = 0.2, J = 0.03;
-class Ut extends _ {
+}, st = (a) => (Math.round(a * 1e3) / 1e3).toString().replace(/^(-?)0\./, "$1."), F = 0.2, K = 0.03;
+class Zt extends x {
   constructor(t, e = {}) {
-    super(t, e, "curve"), this.modeBtns = [], this.handles = [], this.fn = (s) => s, this.time = 0, this.stopAnim = null, this.copyTimer = 0, this.dragIndex = -1, this.focusIndex = -1, this.sx = (1 + 2 * J) / 288, this.sy = (1 + 2 * R) / 128, this.presets = e.presets ?? Wt, this.stacked = !0, this.mount();
+    super(t, e, "curve"), this.modeBtns = [], this.handles = [], this.fn = (s) => s, this.time = 0, this.stopAnim = null, this.copyTimer = 0, this.dragIndex = -1, this.focusIndex = -1, this.sx = (1 + 2 * K) / 288, this.sy = (1 + 2 * F) / 128, this.presets = e.presets ?? Gt, this.stacked = !0, this.mount();
   }
   // ---- public output --------------------------------------------------------
   toFunction() {
@@ -1170,7 +1258,7 @@ class Ut extends _ {
   }
   toCSS(t = 24) {
     const e = this.binding.read();
-    return e.type === "bezier" ? `cubic-bezier(${e.points.map(et).join(", ")})` : jt(this.fn, t);
+    return e.type === "bezier" ? `cubic-bezier(${e.points.map(st).join(", ")})` : Kt(this.fn, t);
   }
   toArray(t) {
     const e = new Float32Array(t);
@@ -1188,60 +1276,60 @@ class Ut extends _ {
     const t = this.opts.mode ?? "both", e = E.chevron();
     this.presetName = o("span", { class: "ssui-curve__preset-name" });
     const s = o("button", { class: "ssui-curve__preset", type: "button", "aria-haspopup": "listbox", "aria-expanded": "false", "aria-label": "Curve preset" }, [this.presetName, e]);
-    this.presetMenu = o("ul", { class: "ssui-select__menu", role: "listbox", tabindex: -1 }), Object.keys(this.presets).forEach((l, u) => {
-      const d = o("li", { class: "ssui-select__option", role: "option", "aria-selected": "false", "data-name": l }, [l]);
+    this.presetMenu = o("ul", { class: "ssui-select__menu", role: "listbox", tabindex: -1 }), Object.keys(this.presets).forEach((h, u) => {
+      const d = o("li", { class: "ssui-select__option", role: "option", "aria-selected": "false", "data-name": h }, [h]);
       d.style.setProperty("--i", String(u)), d.addEventListener("click", (p) => {
-        p.stopPropagation(), this.applyPreset(l), this.closeMenu(!0);
+        p.stopPropagation(), this.applyPreset(h), this.closeMenu(!0);
       }), this.presetMenu.append(d);
-    }), this.presetBox = o("div", { class: "ssui-select ssui-curve__menu-wrap" }, [s, this.presetMenu]), s.addEventListener("click", (l) => {
-      l.stopPropagation(), this.isMenuOpen ? this.closeMenu() : this.openMenu();
-    }), s.addEventListener("keydown", (l) => this.onMenuKey(l)), this.presetMenu.addEventListener("keydown", (l) => this.onMenuKey(l));
-    const i = (l) => {
-      this.presetBox.contains(l.target) || this.closeMenu();
+    }), this.presetBox = o("div", { class: "ssui-select ssui-curve__menu-wrap" }, [s, this.presetMenu]), s.addEventListener("click", (h) => {
+      h.stopPropagation(), this.isMenuOpen ? this.closeMenu() : this.openMenu();
+    }), s.addEventListener("keydown", (h) => this.onMenuKey(h)), this.presetMenu.addEventListener("keydown", (h) => this.onMenuKey(h));
+    const i = (h) => {
+      this.presetBox.contains(h.target) || this.closeMenu();
     };
     document.addEventListener("pointerdown", i, !0), this.cleanups.push(() => document.removeEventListener("pointerdown", i, !0));
     const n = o("div", { class: "ssui-curve__head" }, [this.presetBox]);
     if (t === "both") {
-      const l = o("div", { class: "ssui-curve__mode", role: "group", "aria-label": "Curve mode" });
+      const h = o("div", { class: "ssui-curve__mode", role: "group", "aria-label": "Curve mode" });
       for (const u of ["bezier", "points"]) {
         const d = o("button", { type: "button", "aria-pressed": "false", "data-mode": u }, [u]);
-        d.addEventListener("click", () => this.switchMode(u)), this.modeBtns.push(d), l.append(d);
+        d.addEventListener("click", () => this.switchMode(u)), this.modeBtns.push(d), h.append(d);
       }
-      n.append(l);
+      n.append(h);
     }
-    this.labelEl.append(n), this.svg = V("svg", { class: "ssui-curve__svg", viewBox: `${-J} ${-R} ${1 + 2 * J} ${1 + 2 * R}`, preserveAspectRatio: "none", "aria-hidden": "true" });
-    const r = V("path", { class: "ssui-curve__grid", d: "M.25 -1V2M.5 -1V2M.75 -1V2M-1 .25H2M-1 .5H2M-1 .75H2" }), h = V("path", { class: "ssui-curve__unit", d: "M-1 0H2M-1 1H2" });
-    this.arms = V("path", { class: "ssui-curve__arm" }), this.path = V("path", { class: "ssui-curve__path" }), this.ballX = V("line", { class: "ssui-curve__ball-x", y1: -R, y2: 1 + R }), this.ball = V("circle", { class: "ssui-curve__ball" }), this.handlesG = V("g"), this.svg.append(r, h, this.arms, this.path, this.ballX, this.ball, this.handlesG), this.svg.style.transform = "scaleY(-1)", this.stage = o("div", { class: "ssui-curve__stage", role: "application", "aria-label": `${this.opts.label ?? "curve"} editor`, tabindex: -1 }, [
+    this.labelEl.append(n), this.svg = R("svg", { class: "ssui-curve__svg", viewBox: `${-K} ${-F} ${1 + 2 * K} ${1 + 2 * F}`, preserveAspectRatio: "none", "aria-hidden": "true" });
+    const r = R("path", { class: "ssui-curve__grid", d: "M.25 -1V2M.5 -1V2M.75 -1V2M-1 .25H2M-1 .5H2M-1 .75H2" }), l = R("path", { class: "ssui-curve__unit", d: "M-1 0H2M-1 1H2" });
+    this.arms = R("path", { class: "ssui-curve__arm" }), this.path = R("path", { class: "ssui-curve__path" }), this.ballX = R("line", { class: "ssui-curve__ball-x", y1: -F, y2: 1 + F }), this.ball = R("circle", { class: "ssui-curve__ball" }), this.handlesG = R("g"), this.svg.append(r, l, this.arms, this.path, this.ballX, this.ball, this.handlesG), this.svg.style.transform = "scaleY(-1)", this.stage = o("div", { class: "ssui-curve__stage", role: "application", "aria-label": `${this.opts.label ?? "curve"} editor`, tabindex: -1 }, [
       this.svg,
       o("span", { class: "ssui-curve__hint", "aria-hidden": "true" }, ["dbl-click: add"])
     ]), this.opts.height && this.stage.style.setProperty("--ssui-curve-height", `${this.opts.height}px`);
     const c = new ResizeObserver(() => {
-      const l = this.stage.clientWidth, u = this.stage.clientHeight;
-      !l || !u || (this.sx = (1 + 2 * J) / l, this.sy = (1 + 2 * R) / u, this.fitHandleRadius(), this.drawBall());
+      const h = this.stage.clientWidth, u = this.stage.clientHeight;
+      !h || !u || (this.sx = (1 + 2 * K) / h, this.sy = (1 + 2 * F) / u, this.fitHandleRadius(), this.drawBall());
     });
-    return c.observe(this.stage), this.cleanups.push(() => c.disconnect()), this.stage.addEventListener("dblclick", (l) => this.onDblClick(l)), this.stage.addEventListener("keydown", (l) => this.onStageKey(l)), this.cssOut = o("output", { class: "ssui-curve__css", title: "Click to copy", "aria-label": "CSS easing, click to copy" }), this.cssOut.addEventListener("click", () => this.copyCSS()), bt() ? this.time = 0.5 : (this.stopAnim = B.animate({ flush() {
+    return c.observe(this.stage), this.cleanups.push(() => c.disconnect()), this.stage.addEventListener("dblclick", (h) => this.onDblClick(h)), this.stage.addEventListener("keydown", (h) => this.onStageKey(h)), this.cssOut = o("output", { class: "ssui-curve__css", title: "Click to copy", "aria-label": "CSS easing, click to copy" }), this.cssOut.addEventListener("click", () => this.copyCSS()), vt() ? this.time = 0.5 : (this.stopAnim = B.animate({ flush() {
     }, poll() {
-    }, tick: (l) => {
-      this.time = (this.time + l / 1400) % 1, this.drawBall();
+    }, tick: (h) => {
+      this.time = (this.time + h / 1400) % 1, this.drawBall();
     } }), this.cleanups.push(() => this.stopAnim?.())), o("div", { class: "ssui-curve" }, [this.stage, this.cssOut]);
   }
   // ---- value -> DOM ---------------------------------------------------------
   sanitize(t) {
-    const e = this.opts.overshoot !== !1, s = (n) => e ? m(n, -0.5, 1.5) : m(n, 0, 1);
+    const e = this.opts.overshoot !== !1, s = (n) => e ? g(n, -0.5, 1.5) : g(n, 0, 1);
     if (t.type === "bezier") {
-      const [n, r, h, c] = t.points;
-      return { type: "bezier", points: [m(n, 0, 1), s(r), m(h, 0, 1), s(c)] };
+      const [n, r, l, c] = t.points;
+      return { type: "bezier", points: [g(n, 0, 1), s(r), g(l, 0, 1), s(c)] };
     }
-    const i = t.points.map(([n, r]) => [m(n, 0, 1), s(r)]).sort((n, r) => n[0] - r[0]);
+    const i = t.points.map(([n, r]) => [g(n, 0, 1), s(r)]).sort((n, r) => n[0] - r[0]);
     return i.length < 2 ? { type: "points", points: [[0, 0], [1, 1]] } : (i[0][0] = 0, i[i.length - 1][0] = 1, { type: "points", points: i });
   }
   update(t) {
-    this.fn = t.type === "bezier" ? pt(...t.points) : ft(t.points);
+    this.fn = t.type === "bezier" ? ft(...t.points) : gt(t.points);
     const e = 64;
     let s = "";
     for (let r = 0; r <= e; r++) {
-      const h = r / e;
-      s += `${r ? "L" : "M"}${h.toFixed(4)} ${this.fn(h).toFixed(4)}`;
+      const l = r / e;
+      s += `${r ? "L" : "M"}${l.toFixed(4)} ${this.fn(l).toFixed(4)}`;
     }
     this.path.setAttribute("d", s);
     const i = t.type === "bezier" ? [[t.points[0], t.points[1]], [t.points[2], t.points[3]]] : t.points;
@@ -1252,10 +1340,10 @@ class Ut extends _ {
   syncHandles(t, e) {
     for (; this.handles.length > t.length; ) this.handles.pop().remove();
     for (; this.handles.length < t.length; ) {
-      const s = this.handles.length, i = V("circle", { class: "ssui-curve__handle", role: "slider", tabindex: 0, "aria-orientation": "vertical" });
+      const s = this.handles.length, i = R("circle", { class: "ssui-curve__handle", role: "slider", tabindex: 0, "aria-orientation": "vertical" });
       i.addEventListener("focus", () => {
         this.focusIndex = s;
-      }), i.addEventListener("keydown", (n) => this.onHandleKey(n, s)), this.cleanups.push(D(i, {
+      }), i.addEventListener("keydown", (n) => this.onHandleKey(n, s)), this.cleanups.push(O(i, {
         immediate: !0,
         cursor: "grabbing",
         onStart: () => {
@@ -1270,8 +1358,8 @@ class Ut extends _ {
     t.forEach(([s, i], n) => {
       const r = this.handles[n];
       r.dataset.x = String(s), r.dataset.y = String(i);
-      const h = e === "points" && (n === 0 || n === t.length - 1);
-      r.toggleAttribute("data-ssui-locked", h), r.setAttribute("aria-label", e === "bezier" ? `control point ${n + 1}` : h ? n === 0 ? "start" : "end" : `point ${n + 1}`), r.setAttribute("aria-valuetext", `x ${et(s)} y ${et(i)}`), r.setAttribute("aria-valuenow", et(i));
+      const l = e === "points" && (n === 0 || n === t.length - 1);
+      r.toggleAttribute("data-ssui-locked", l), r.setAttribute("aria-label", e === "bezier" ? `control point ${n + 1}` : l ? n === 0 ? "start" : "end" : `point ${n + 1}`), r.setAttribute("aria-valuetext", `x ${st(s)} y ${st(i)}`), r.setAttribute("aria-valuenow", st(i));
     }), this.fitHandleRadius();
   }
   fitHandleRadius() {
@@ -1285,7 +1373,7 @@ class Ut extends _ {
   }
   // ---- interaction ----------------------------------------------------------
   toLocal(t, e) {
-    const s = this.stage.getBoundingClientRect(), i = (t - s.left) / s.width * (1 + 2 * J) - J, n = 1 - (e - s.top) / s.height * (1 + 2 * R) + R;
+    const s = this.stage.getBoundingClientRect(), i = (t - s.left) / s.width * (1 + 2 * K) - K, n = 1 - (e - s.top) / s.height * (1 + 2 * F) + F;
     return [i, n];
   }
   moveHandle(t, e, s) {
@@ -1293,8 +1381,8 @@ class Ut extends _ {
     if (i.type === "bezier")
       i.points[t * 2] = n, i.points[t * 2 + 1] = r;
     else {
-      const h = i.points.length - 1, c = t === 0 ? 0 : i.points[t - 1][0] + 1e-3, l = t === h ? 1 : i.points[t + 1][0] - 1e-3;
-      i.points[t] = [t === 0 || t === h ? i.points[t][0] : m(n, c, l), r];
+      const l = i.points.length - 1, c = t === 0 ? 0 : i.points[t - 1][0] + 1e-3, h = t === l ? 1 : i.points[t + 1][0] - 1e-3;
+      i.points[t] = [t === 0 || t === l ? i.points[t][0] : g(n, c, h), r];
     }
     this.setValue(i);
   }
@@ -1303,8 +1391,8 @@ class Ut extends _ {
     if (n.type === "bezier")
       n.points[t * 2] += e, n.points[t * 2 + 1] += s;
     else {
-      const r = n.points.length - 1, h = t === 0 ? 0 : n.points[t - 1][0] + 1e-3, c = t === r ? 1 : n.points[t + 1][0] - 1e-3, l = t === 0 || t === r ? n.points[t][0] : m(n.points[t][0] + e, h, c);
-      n.points[t] = [l, n.points[t][1] + s];
+      const r = n.points.length - 1, l = t === 0 ? 0 : n.points[t - 1][0] + 1e-3, c = t === r ? 1 : n.points[t + 1][0] - 1e-3, h = t === 0 || t === r ? n.points[t][0] : g(n.points[t][0] + e, l, c);
+      n.points[t] = [h, n.points[t][1] + s];
     }
     this.setValue(n, i);
   }
@@ -1342,8 +1430,8 @@ class Ut extends _ {
     const e = this.binding.read();
     if (e.type !== "points" || t.target.classList.contains("ssui-curve__handle")) return;
     const [s, i] = this.toLocal(t.clientX, t.clientY), n = this.clone(e);
-    n.points.push([m(s, 1e-3, 0.999), i]), n.points.sort((h, c) => h[0] - c[0]), this.setValue(n, !0);
-    const r = n.points.findIndex((h) => h[0] === m(s, 1e-3, 0.999));
+    n.points.push([g(s, 1e-3, 0.999), i]), n.points.sort((l, c) => l[0] - c[0]), this.setValue(n, !0);
+    const r = n.points.findIndex((l) => l[0] === g(s, 1e-3, 0.999));
     requestAnimationFrame(() => this.handles[r]?.focus());
   }
   switchMode(t) {
@@ -1365,7 +1453,7 @@ class Ut extends _ {
     if (!e) return;
     const s = this.opts.mode ?? "both";
     if (s !== "both" && e.type !== s) {
-      const i = e.type === "bezier" ? pt(...e.points) : ft(e.points);
+      const i = e.type === "bezier" ? ft(...e.points) : gt(e.points);
       if (s === "points") {
         const n = [];
         for (let r = 0; r <= 8; r++) n.push([r / 8, +i(r / 8).toFixed(3)]);
@@ -1430,7 +1518,7 @@ class Ut extends _ {
     clearTimeout(this.copyTimer), super.dispose();
   }
 }
-class Gt extends _ {
+class Yt extends x {
   constructor(t, e = {}) {
     super(t, { ...e, listen: !0 }, "monitor"), this.serializable = !1, this.canvas = null, this.head = 0, this.filled = 0, this.acc = 0, this.stopTick = null, e.graph && (this.stacked = !0), this.mount();
   }
@@ -1450,7 +1538,7 @@ class Gt extends _ {
     isFinite(i) && (this.buf[this.head] = i, this.head = (this.head + 1) % this.buf.length, this.filled = Math.min(this.filled + 1, this.buf.length), this.draw());
   }
   update(t) {
-    const e = this.opts.format ? this.opts.format(t) : typeof t == "number" ? I(t, { precision: Number.isInteger(t) ? 0 : 2 }) : typeof t == "boolean" ? t ? "on" : "off" : String(t ?? "");
+    const e = this.opts.format ? this.opts.format(t) : typeof t == "number" ? T(t, { precision: Number.isInteger(t) ? 0 : 2 }) : typeof t == "boolean" ? t ? "on" : "off" : String(t ?? "");
     this.out.textContent = e, this.out.classList.toggle("ssui-monitor__value--bool", typeof t == "boolean"), this.out.toggleAttribute("data-ssui-on", t === !0);
   }
   onThemeChange() {
@@ -1464,27 +1552,27 @@ class Gt extends _ {
     (this.canvas.width !== t * s || this.canvas.height !== e * s) && (this.canvas.width = t * s, this.canvas.height = e * s);
     const i = this.canvas.getContext("2d");
     if (i.setTransform(s, 0, 0, s, 0, 0), i.clearRect(0, 0, t, e), this.filled < 2) return;
-    const n = this.el.closest(".ssui-panel"), r = n ? getComputedStyle(n) : null, h = r?.getPropertyValue("--ssui-color-canvas-line").trim() || "#888", c = r?.getPropertyValue("--ssui-color-accent").trim() || "#f09526", l = this.buf.length, u = this.filled;
+    const n = this.el.closest(".ssui-panel"), r = n ? getComputedStyle(n) : null, l = r?.getPropertyValue("--ssui-color-canvas-line").trim() || "#888", c = r?.getPropertyValue("--ssui-color-accent").trim() || "#f09526", h = this.buf.length, u = this.filled;
     let d = this.opts.min ?? 1 / 0, p = this.opts.max ?? -1 / 0;
     if (this.opts.min === void 0 || this.opts.max === void 0) {
-      for (let w = 0; w < u; w++) {
-        const C = this.buf[(this.head - u + w + l) % l];
+      for (let _ = 0; _ < u; _++) {
+        const C = this.buf[(this.head - u + _ + h) % h];
         this.opts.min === void 0 && (d = Math.min(d, C)), this.opts.max === void 0 && (p = Math.max(p, C));
       }
       const y = (p - d || 1) * 0.1;
       this.opts.min === void 0 && (d -= y), this.opts.max === void 0 && (p += y);
     }
-    const f = p - d || 1, g = 3, b = (y) => g + (t - 2 * g) * y / (l - 1), v = (y) => e - g - (y - d) / f * (e - 2 * g);
-    i.beginPath(), i.strokeStyle = h, i.lineWidth = 1, i.lineJoin = "round";
-    let x = 0, A = 0;
+    const f = p - d || 1, m = 3, b = (y) => m + (t - 2 * m) * y / (h - 1), v = (y) => e - m - (y - d) / f * (e - 2 * m);
+    i.beginPath(), i.strokeStyle = l, i.lineWidth = 1, i.lineJoin = "round";
+    let w = 0, k = 0;
     for (let y = 0; y < u; y++) {
-      const w = this.buf[(this.head - u + y + l) % l];
-      x = b(l - u + y), A = v(w), y === 0 ? i.moveTo(x, A) : i.lineTo(x, A);
+      const _ = this.buf[(this.head - u + y + h) % h];
+      w = b(h - u + y), k = v(_), y === 0 ? i.moveTo(w, k) : i.lineTo(w, k);
     }
-    i.stroke(), i.beginPath(), i.fillStyle = c, i.arc(x, A, 1.5, 0, Math.PI * 2), i.fill();
+    i.stroke(), i.beginPath(), i.fillStyle = c, i.arc(w, k, 1.5, 0, Math.PI * 2), i.fill();
   }
 }
-class gt {
+class mt {
   constructor(t, e) {
     this.serializable = !1, this.id = `${t}-${Math.random().toString(36).slice(2, 6)}`, this.el = t === "separator" ? o("hr", { class: "ssui-separator", role: "separator" }) : o("p", { class: "ssui-label" }, [e ?? ""]);
   }
@@ -1501,11 +1589,11 @@ class gt {
     this.el.remove();
   }
 }
-class Zt extends K {
+class Qt extends U {
   constructor(t, e, s = {}) {
     super(), this.items = e, this.opts = s, this.serializable = !1, this.active = -1, this.optionEls = [], this.outside = (n) => {
       this.box.contains(n.target) || this.close();
-    }, this.id = s.id ?? H(t);
+    }, this.id = s.id ?? j(t);
     const i = s.icon ?? "plus";
     this.trigger = o("button", { class: `ssui-button ssui-menu__trigger${s.variant && s.variant !== "default" ? ` ssui-button--${s.variant}` : ""}`, type: "button", "aria-haspopup": "menu", "aria-expanded": "false" }, [
       i === "plus" ? E.plus() : i === "more" ? E.more() : null,
@@ -1574,8 +1662,8 @@ class Zt extends K {
     document.removeEventListener("pointerdown", this.outside, !0), this.el.remove(), this.emit("dispose"), this.clear();
   }
 }
-const Xt = ["Ch 1", "Ch 2", "Ch 3", "Ch 4"];
-class Yt extends _ {
+const te = ["Ch 1", "Ch 2", "Ch 3", "Ch 4"];
+class ee extends x {
   constructor(t, e = {}) {
     super(t, e, "mixer"), this.stacked = !0, this.mount();
   }
@@ -1586,19 +1674,19 @@ class Yt extends _ {
   normalize(t) {
     const e = this.names.length, s = Array.isArray(t?.channels) ? t.channels : [], i = [];
     for (let r = 0; r < e; r++) {
-      const h = s[r] ?? {};
+      const l = s[r] ?? {};
       i.push({
-        gain: m(W(typeof h.gain == "number" ? h.gain : 80, this.gStep, this.gMin), this.gMin, this.gMax),
-        pan: m(Math.round(typeof h.pan == "number" ? h.pan : 0), -50, 50),
-        mute: !!h.mute,
-        solo: !!h.solo
+        gain: g(H(typeof l.gain == "number" ? l.gain : 80, this.gStep, this.gMin), this.gMin, this.gMax),
+        pan: g(Math.round(typeof l.pan == "number" ? l.pan : 0), -50, 50),
+        mute: !!l.mute,
+        solo: !!l.solo
       });
     }
     const n = this.hasOutput ? e : e - 1;
     return {
       channels: i,
-      output: m(W(typeof t?.output == "number" ? t.output : 80, this.gStep, this.gMin), this.gMin, this.gMax),
-      selected: m(Math.round(typeof t?.selected == "number" ? t.selected : 0), 0, Math.max(0, n))
+      output: g(H(typeof t?.output == "number" ? t.output : 80, this.gStep, this.gMin), this.gMin, this.gMax),
+      selected: g(Math.round(typeof t?.selected == "number" ? t.selected : 0), 0, Math.max(0, n))
     };
   }
   sanitize(t) {
@@ -1618,26 +1706,26 @@ class Yt extends _ {
     return e === this.names.length ? t.output : t.channels[e].gain;
   }
   setGain(t, e, s) {
-    const i = m(W(s, this.gStep, this.gMin), this.gMin, this.gMax);
+    const i = g(H(s, this.gStep, this.gMin), this.gMin, this.gMax);
     e === this.names.length ? t.output = i : t.channels[e].gain = i;
   }
   // ---- render --------------------------------------------------------------
   render() {
     const t = this.opts;
-    this.names = t.channels ?? Xt, this.gMin = t.gain?.min ?? 0, this.gMax = t.gain?.max ?? 100, this.gStep = t.gain?.step ?? 1, this.height = t.height ?? 96, this.cols = [], this.dragStart = 0, this.dot = o("span", { class: "ssui-mixer__dot", "aria-hidden": "true" }), this.labelEl.append(this.dot), this.highlight = o("div", { class: "ssui-mixer__highlight", "aria-hidden": "true" }), this.channelsEl = o("div", { class: "ssui-mixer__channels", role: "group", "aria-label": `${t.label ?? this.id} channels` }, [this.highlight]);
+    this.names = t.channels ?? te, this.gMin = t.gain?.min ?? 0, this.gMax = t.gain?.max ?? 100, this.gStep = t.gain?.step ?? 1, this.height = t.height ?? 96, this.cols = [], this.dragStart = 0, this.dot = o("span", { class: "ssui-mixer__dot", "aria-hidden": "true" }), this.labelEl.append(this.dot), this.highlight = o("div", { class: "ssui-mixer__highlight", "aria-hidden": "true" }), this.channelsEl = o("div", { class: "ssui-mixer__channels", role: "group", "aria-label": `${t.label ?? this.id} channels` }, [this.highlight]);
     const e = this.names.length + (this.hasOutput ? 1 : 0);
     this.channelsEl.style.setProperty("--ssui-mixer-count", String(e)), this.channelsEl.style.setProperty("--ssui-mixer-height", `${this.height}px`);
     for (let r = 0; r < e; r++) {
-      const h = r === this.names.length, c = o("span", { class: "ssui-mixer__name" }, [h ? "Output" : this.names[r]]), l = o("div", {
+      const l = r === this.names.length, c = o("span", { class: "ssui-mixer__name" }, [l ? "Output" : this.names[r]]), h = o("div", {
         class: "ssui-mixer__fader",
         role: "slider",
         tabindex: 0,
         "aria-orientation": "vertical",
-        "aria-label": `${h ? "Output" : this.names[r]} gain`,
+        "aria-label": `${l ? "Output" : this.names[r]} gain`,
         "aria-valuemin": String(this.gMin),
         "aria-valuemax": String(this.gMax)
-      }, [o("span", { class: "ssui-mixer__rail" }, [o("span", { class: "ssui-mixer__fill" }), o("span", { class: "ssui-mixer__cap" })])]), u = h ? null : o("span", { class: "ssui-mixer__state", "aria-hidden": "true" }), d = o("button", { class: `ssui-mixer__channel${h ? " ssui-mixer__channel--output" : ""}`, type: "button", "aria-pressed": "false" }, [c, l, u]);
-      d.addEventListener("click", () => this.select(r)), this.cleanups.push(D(l, {
+      }, [o("span", { class: "ssui-mixer__rail" }, [o("span", { class: "ssui-mixer__fill" }), o("span", { class: "ssui-mixer__cap" })])]), u = l ? null : o("span", { class: "ssui-mixer__state", "aria-hidden": "true" }), d = o("button", { class: `ssui-mixer__channel${l ? " ssui-mixer__channel--output" : ""}`, type: "button", "aria-pressed": "false" }, [c, h, u]);
+      d.addEventListener("click", () => this.select(r)), this.cleanups.push(O(h, {
         immediate: !0,
         cursor: "ns-resize",
         onStart: () => {
@@ -1647,42 +1735,42 @@ class Yt extends _ {
         },
         onMove: (p) => {
           const f = (this.gMax - this.gMin) / this.height * L(p);
-          this.edit((g) => this.setGain(g, r, this.dragStart - p.dy * f));
+          this.edit((m) => this.setGain(m, r, this.dragStart - p.dy * f));
         },
         onEnd: () => {
           this.setState("idle"), this.box.setAttribute("data-ssui-state", "idle"), d.removeAttribute("data-ssui-dragging"), d.setAttribute("data-ssui-released", ""), setTimeout(() => d.removeAttribute("data-ssui-released"), 450), this.emit("finish", this.binding.read());
         }
-      })), l.addEventListener("dblclick", (p) => {
+      })), h.addEventListener("dblclick", (p) => {
         p.stopPropagation();
         const f = this.normalize(this.initial);
-        this.edit((g) => this.setGain(g, r, this.gainOf(f, r)), !0);
-      }), l.addEventListener("keydown", (p) => {
+        this.edit((m) => this.setGain(m, r, this.gainOf(f, r)), !0);
+      }), h.addEventListener("keydown", (p) => {
         if (p.key === "ArrowLeft" || p.key === "ArrowRight") {
           p.preventDefault();
-          const b = m(r + (p.key === "ArrowRight" ? 1 : -1), 0, e - 1);
+          const b = g(r + (p.key === "ArrowRight" ? 1 : -1), 0, e - 1);
           this.select(b), this.cols[b].fader.focus();
           return;
         }
-        const f = this.gainOf(this.normalize(this.binding.read()), r), g = q(p, { step: this.gStep, min: this.gMin, max: this.gMax }, f);
-        g !== null && (p.preventDefault(), p.stopPropagation(), this.edit((b) => {
-          b.selected = r, this.setGain(b, r, f + g);
+        const f = this.gainOf(this.normalize(this.binding.read()), r), m = I(p, { step: this.gStep, min: this.gMin, max: this.gMax }, f);
+        m !== null && (p.preventDefault(), p.stopPropagation(), this.edit((b) => {
+          b.selected = r, this.setGain(b, r, f + m);
         }, !0));
-      }), l.addEventListener("focus", () => this.select(r)), this.cols.push({ el: d, fader: l, name: c, state: u, index: r, isOutput: h }), this.channelsEl.append(d);
+      }), h.addEventListener("focus", () => this.select(r)), this.cols.push({ el: d, fader: h, name: c, state: u, index: r, isOutput: l }), this.channelsEl.append(d);
     }
     const s = N(0);
     s.read = () => {
       const r = this.normalize(this.binding.read());
       return this.gainOf(r, r.selected);
-    }, s.write = (r) => this.edit((h) => this.setGain(h, h.selected, r)), this.gainRead = S.widget(s, { min: this.gMin, max: this.gMax, step: this.gStep, label: "Gain", id: `${this.id}-gain` }), this.gainRead.on("finish", () => this.emit("finish", this.binding.read())), this.gainRead.on("state", (r) => this.setState(r === "editing" || r === "dragging" ? r : "idle")), this.cleanups.push(() => this.gainRead.dispose());
+    }, s.write = (r) => this.edit((l) => this.setGain(l, l.selected, r)), this.gainRead = A.widget(s, { min: this.gMin, max: this.gMax, step: this.gStep, label: "Gain", id: `${this.id}-gain` }), this.gainRead.on("finish", () => this.emit("finish", this.binding.read())), this.gainRead.on("state", (r) => this.setState(r === "editing" || r === "dragging" ? r : "idle")), this.cleanups.push(() => this.gainRead.dispose());
     const i = o("div", { class: "ssui-mixer__field" }, [o("span", { class: "ssui-mixer__field-label" }, ["Gain"]), this.gainRead.widget]);
     if (this.panRead = null, this.panField = null, t.pan !== !1) {
       const r = N(0);
       r.read = () => {
-        const h = this.normalize(this.binding.read());
-        return this.selIsOutput(h) ? 0 : h.channels[h.selected].pan;
-      }, r.write = (h) => this.edit((c) => {
-        this.selIsOutput(c) || (c.channels[c.selected].pan = m(Math.round(h), -50, 50));
-      }), this.panRead = S.widget(r, { min: -50, max: 50, step: 1, label: "Pan", id: `${this.id}-pan` }), this.panRead.on("finish", () => this.emit("finish", this.binding.read())), this.panRead.on("state", (h) => this.setState(h === "editing" || h === "dragging" ? h : "idle")), this.cleanups.push(() => this.panRead.dispose()), this.panField = o("div", { class: "ssui-mixer__field" }, [o("span", { class: "ssui-mixer__field-label" }, ["Pan"]), this.panRead.widget]);
+        const l = this.normalize(this.binding.read());
+        return this.selIsOutput(l) ? 0 : l.channels[l.selected].pan;
+      }, r.write = (l) => this.edit((c) => {
+        this.selIsOutput(c) || (c.channels[c.selected].pan = g(Math.round(l), -50, 50));
+      }), this.panRead = A.widget(r, { min: -50, max: 50, step: 1, label: "Pan", id: `${this.id}-pan` }), this.panRead.on("finish", () => this.emit("finish", this.binding.read())), this.panRead.on("state", (l) => this.setState(l === "editing" || l === "dragging" ? l : "idle")), this.cleanups.push(() => this.panRead.dispose()), this.panField = o("div", { class: "ssui-mixer__field" }, [o("span", { class: "ssui-mixer__field-label" }, ["Pan"]), this.panRead.widget]);
     }
     this.muteBtn = o("button", { class: "ssui-mixer__round ssui-mixer__round--mute", type: "button", "aria-pressed": "false" }, ["Mute"]), this.soloBtn = o("button", { class: "ssui-mixer__round ssui-mixer__round--solo", type: "button", "aria-pressed": "false" }, ["Solo"]), this.muteBtn.addEventListener("click", () => this.edit((r) => {
       this.selIsOutput(r) || (r.channels[r.selected].mute = !r.channels[r.selected].mute);
@@ -1700,12 +1788,12 @@ class Yt extends _ {
   update(t) {
     const e = this.normalize(t), s = e.channels.some((n) => n.solo);
     for (const n of this.cols) {
-      const r = this.gainOf(e, n.index), h = (r - this.gMin) / (this.gMax - this.gMin || 1);
-      n.fader.style.setProperty("--ssui-p", h.toFixed(4)), n.fader.setAttribute("aria-valuenow", String(r)), n.fader.setAttribute("aria-valuetext", String(r));
+      const r = this.gainOf(e, n.index), l = (r - this.gMin) / (this.gMax - this.gMin || 1);
+      n.fader.style.setProperty("--ssui-p", l.toFixed(4)), n.fader.setAttribute("aria-valuenow", String(r)), n.fader.setAttribute("aria-valuetext", String(r));
       const c = n.index === e.selected;
       if (n.el.toggleAttribute("data-ssui-selected", c), n.el.setAttribute("aria-pressed", String(c)), !n.isOutput) {
-        const l = e.channels[n.index];
-        n.el.toggleAttribute("data-ssui-muted", l.mute), n.el.toggleAttribute("data-ssui-solo", l.solo), n.el.toggleAttribute("data-ssui-dimmed", s && !l.solo);
+        const h = e.channels[n.index];
+        n.el.toggleAttribute("data-ssui-muted", h.mute), n.el.toggleAttribute("data-ssui-solo", h.solo), n.el.toggleAttribute("data-ssui-dimmed", s && !h.solo);
       }
     }
     this.channelsEl.style.setProperty("--ssui-mixer-sel", String(e.selected));
@@ -1717,7 +1805,7 @@ class Yt extends _ {
     this.gainRead?.refresh(), this.panRead?.refresh();
   }
 }
-class Qt extends _ {
+class se extends x {
   constructor(t, e = {}) {
     super(t, e, "pads"), this.stacked = !0, this.mount();
   }
@@ -1725,11 +1813,11 @@ class Qt extends _ {
     const t = this.binding.read() ?? {}, e = (this.opts.pads ?? Object.keys(t)).map((s) => typeof s == "string" ? { key: s } : s);
     return this.pads = [], this.box = o("div", { class: "ssui-pads", role: "group", "aria-labelledby": `${this.inputId}-label` }), this.box.style.setProperty("--ssui-pads-cols", String(this.opts.columns ?? 4)), e.forEach((s, i) => {
       const n = o("button", { class: "ssui-pad__face", type: "button", role: "switch", "aria-checked": "false", "aria-label": s.label ?? s.key, id: i === 0 ? this.inputId : void 0 });
-      n.addEventListener("click", () => this.togglePad(s.key)), n.addEventListener("keydown", (h) => {
-        const c = this.pads.length, l = this.pads.findIndex((p) => p.key === s.key), u = this.opts.columns ?? 4, d = (p) => {
-          h.preventDefault(), this.pads[(p + c) % c].btn.focus();
+      n.addEventListener("click", () => this.togglePad(s.key)), n.addEventListener("keydown", (l) => {
+        const c = this.pads.length, h = this.pads.findIndex((p) => p.key === s.key), u = this.opts.columns ?? 4, d = (p) => {
+          l.preventDefault(), this.pads[(p + c) % c].btn.focus();
         };
-        h.key === "ArrowRight" ? d(l + 1) : h.key === "ArrowLeft" ? d(l - 1) : h.key === "ArrowDown" ? d(l + u) : h.key === "ArrowUp" && d(l - u);
+        l.key === "ArrowRight" ? d(h + 1) : l.key === "ArrowLeft" ? d(h - 1) : l.key === "ArrowDown" ? d(h + u) : l.key === "ArrowUp" && d(h - u);
       }), n.append(o("span", { class: "ssui-pad__label", "aria-hidden": "true" }, [s.label ?? s.key]));
       const r = o("div", { class: "ssui-pad" }, [n]);
       this.box.append(r), this.pads.push({ key: s.key, btn: n });
@@ -1751,12 +1839,12 @@ class Qt extends _ {
     for (const e of this.pads) e.btn.setAttribute("aria-checked", String(!!t?.[e.key]));
   }
 }
-class F extends K {
+class z extends U {
   constructor() {
     super(...arguments), this.children = [], this.parent = null, this.ids = /* @__PURE__ */ new Set();
   }
   attach(t) {
-    return t instanceof F ? (t.parent = this, t.on("change", (e, s) => this.emit("change", e, s)), t.on("finish", (e, s) => this.emit("finish", e, s))) : t instanceof _ && (t.on("change", (e) => this.emit("change", t, e)), t.on("finish", (e) => this.emit("finish", t, e))), this.children.push(t), this.bodyEl.append(t.el), this.emit("add", t), this.onChildrenChanged(), t;
+    return t instanceof z ? (t.parent = this, t.on("change", (e, s) => this.emit("change", e, s)), t.on("finish", (e, s) => this.emit("finish", e, s))) : t instanceof x && (t.on("change", (e) => this.emit("change", t, e)), t.on("finish", (e) => this.emit("finish", t, e))), this.children.push(t), this.bodyEl.append(t.el), this.emit("add", t), this.onChildrenChanged(), t;
   }
   onChildrenChanged() {
   }
@@ -1800,6 +1888,8 @@ class F extends K {
     if (s.options) return this.addSelect(t, e, { ...n, options: s.options });
     if (s.color || typeof i == "string" && /^#([0-9a-f]{3,8})$/i.test(i)) return this.addColor(t, e, n);
     if (typeof i == "string") return this.addText(t, e, n);
+    if (Array.isArray(i) && i.length === 2 && typeof i[0] == "number" && typeof i[1] == "number" && s.min !== void 0 && s.max !== void 0)
+      return this.addRange(t, e, n);
     if (i && typeof i == "object") {
       if ("type" in i && "points" in i) return this.addCurve(t, e, n);
       if (typeof i.x == "number" && typeof i.y == "number") return this.addPad2D(t, e, n);
@@ -1808,75 +1898,79 @@ class F extends K {
     throw new Error(`[ssui] cannot infer a control for "${e}" (${typeof i})`);
   }
   addNumber(t, e, s = {}) {
-    return this.attach(new S(M(t, e), { label: e, ...s }));
+    return this.attach(new A(M(t, e), { label: e, ...s }));
   }
   addSlider(t, e, s) {
-    return this.attach(new $t(M(t, e), { label: e, ...s }));
+    return this.attach(new Ot(M(t, e), { label: e, ...s }));
+  }
+  /** two-thumb slider for a [lo, hi] pair: addRange(obj, 'band', { min: 0, max: 100 }) with obj.band = [20, 80] */
+  addRange(t, e, s) {
+    return this.attach(new Pt(Lt(t, e), { label: e, ...s }));
   }
   addKnob(t, e, s = {}) {
-    return this.attach(new Ot(M(t, e), { label: e, ...s }));
+    return this.attach(new Tt(M(t, e), { label: e, ...s }));
   }
   /** addPad2D(obj, 'offset') for {x,y} objects, or addPad2D(obj, 'x', 'y', opts) for two keys */
   addPad2D(t, e, s, i) {
-    const n = typeof s == "string", r = n ? Ct(t, e, s) : Mt(t, e), h = (n ? i : s) ?? {};
-    return this.attach(new it(r, { label: n ? `${e} / ${s}` : e, ...h }));
+    const n = typeof s == "string", r = n ? Ct(t, e, s) : Mt(t, e), l = (n ? i : s) ?? {};
+    return this.attach(new it(r, { label: n ? `${e} / ${s}` : e, ...l }));
   }
   addToggle(t, e, s = {}) {
-    return this.attach(new Pt(M(t, e), { label: e, ...s }));
+    return this.attach(new Vt(M(t, e), { label: e, ...s }));
   }
   addSelect(t, e, s) {
     return this.attach(new lt(M(t, e), { label: e, ...s }));
   }
   addColor(t, e, s = {}) {
-    return this.attach(new Ht(M(t, e, Y), { label: e, ...s }));
+    return this.attach(new jt(M(t, e, Q), { label: e, ...s }));
   }
   addText(t, e, s = {}) {
-    return this.attach(new Nt(M(t, e), { label: e, ...s }));
+    return this.attach(new Jt(M(t, e), { label: e, ...s }));
   }
   addButton(t, e, s = {}) {
-    return this.attach(new ct([{ label: t, onClick: e, ...s }]));
+    return this.attach(new pt([{ label: t, onClick: e, ...s }]));
   }
   addButtons(t, e) {
-    return this.attach(new ct(t, e));
+    return this.attach(new pt(t, e));
   }
   addCurve(t, e, s = {}) {
-    return this.attach(new Ut(M(t, e, Y), { label: e, ...s }));
+    return this.attach(new Zt(M(t, e, Q), { label: e, ...s }));
   }
   addMonitor(t, e, s = {}) {
-    return this.attach(new Gt(M(t, e), { label: e, ...s }));
+    return this.attach(new Yt(M(t, e), { label: e, ...s }));
   }
   addMenu(t, e, s = {}) {
-    return this.attach(new Zt(t, e, s));
+    return this.attach(new Qt(t, e, s));
   }
   addMixer(t, e, s = {}) {
-    return this.attach(new Yt(M(t, e, Y), { label: e, ...s }));
+    return this.attach(new ee(M(t, e, Q), { label: e, ...s }));
   }
   /** square on/off pads, one per key of the bound object: addPads(S, 'pads') with S.pads = { amp: true, freq: false } */
   addPads(t, e, s = {}) {
-    return this.attach(new Qt(M(t, e, Y), { label: e, ...s }));
+    return this.attach(new se(M(t, e, Q), { label: e, ...s }));
   }
   addSeparator() {
-    return this.attach(new gt("separator"));
+    return this.attach(new mt("separator"));
   }
   addLabel(t) {
-    return this.attach(new gt("label", t));
+    return this.attach(new mt("label", t));
   }
   // ---- lookup -------------------------------------------------------------
   /** deep lookup by id or 'folder/id' path */
   get(t) {
     const [e, ...s] = t.split("/"), i = this.children.find((n) => n.id === e);
     if (i)
-      return s.length ? i instanceof F ? i.get(s.join("/")) : void 0 : i;
+      return s.length ? i instanceof z ? i.get(s.join("/")) : void 0 : i;
   }
   /** flat list of value controllers, deep */
   controllers() {
     const t = [];
     for (const e of this.children)
-      e instanceof F ? t.push(...e.controllers()) : e instanceof _ && t.push(e);
+      e instanceof z ? t.push(...e.controllers()) : e instanceof x && t.push(e);
     return t;
   }
   folders() {
-    return this.children.filter((t) => t instanceof F);
+    return this.children.filter((t) => t instanceof z);
   }
   /** registers an id, deduping with -2, -3 … */
   registerId(t) {
@@ -1910,16 +2004,16 @@ class F extends K {
   toJSON() {
     const t = {};
     for (const e of this.children)
-      if (e instanceof F)
+      if (e instanceof z)
         for (const [s, i] of Object.entries(e.toJSON())) t[`${e.id}/${s}`] = i;
-      else e instanceof _ && e.serializable && (t[e.id] = e.toJSON());
+      else e instanceof x && e.serializable && (t[e.id] = e.toJSON());
     return t;
   }
   fromJSON(t, e = {}) {
     const s = [];
     for (const [i, n] of Object.entries(t)) {
       const r = this.get(i);
-      if (r instanceof _)
+      if (r instanceof x)
         try {
           r.fromJSON(n);
         } catch {
@@ -1934,9 +2028,9 @@ class F extends K {
     this.el.remove(), this.emit("dispose"), this.clear();
   }
 }
-class nt extends F {
+class nt extends z {
   constructor(t, e = {}) {
-    super(), this.soloBtn = null, this.menuEl = null, this.opts = e, this._id = e.id ?? H(t);
+    super(), this.soloBtn = null, this.menuEl = null, this.opts = e, this._id = e.id ?? j(t);
     const s = ot("ssui-folder");
     this.titleEl = o("span", { class: "ssui-folder__title" }, [t]), this.countEl = o("span", { class: "ssui-folder__count", "aria-hidden": "true" });
     const i = o("span", { class: "ssui-folder__chevron" }, [E.chevron()]);
@@ -2022,9 +2116,9 @@ class nt extends F {
       this.solo = !this.solo;
     } }), s.push({ label: "Remove", danger: !0, run: () => this.emit("remove-request") });
     const i = o("ul", { class: "ssui-select__menu ssui-folder__menu", role: "menu" });
-    s.forEach((c, l) => {
+    s.forEach((c, h) => {
       const u = o("li", { class: `ssui-select__option${c.danger ? " ssui-select__option--danger" : ""}`, role: "menuitem", tabindex: -1 }, [c.label]);
-      u.style.setProperty("--i", String(l)), u.addEventListener("click", (d) => {
+      u.style.setProperty("--i", String(h)), u.addEventListener("click", (d) => {
         d.stopPropagation(), this.closeMenu(), c.run();
       }), i.append(u);
     });
@@ -2032,10 +2126,10 @@ class nt extends F {
     i.style.left = `${Math.max(0, Math.min(t - n.left, n.width - 160))}px`, i.style.top = `${e - n.top}px`, this.menuEl = i, this.el.append(i), this.el.setAttribute("data-ssui-menu", ""), requestAnimationFrame(() => i.setAttribute("data-ssui-open", ""));
     const r = (c) => {
       i.contains(c.target) || this.closeMenu();
-    }, h = (c) => {
+    }, l = (c) => {
       c.key === "Escape" && this.closeMenu();
     };
-    document.addEventListener("pointerdown", r, { capture: !0, once: !0 }), document.addEventListener("keydown", h, { once: !0 }), document.addEventListener("scroll", () => this.closeMenu(), { capture: !0, once: !0 });
+    document.addEventListener("pointerdown", r, { capture: !0, once: !0 }), document.addEventListener("keydown", l, { once: !0 }), document.addEventListener("scroll", () => this.closeMenu(), { capture: !0, once: !0 });
   }
   closeMenu() {
     this.menuEl?.remove(), this.menuEl = null, this.el.removeAttribute("data-ssui-menu");
@@ -2048,7 +2142,7 @@ class nt extends F {
     this.countEl.textContent = t ? String(t).padStart(2, "0") : "";
   }
 }
-class te extends K {
+class ie extends U {
   constructor(t, e = "auto") {
     super(), this.root = t, this.mq = typeof matchMedia < "u" ? matchMedia("(prefers-color-scheme: dark)") : null, this.timer = 0, this.raf = 0, this.onSystem = () => {
       this.mode === "auto" && this.transition(!0);
@@ -2086,7 +2180,7 @@ class te extends K {
     this.mq?.removeEventListener("change", this.onSystem), clearTimeout(this.timer), cancelAnimationFrame(this.raf), this.clear();
   }
 }
-const ee = {
+const ne = {
   get(a) {
     try {
       return globalThis.localStorage?.getItem(a) ?? null;
@@ -2107,7 +2201,7 @@ const ee = {
     }
   }
 };
-function se() {
+function re() {
   const a = /* @__PURE__ */ new Map();
   return {
     get: (t) => a.get(t) ?? null,
@@ -2119,10 +2213,10 @@ function se() {
     }
   };
 }
-const z = "Default", U = (a) => JSON.parse(JSON.stringify(a)), ie = (a, t) => JSON.stringify(a) === JSON.stringify(t);
-class ne extends K {
+const q = "Default", X = (a) => JSON.parse(JSON.stringify(a)), ae = (a, t) => JSON.stringify(a) === JSON.stringify(t);
+class oe extends U {
   constructor(t, e, s) {
-    super(), this.panel = t, this.storageKey = e, this.current = null, this.presets = [], this.defaults = null, this.loaded = null, this.lastDirty = !1, this.offs = [], this.seen = /* @__PURE__ */ new WeakSet(), this.warned = !1, this.key = e ? `ssui:${e}:presets` : null, this.adapter = s ?? (this.key ? ee : se()), this.presets = this.read(), this.watch(t), typeof queueMicrotask == "function" && queueMicrotask(() => this.captureDefaults());
+    super(), this.panel = t, this.storageKey = e, this.current = null, this.presets = [], this.defaults = null, this.loaded = null, this.lastDirty = !1, this.offs = [], this.seen = /* @__PURE__ */ new WeakSet(), this.warned = !1, this.key = e ? `ssui:${e}:presets` : null, this.adapter = s ?? (this.key ? ne : re()), this.presets = this.read(), this.watch(t), typeof queueMicrotask == "function" && queueMicrotask(() => this.captureDefaults());
   }
   // ---- defaults -----------------------------------------------------------
   /** snapshot current values as "Default" (idempotent; merges ids added later) */
@@ -2147,7 +2241,7 @@ class ne extends K {
   get dirty() {
     if (!this.defaults) return !1;
     const t = this.loaded ?? this.defaults;
-    return !ie(this.panel.toJSON(), t);
+    return !ae(this.panel.toJSON(), t);
   }
   /** recompute and emit when it flips */
   checkDirty() {
@@ -2157,13 +2251,13 @@ class ne extends K {
   }
   // ---- crud ---------------------------------------------------------------
   save(t) {
-    if (t = t.trim(), !t || t === z) throw new Error(`[ssui] invalid preset name "${t}"`);
+    if (t = t.trim(), !t || t === q) throw new Error(`[ssui] invalid preset name "${t}"`);
     this.captureDefaults();
-    const e = this.panel.toJSON(), s = this.list(), i = Date.now(), n = s.findIndex((h) => h.name === t), r = n >= 0 ? { ...s[n], values: e, updatedAt: i } : { name: t, values: e, createdAt: i, updatedAt: i };
-    return n >= 0 ? s[n] = r : s.push(r), this.presets = s, this.write(), this.current = t, this.loaded = U(e), this.emit("save", r), this.emit("change"), this.checkDirty(), r;
+    const e = this.panel.toJSON(), s = this.list(), i = Date.now(), n = s.findIndex((l) => l.name === t), r = n >= 0 ? { ...s[n], values: e, updatedAt: i } : { name: t, values: e, createdAt: i, updatedAt: i };
+    return n >= 0 ? s[n] = r : s.push(r), this.presets = s, this.write(), this.current = t, this.loaded = X(e), this.emit("save", r), this.emit("change"), this.checkDirty(), r;
   }
   load(t) {
-    if (t === null || t === z) {
+    if (t === null || t === q) {
       this.applyDefault();
       return;
     }
@@ -2174,27 +2268,27 @@ class ne extends K {
     }
     this.captureDefaults();
     try {
-      this.panel.fromJSON(U(e.values), { silent: !1 });
+      this.panel.fromJSON(X(e.values), { silent: !1 });
     } catch (s) {
       this.warnOnce(String(s));
     }
-    this.current = t, this.loaded = U(e.values), this.emit("load", e), this.checkDirty();
+    this.current = t, this.loaded = X(e.values), this.emit("load", e), this.checkDirty();
   }
   applyDefault() {
     const t = this.captureDefaults();
     try {
-      this.panel.fromJSON(U(t), { silent: !0 });
+      this.panel.fromJSON(X(t), { silent: !0 });
     } catch (e) {
       this.warnOnce(String(e));
     }
-    this.current = null, this.loaded = t, this.emit("load", { name: z, values: U(t), createdAt: 0, updatedAt: 0 }), this.checkDirty();
+    this.current = null, this.loaded = t, this.emit("load", { name: q, values: X(t), createdAt: 0, updatedAt: 0 }), this.checkDirty();
   }
   remove(t) {
     const e = this.list(), s = e.findIndex((i) => i.name === t);
     s !== -1 && (e.splice(s, 1), this.presets = e, this.write(), this.current === t && (this.current = null, this.loaded = this.defaults), this.emit("remove", t), this.emit("change"), this.checkDirty());
   }
   rename(t, e) {
-    if (e = e.trim(), !e || e === z || t === e) return;
+    if (e = e.trim(), !e || e === q || t === e) return;
     const s = this.list(), i = s.find((n) => n.name === t);
     if (i) {
       if (s.some((n) => n.name === e)) {
@@ -2220,8 +2314,8 @@ class ne extends K {
     const i = s.presets.filter((r) => r && typeof r.name == "string" && r.values && typeof r.values == "object");
     let n = e.merge === !1 ? [] : this.list();
     for (const r of i) {
-      const h = n.findIndex((l) => l.name === r.name), c = { name: r.name, values: r.values, createdAt: r.createdAt ?? Date.now(), updatedAt: r.updatedAt ?? Date.now() };
-      h >= 0 ? n[h] = c : n.push(c);
+      const l = n.findIndex((h) => h.name === r.name), c = { name: r.name, values: r.values, createdAt: r.createdAt ?? Date.now(), updatedAt: r.updatedAt ?? Date.now() };
+      l >= 0 ? n[l] = c : n.push(c);
     }
     return this.presets = n, this.write(), this.current && !n.some((r) => r.name === this.current) && (this.current = null, this.loaded = this.defaults), this.emit("change"), this.checkDirty(), i.length;
   }
@@ -2245,7 +2339,7 @@ class ne extends K {
   watch(t) {
     const e = (s) => {
       if (!(!s || this.seen.has(s))) {
-        if (this.seen.add(s), s instanceof _) {
+        if (this.seen.add(s), s instanceof x) {
           this.offs.push(s.on("finish", () => this.checkDirty()));
           return;
         }
@@ -2264,7 +2358,7 @@ class ne extends K {
     super.clear();
   }
 }
-class mt {
+class bt {
   constructor(t, e, s, i) {
     this.wrap = t, this.trigger = e, this.role = s, this.onOpen = i, this.items = [], this.lis = [], this.active = -1, this.confirmTimer = 0, this.confirming = -1, this.el = o("ul", { class: "ssui-select__menu", role: s, tabindex: -1 }), t.append(this.el), e.addEventListener("click", (n) => {
       n.stopPropagation(), this.isOpen ? this.close() : this.open();
@@ -2338,7 +2432,7 @@ class mt {
     }
   }
 }
-class re {
+class he {
   constructor(t, e = {}) {
     this.panel = t, this.opts = e, this.id = "presets", this.serializable = !1, this.editMode = null, this.offs = [], this.liveTimer = 0, this.copiedTimer = 0, this.store = t.presets, this.nameEl = o("span", { class: "ssui-select__current ssui-presets__name" }), this.dirtyEl = o("span", { class: "ssui-presets__dirty", "aria-hidden": "true" }, ["*"]);
     const s = E.chevron();
@@ -2346,19 +2440,19 @@ class re {
     const i = o("button", { class: "ssui-select__trigger ssui-presets__trigger", type: "button", "aria-haspopup": "listbox", "aria-expanded": "false", "aria-label": "Preset" }, [this.nameEl, this.dirtyEl, s]);
     this.input = o("input", { class: "ssui-presets__input", type: "text", name: "ssui-preset-name", "aria-label": "Preset name", autocomplete: "off", spellcheck: "false", tabindex: -1 });
     const n = o("div", { class: "ssui-select ssui-presets__pick" }, [i, this.input]);
-    this.pick = new mt(n, i, "listbox", () => this.refresh()), this.saveBtn = o("button", { class: "ssui-button ssui-button--ghost ssui-presets__save", type: "button" }, ["Save"]), this.saveBtn.addEventListener("click", () => this.onSave());
-    const r = o("button", { class: "ssui-button ssui-button--ghost ssui-button--icon", type: "button", "aria-haspopup": "menu", "aria-expanded": "false", "aria-label": "More preset actions" }, [E.more()]), h = o("div", { class: "ssui-select ssui-presets__more" }, [r]);
-    this.more = new mt(h, r, "menu", () => this.refresh()), this.fileInput = o("input", { type: "file", accept: "application/json,.json", class: "ssui-presets__file", tabindex: -1, "aria-hidden": "true" }), this.fileInput.addEventListener("change", () => this.onImportFile()), this.el = o("div", { class: "ssui-presets", "data-ssui-id": this.id, role: "group", "aria-label": "Presets" }, [
+    this.pick = new bt(n, i, "listbox", () => this.refresh()), this.saveBtn = o("button", { class: "ssui-button ssui-button--ghost ssui-presets__save", type: "button" }, ["Save"]), this.saveBtn.addEventListener("click", () => this.onSave());
+    const r = o("button", { class: "ssui-button ssui-button--ghost ssui-button--icon", type: "button", "aria-haspopup": "menu", "aria-expanded": "false", "aria-label": "More preset actions" }, [E.more()]), l = o("div", { class: "ssui-select ssui-presets__more" }, [r]);
+    this.more = new bt(l, r, "menu", () => this.refresh()), this.fileInput = o("input", { type: "file", accept: "application/json,.json", class: "ssui-presets__file", tabindex: -1, "aria-hidden": "true" }), this.fileInput.addEventListener("change", () => this.onImportFile()), this.el = o("div", { class: "ssui-presets", "data-ssui-id": this.id, role: "group", "aria-label": "Presets" }, [
       o("span", { class: "ssui-presets__label" }, ["presets"]),
       n,
-      o("div", { class: "ssui-presets__actions" }, [this.saveBtn, h, this.fileInput])
-    ]), this.input.addEventListener("keydown", (l) => {
-      l.stopPropagation(), l.key === "Enter" ? (l.preventDefault(), this.commitEdit()) : l.key === "Escape" && (l.preventDefault(), this.cancelEdit());
+      o("div", { class: "ssui-presets__actions" }, [this.saveBtn, l, this.fileInput])
+    ]), this.input.addEventListener("keydown", (h) => {
+      h.stopPropagation(), h.key === "Enter" ? (h.preventDefault(), this.commitEdit()) : h.key === "Escape" && (h.preventDefault(), this.cancelEdit());
     }), this.input.addEventListener("blur", () => {
       this.editMode && this.commitEdit();
     });
-    const c = (l) => {
-      this.el.contains(l.target) || (this.pick.close(), this.more.close());
+    const c = (h) => {
+      this.el.contains(h.target) || (this.pick.close(), this.more.close());
     };
     document.addEventListener("pointerdown", c, !0), this.offs.push(() => document.removeEventListener("pointerdown", c, !0)), this.offs.push(this.store.on("change", () => this.refresh())), this.offs.push(this.store.on("dirty", () => this.refresh())), this.offs.push(this.store.on("save", () => this.swapName())), this.offs.push(this.store.on("load", () => {
       this.swapName(), this.pulse();
@@ -2369,9 +2463,9 @@ class re {
   // ---- rendering ----------------------------------------------------------
   refresh() {
     const t = this.store.current, e = this.store.dirty;
-    this.nameEl.textContent = t ?? z, this.dirtyEl.toggleAttribute("data-ssui-on", e), this.el.toggleAttribute("data-ssui-dirty", e), this.saveBtn.textContent = t ? "Save" : "Save as", this.saveBtn.title = t ? `Overwrite “${t}”` : "Save current values as a new preset";
+    this.nameEl.textContent = t ?? q, this.dirtyEl.toggleAttribute("data-ssui-on", e), this.el.toggleAttribute("data-ssui-dirty", e), this.saveBtn.textContent = t ? "Save" : "Save as", this.saveBtn.title = t ? `Overwrite “${t}”` : "Save current values as a new preset";
     const s = this.store.list(), i = [];
-    this.opts.includeDefault !== !1 && i.push({ label: z, selected: t === null, onPick: () => this.store.applyDefault() }), s.forEach((r, h) => i.push({ label: r.name, selected: t === r.name, index: String(h + 1).padStart(2, "0"), onPick: () => this.store.load(r.name) })), this.pick.set(i);
+    this.opts.includeDefault !== !1 && i.push({ label: q, selected: t === null, onPick: () => this.store.applyDefault() }), s.forEach((r, l) => i.push({ label: r.name, selected: t === r.name, index: String(l + 1).padStart(2, "0"), onPick: () => this.store.load(r.name) })), this.pick.set(i);
     const n = t !== null;
     this.more.set([
       { label: "Save as…", onPick: () => this.startEdit("save") },
@@ -2417,7 +2511,7 @@ class re {
     if (!t) return;
     this.editMode = null, this.el.removeAttribute("data-ssui-editing");
     const e = this.input.value.trim();
-    if (!e || e === z) {
+    if (!e || e === q) {
       this.refresh();
       return;
     }
@@ -2475,12 +2569,12 @@ class re {
   }
 }
 const at = (a) => "handle" in a && a.handle instanceof HTMLElement;
-function ae(a) {
+function le(a) {
   const t = /* @__PURE__ */ new Map(), e = a.el, s = (r) => {
     if (!at(r) || t.has(r)) return;
     r.el.setAttribute("data-ssui-reorderable", "");
-    let h = [], c = 0, l = 0, u = 0, d = -1 / 0, p = 1 / 0;
-    const f = () => parseFloat(getComputedStyle(r.el.parentElement).gap) || 0, g = D(r.handle, {
+    let l = [], c = 0, h = 0, u = 0, d = -1 / 0, p = 1 / 0;
+    const f = () => parseFloat(getComputedStyle(r.el.parentElement).gap) || 0, m = O(r.handle, {
       threshold: 6,
       cursor: "grabbing",
       ignore: (b) => {
@@ -2489,40 +2583,40 @@ function ae(a) {
       },
       onStart: (b) => {
         const v = a.children.filter(at);
-        c = l = v.indexOf(r), u = b.y0, h = v.map((y) => {
-          const w = y.el.getBoundingClientRect();
-          return { el: y.el, mid: w.top + w.height / 2, h: w.height };
+        c = h = v.indexOf(r), u = b.y0, l = v.map((y) => {
+          const _ = y.el.getBoundingClientRect();
+          return { el: y.el, mid: _.top + _.height / 2, h: _.height };
         });
-        const x = r.el.parentElement.getBoundingClientRect(), A = r.el.getBoundingClientRect();
-        d = x.top - A.top, p = x.bottom - A.bottom, r.el.setAttribute("data-ssui-reordering", ""), e.setAttribute("data-ssui-reorder-live", "");
+        const w = r.el.parentElement.getBoundingClientRect(), k = r.el.getBoundingClientRect();
+        d = w.top - k.top, p = w.bottom - k.bottom, r.el.setAttribute("data-ssui-reordering", ""), e.setAttribute("data-ssui-reorder-live", "");
       },
       onMove: (b) => {
         const v = Math.max(d, Math.min(p, b.y - u));
         r.el.style.transform = `translateY(${v}px)`;
-        const x = h[c], A = x.mid + v;
+        const w = l[c], k = w.mid + v;
         let y = 0;
-        h.forEach((C, T) => {
-          T !== c && C.mid < A && y++;
-        }), l = y;
-        const w = f();
-        h.forEach((C, T) => {
-          if (T === c) return;
-          let X = 0;
-          T > c && T <= l ? X = -(x.h + w) : T < c && T >= l && (X = x.h + w), C.el.style.transform = X ? `translateY(${X}px)` : "";
+        l.forEach((C, V) => {
+          V !== c && C.mid < k && y++;
+        }), h = y;
+        const _ = f();
+        l.forEach((C, V) => {
+          if (V === c) return;
+          let Y = 0;
+          V > c && V <= h ? Y = -(w.h + _) : V < c && V >= h && (Y = w.h + _), C.el.style.transform = Y ? `translateY(${Y}px)` : "";
         });
       },
       onEnd: () => {
-        if (h.forEach((b) => {
+        if (l.forEach((b) => {
           b.el.style.transform = "";
-        }), r.el.style.transform = "", r.el.removeAttribute("data-ssui-reordering"), e.removeAttribute("data-ssui-reorder-live"), l !== c) {
-          const v = a.children.filter(at)[l];
+        }), r.el.style.transform = "", r.el.removeAttribute("data-ssui-reordering"), e.removeAttribute("data-ssui-reorder-live"), h !== c) {
+          const v = a.children.filter(at)[h];
           a.move(r, a.children.indexOf(v));
         }
         r.el.setAttribute("data-ssui-dragged", ""), requestAnimationFrame(() => r.el.removeAttribute("data-ssui-dragged"));
       }
     });
     t.set(r, () => {
-      g(), r.el.removeAttribute("data-ssui-reorderable");
+      m(), r.el.removeAttribute("data-ssui-reorderable");
     });
   };
   a.children.forEach(s);
@@ -2533,34 +2627,34 @@ function ae(a) {
     i(), n(), t.forEach((r) => r()), t.clear();
   };
 }
-const oe = '<svg class="ssui-panel__logo" viewBox="0 0 78 16" width="78" height="16" fill="currentColor" aria-label="superserif"><path d="M22.9082 3.7627C23.5931 3.75668 24.2639 3.95631 24.834 4.33594C25.4311 4.73889 25.9082 5.29596 26.2139 5.94824C26.5542 6.6403 26.7246 7.45836 26.7246 8.40234C26.7246 9.33403 26.5571 10.147 26.2227 10.8398C25.9239 11.4914 25.4487 12.0468 24.8516 12.4434C24.2736 12.819 23.5975 13.0156 22.9082 13.0078C22.3284 13.0062 21.7584 12.8576 21.251 12.5771C20.7426 12.3136 20.327 11.9009 20.0596 11.3945V16H17.9092V3.99512H20.0059V5.375C20.2743 4.85582 20.7006 4.43556 21.2236 4.1748C21.7438 3.90421 22.3219 3.76285 22.9082 3.7627ZM10.7393 9.24512C10.7393 10.7502 11.2775 11.5029 12.3525 11.5029C12.6286 11.5114 12.903 11.4555 13.1533 11.3389C13.4038 11.2222 13.6238 11.048 13.7949 10.8311C14.1597 10.3832 14.3414 9.77693 14.3408 9.0127V3.99609H16.4727V12.7754H14.3945V11.3955C14.1342 11.8942 13.7364 12.3077 13.248 12.5869C12.7398 12.8723 12.1648 13.0174 11.582 13.0078C10.5787 13.0078 9.82871 12.6822 9.33301 12.0312C8.8375 11.3804 8.58991 10.5416 8.58984 9.51465V3.99609H10.7393V9.24512ZM3.8877 3.76172C4.92689 3.76172 5.7606 3.98003 6.3877 4.41602C6.68665 4.61312 6.93327 4.87994 7.10645 5.19336C7.27966 5.50701 7.37426 5.85857 7.38184 6.2168H5.41113C5.4079 6.05606 5.36518 5.89835 5.28711 5.75781C5.20904 5.61733 5.09761 5.49779 4.96289 5.41016C4.67625 5.20721 4.2997 5.10547 3.83398 5.10547C3.34438 5.10551 2.96781 5.21656 2.70508 5.4375C2.57487 5.54814 2.47159 5.68712 2.40332 5.84375C2.33504 6.00048 2.30387 6.17102 2.31152 6.3418C2.30455 6.47218 2.32644 6.60283 2.37598 6.72363C2.42553 6.84443 2.50115 6.95308 2.59766 7.04102C2.78877 7.20884 3.09366 7.32834 3.51172 7.39941L5.08887 7.68555C6.76091 7.98421 7.59668 8.79727 7.59668 10.123C7.59659 11.0663 7.25948 11.7828 6.58496 12.2725C5.91015 12.7621 5.01696 13.0068 3.90625 13.0068C2.78344 13.0068 1.86599 12.7594 1.15527 12.2637C0.444751 11.768 0.0597154 11.1016 0 10.2656H1.98926C2.0125 10.4657 2.07729 10.6591 2.18066 10.832C2.28414 11.005 2.42346 11.1544 2.58887 11.2695C2.94124 11.5317 3.38068 11.6625 3.90625 11.6631C4.39572 11.663 4.78372 11.55 5.07031 11.3232C5.35699 11.0963 5.50098 10.7735 5.50098 10.3555C5.50758 10.2184 5.4849 10.0811 5.43555 9.95312C5.3862 9.82531 5.31062 9.70932 5.21387 9.6123C5.02276 9.42717 4.71221 9.2926 4.28223 9.20898L2.8125 8.94043C1.94134 8.7732 1.29653 8.50402 0.87793 8.13379C0.459296 7.76351 0.250379 7.24971 0.250977 6.59277C0.251032 5.69711 0.582357 5.00152 1.24512 4.50586C1.90799 4.0102 2.78893 3.76177 3.8877 3.76172ZM31.9346 3.76172C33.2127 3.76172 34.2195 4.14472 34.9541 4.90918C35.6884 5.6736 36.0556 6.7843 36.0557 8.24121V8.76074H29.6768C29.7012 9.62066 29.9225 10.3077 30.3398 10.8213C30.7572 11.3348 31.3127 11.5917 32.0059 11.5918C32.5075 11.5918 32.9235 11.4638 33.252 11.207C33.5675 10.9698 33.7917 10.631 33.8877 10.248H35.9482C35.8789 10.6506 35.7302 11.0354 35.5107 11.3799C35.2913 11.7244 35.0054 12.0219 34.6699 12.2549C33.9694 12.7565 33.0695 13.0068 31.9707 13.0068C31.0635 13.0068 30.2778 12.8196 29.6143 12.4434C28.9579 12.0741 28.4247 11.5193 28.082 10.8486C27.7237 10.1618 27.5449 9.34598 27.5449 8.40234C27.545 7.459 27.7239 6.64089 28.082 5.94824C28.4243 5.27269 28.9571 4.71137 29.6143 4.33496C30.2771 3.95278 31.0507 3.76173 31.9346 3.76172ZM46.8467 3.76172C47.8859 3.76172 48.7196 3.98003 49.3467 4.41602C49.6457 4.61311 49.8922 4.87993 50.0654 5.19336C50.2386 5.50701 50.3332 5.85857 50.3408 6.2168H48.3701C48.3669 6.05606 48.3242 5.89835 48.2461 5.75781C48.168 5.61737 48.0566 5.49777 47.9219 5.41016C47.6352 5.20726 47.2586 5.10547 46.793 5.10547C46.3041 5.10554 45.9283 5.21668 45.665 5.4375C45.5347 5.5482 45.4306 5.68697 45.3623 5.84375C45.294 6.00048 45.2629 6.17102 45.2705 6.3418C45.2635 6.47216 45.2854 6.60284 45.335 6.72363C45.3845 6.84439 45.4602 6.95309 45.5566 7.04102C45.7483 7.20882 46.0533 7.32834 46.4707 7.39941L48.0479 7.68555C49.72 7.98419 50.5557 8.79723 50.5557 10.123C50.5556 11.0664 50.2185 11.7828 49.5439 12.2725C48.8691 12.7622 47.976 13.0068 46.8652 13.0068C45.7432 13.0068 44.8265 12.7593 44.1152 12.2637C43.4039 11.768 43.0181 11.1018 42.959 10.2656H44.9482C44.9717 10.4658 45.0372 10.6591 45.1406 10.832C45.2441 11.0049 45.3826 11.1543 45.5479 11.2695C45.9008 11.5317 46.3403 11.6625 46.8652 11.6631C47.3553 11.6631 47.7433 11.55 48.0293 11.3232C48.3154 11.0963 48.4594 10.7735 48.46 10.3555C48.4666 10.2184 48.4439 10.0811 48.3945 9.95312C48.3452 9.82529 48.2696 9.70932 48.1729 9.6123C47.9823 9.42716 47.6718 9.2926 47.2412 9.20898L45.7725 8.94043C44.9005 8.7732 44.255 8.50408 43.8369 8.13379C43.4189 7.76351 43.21 7.24966 43.21 6.59277C43.21 5.69715 43.5414 5.00151 44.2041 4.50586C44.8669 4.01022 45.748 3.76179 46.8467 3.76172ZM55.6562 3.76172C56.9336 3.76177 57.9397 4.14477 58.6748 4.90918C59.4099 5.67361 59.7779 6.78409 59.7773 8.24121V8.76074H53.3984C53.4217 9.62076 53.6429 10.3077 54.0615 10.8213C54.4802 11.3349 55.0354 11.5918 55.7275 11.5918C56.229 11.5918 56.6442 11.4637 56.9727 11.207C57.2879 10.9695 57.5131 10.6308 57.6094 10.248H59.6689C59.5991 10.6507 59.4503 11.0354 59.2305 11.3799C59.0106 11.7243 58.7245 12.022 58.3887 12.2549C57.6899 12.7566 56.7903 13.0068 55.6914 13.0068C54.7833 13.0068 53.9981 12.8194 53.3359 12.4434C52.6796 12.0741 52.1464 11.5192 51.8037 10.8486C51.4454 10.1618 51.2666 9.34598 51.2666 8.40234C51.2666 7.45894 51.4455 6.64092 51.8037 5.94824C52.146 5.27269 52.6788 4.71137 53.3359 4.33496C53.9988 3.95287 54.7725 3.76172 55.6562 3.76172ZM69.3037 12.7754H67.1709V3.99609H69.3037V12.7754ZM42.1572 3.7627C42.2441 3.76266 42.3309 3.76831 42.417 3.78027V5.57227C42.3211 5.56062 42.2198 5.55119 42.1123 5.54492C42.005 5.53866 41.8914 5.53614 41.7725 5.53613C41.0319 5.53613 40.44 5.78077 39.998 6.27051C39.5561 6.76024 39.335 7.4114 39.335 8.22363V12.7744H37.1855V3.99512H39.2812V5.64355C39.5321 5.03441 39.8728 4.5686 40.3027 4.24609C40.7543 3.91668 41.3026 3.74689 41.8613 3.7627H42.1572ZM65.8906 3.7627C65.9774 3.7627 66.0644 3.76834 66.1504 3.78027V5.57227C66.0546 5.56063 65.9531 5.55119 65.8457 5.54492C65.7382 5.53865 65.624 5.53613 65.5049 5.53613C64.7645 5.53617 64.1733 5.78091 63.7314 6.27051C63.2895 6.76024 63.0684 7.41139 63.0684 8.22363V12.7744H60.918V3.99512H63.0146V5.64355C63.2655 5.03437 63.6061 4.5686 64.0361 4.24609C64.4878 3.91669 65.0359 3.74684 65.5947 3.7627H65.8906ZM74.4961 0C74.7775 0.00043544 75.0587 0.0183472 75.3379 0.0537109V1.54102C75.2594 1.51768 75.1776 1.50532 75.0957 1.50488H74.8359C74.4305 1.50492 74.1377 1.60373 73.958 1.80078C73.7783 1.99788 73.6889 2.30569 73.6895 2.72363V3.99512H75.3418V5.48242H73.6934V12.7744H71.5576V5.48242H70.2852V3.99512H71.5576V2.8125C71.5577 1.91688 71.8023 1.22402 72.292 0.734375C72.7817 0.244728 73.5167 0 74.4961 0ZM77.1748 12.7744H74.8809V10.4453H77.1748V12.7744ZM22.3164 5.21387C21.9887 5.20721 21.6643 5.2802 21.3711 5.42676C21.0777 5.57344 20.8242 5.78931 20.6328 6.05566C20.2028 6.61766 19.9873 7.3582 19.9873 8.27734V8.49219C19.9873 9.42374 20.2086 10.1673 20.6504 10.7227C21.0923 11.278 21.6476 11.5566 22.3164 11.5566C22.9853 11.5566 23.5236 11.2725 23.9297 10.7051C24.3357 10.1377 24.5381 9.36411 24.5381 8.38477C24.5381 7.39339 24.3264 6.61705 23.9023 6.05566C23.4783 5.49426 22.9495 5.21387 22.3164 5.21387ZM31.8984 5.15918C31.2775 5.15927 30.7757 5.37758 30.3936 5.81348C30.0114 6.2494 29.7846 6.80192 29.7129 7.4707H33.9414C33.9175 6.74219 33.7293 6.17463 33.377 5.76855C33.0246 5.36254 32.5314 5.15918 31.8984 5.15918ZM55.6201 5.15918C54.9985 5.15919 54.4968 5.37759 54.1152 5.81348C53.7336 6.2494 53.5069 6.80192 53.4346 7.4707H57.6631C57.6392 6.74219 57.451 6.17463 57.0986 5.76855C56.7463 5.36243 56.2532 5.15918 55.6201 5.15918ZM69.375 2.29395H67.0996V0.34082H69.375V2.29395Z"/></svg>';
-class le extends F {
+const ue = '<svg class="ssui-panel__logo" viewBox="0 0 78 16" width="78" height="16" fill="currentColor" aria-label="superserif"><path d="M22.9082 3.7627C23.5931 3.75668 24.2639 3.95631 24.834 4.33594C25.4311 4.73889 25.9082 5.29596 26.2139 5.94824C26.5542 6.6403 26.7246 7.45836 26.7246 8.40234C26.7246 9.33403 26.5571 10.147 26.2227 10.8398C25.9239 11.4914 25.4487 12.0468 24.8516 12.4434C24.2736 12.819 23.5975 13.0156 22.9082 13.0078C22.3284 13.0062 21.7584 12.8576 21.251 12.5771C20.7426 12.3136 20.327 11.9009 20.0596 11.3945V16H17.9092V3.99512H20.0059V5.375C20.2743 4.85582 20.7006 4.43556 21.2236 4.1748C21.7438 3.90421 22.3219 3.76285 22.9082 3.7627ZM10.7393 9.24512C10.7393 10.7502 11.2775 11.5029 12.3525 11.5029C12.6286 11.5114 12.903 11.4555 13.1533 11.3389C13.4038 11.2222 13.6238 11.048 13.7949 10.8311C14.1597 10.3832 14.3414 9.77693 14.3408 9.0127V3.99609H16.4727V12.7754H14.3945V11.3955C14.1342 11.8942 13.7364 12.3077 13.248 12.5869C12.7398 12.8723 12.1648 13.0174 11.582 13.0078C10.5787 13.0078 9.82871 12.6822 9.33301 12.0312C8.8375 11.3804 8.58991 10.5416 8.58984 9.51465V3.99609H10.7393V9.24512ZM3.8877 3.76172C4.92689 3.76172 5.7606 3.98003 6.3877 4.41602C6.68665 4.61312 6.93327 4.87994 7.10645 5.19336C7.27966 5.50701 7.37426 5.85857 7.38184 6.2168H5.41113C5.4079 6.05606 5.36518 5.89835 5.28711 5.75781C5.20904 5.61733 5.09761 5.49779 4.96289 5.41016C4.67625 5.20721 4.2997 5.10547 3.83398 5.10547C3.34438 5.10551 2.96781 5.21656 2.70508 5.4375C2.57487 5.54814 2.47159 5.68712 2.40332 5.84375C2.33504 6.00048 2.30387 6.17102 2.31152 6.3418C2.30455 6.47218 2.32644 6.60283 2.37598 6.72363C2.42553 6.84443 2.50115 6.95308 2.59766 7.04102C2.78877 7.20884 3.09366 7.32834 3.51172 7.39941L5.08887 7.68555C6.76091 7.98421 7.59668 8.79727 7.59668 10.123C7.59659 11.0663 7.25948 11.7828 6.58496 12.2725C5.91015 12.7621 5.01696 13.0068 3.90625 13.0068C2.78344 13.0068 1.86599 12.7594 1.15527 12.2637C0.444751 11.768 0.0597154 11.1016 0 10.2656H1.98926C2.0125 10.4657 2.07729 10.6591 2.18066 10.832C2.28414 11.005 2.42346 11.1544 2.58887 11.2695C2.94124 11.5317 3.38068 11.6625 3.90625 11.6631C4.39572 11.663 4.78372 11.55 5.07031 11.3232C5.35699 11.0963 5.50098 10.7735 5.50098 10.3555C5.50758 10.2184 5.4849 10.0811 5.43555 9.95312C5.3862 9.82531 5.31062 9.70932 5.21387 9.6123C5.02276 9.42717 4.71221 9.2926 4.28223 9.20898L2.8125 8.94043C1.94134 8.7732 1.29653 8.50402 0.87793 8.13379C0.459296 7.76351 0.250379 7.24971 0.250977 6.59277C0.251032 5.69711 0.582357 5.00152 1.24512 4.50586C1.90799 4.0102 2.78893 3.76177 3.8877 3.76172ZM31.9346 3.76172C33.2127 3.76172 34.2195 4.14472 34.9541 4.90918C35.6884 5.6736 36.0556 6.7843 36.0557 8.24121V8.76074H29.6768C29.7012 9.62066 29.9225 10.3077 30.3398 10.8213C30.7572 11.3348 31.3127 11.5917 32.0059 11.5918C32.5075 11.5918 32.9235 11.4638 33.252 11.207C33.5675 10.9698 33.7917 10.631 33.8877 10.248H35.9482C35.8789 10.6506 35.7302 11.0354 35.5107 11.3799C35.2913 11.7244 35.0054 12.0219 34.6699 12.2549C33.9694 12.7565 33.0695 13.0068 31.9707 13.0068C31.0635 13.0068 30.2778 12.8196 29.6143 12.4434C28.9579 12.0741 28.4247 11.5193 28.082 10.8486C27.7237 10.1618 27.5449 9.34598 27.5449 8.40234C27.545 7.459 27.7239 6.64089 28.082 5.94824C28.4243 5.27269 28.9571 4.71137 29.6143 4.33496C30.2771 3.95278 31.0507 3.76173 31.9346 3.76172ZM46.8467 3.76172C47.8859 3.76172 48.7196 3.98003 49.3467 4.41602C49.6457 4.61311 49.8922 4.87993 50.0654 5.19336C50.2386 5.50701 50.3332 5.85857 50.3408 6.2168H48.3701C48.3669 6.05606 48.3242 5.89835 48.2461 5.75781C48.168 5.61737 48.0566 5.49777 47.9219 5.41016C47.6352 5.20726 47.2586 5.10547 46.793 5.10547C46.3041 5.10554 45.9283 5.21668 45.665 5.4375C45.5347 5.5482 45.4306 5.68697 45.3623 5.84375C45.294 6.00048 45.2629 6.17102 45.2705 6.3418C45.2635 6.47216 45.2854 6.60284 45.335 6.72363C45.3845 6.84439 45.4602 6.95309 45.5566 7.04102C45.7483 7.20882 46.0533 7.32834 46.4707 7.39941L48.0479 7.68555C49.72 7.98419 50.5557 8.79723 50.5557 10.123C50.5556 11.0664 50.2185 11.7828 49.5439 12.2725C48.8691 12.7622 47.976 13.0068 46.8652 13.0068C45.7432 13.0068 44.8265 12.7593 44.1152 12.2637C43.4039 11.768 43.0181 11.1018 42.959 10.2656H44.9482C44.9717 10.4658 45.0372 10.6591 45.1406 10.832C45.2441 11.0049 45.3826 11.1543 45.5479 11.2695C45.9008 11.5317 46.3403 11.6625 46.8652 11.6631C47.3553 11.6631 47.7433 11.55 48.0293 11.3232C48.3154 11.0963 48.4594 10.7735 48.46 10.3555C48.4666 10.2184 48.4439 10.0811 48.3945 9.95312C48.3452 9.82529 48.2696 9.70932 48.1729 9.6123C47.9823 9.42716 47.6718 9.2926 47.2412 9.20898L45.7725 8.94043C44.9005 8.7732 44.255 8.50408 43.8369 8.13379C43.4189 7.76351 43.21 7.24966 43.21 6.59277C43.21 5.69715 43.5414 5.00151 44.2041 4.50586C44.8669 4.01022 45.748 3.76179 46.8467 3.76172ZM55.6562 3.76172C56.9336 3.76177 57.9397 4.14477 58.6748 4.90918C59.4099 5.67361 59.7779 6.78409 59.7773 8.24121V8.76074H53.3984C53.4217 9.62076 53.6429 10.3077 54.0615 10.8213C54.4802 11.3349 55.0354 11.5918 55.7275 11.5918C56.229 11.5918 56.6442 11.4637 56.9727 11.207C57.2879 10.9695 57.5131 10.6308 57.6094 10.248H59.6689C59.5991 10.6507 59.4503 11.0354 59.2305 11.3799C59.0106 11.7243 58.7245 12.022 58.3887 12.2549C57.6899 12.7566 56.7903 13.0068 55.6914 13.0068C54.7833 13.0068 53.9981 12.8194 53.3359 12.4434C52.6796 12.0741 52.1464 11.5192 51.8037 10.8486C51.4454 10.1618 51.2666 9.34598 51.2666 8.40234C51.2666 7.45894 51.4455 6.64092 51.8037 5.94824C52.146 5.27269 52.6788 4.71137 53.3359 4.33496C53.9988 3.95287 54.7725 3.76172 55.6562 3.76172ZM69.3037 12.7754H67.1709V3.99609H69.3037V12.7754ZM42.1572 3.7627C42.2441 3.76266 42.3309 3.76831 42.417 3.78027V5.57227C42.3211 5.56062 42.2198 5.55119 42.1123 5.54492C42.005 5.53866 41.8914 5.53614 41.7725 5.53613C41.0319 5.53613 40.44 5.78077 39.998 6.27051C39.5561 6.76024 39.335 7.4114 39.335 8.22363V12.7744H37.1855V3.99512H39.2812V5.64355C39.5321 5.03441 39.8728 4.5686 40.3027 4.24609C40.7543 3.91668 41.3026 3.74689 41.8613 3.7627H42.1572ZM65.8906 3.7627C65.9774 3.7627 66.0644 3.76834 66.1504 3.78027V5.57227C66.0546 5.56063 65.9531 5.55119 65.8457 5.54492C65.7382 5.53865 65.624 5.53613 65.5049 5.53613C64.7645 5.53617 64.1733 5.78091 63.7314 6.27051C63.2895 6.76024 63.0684 7.41139 63.0684 8.22363V12.7744H60.918V3.99512H63.0146V5.64355C63.2655 5.03437 63.6061 4.5686 64.0361 4.24609C64.4878 3.91669 65.0359 3.74684 65.5947 3.7627H65.8906ZM74.4961 0C74.7775 0.00043544 75.0587 0.0183472 75.3379 0.0537109V1.54102C75.2594 1.51768 75.1776 1.50532 75.0957 1.50488H74.8359C74.4305 1.50492 74.1377 1.60373 73.958 1.80078C73.7783 1.99788 73.6889 2.30569 73.6895 2.72363V3.99512H75.3418V5.48242H73.6934V12.7744H71.5576V5.48242H70.2852V3.99512H71.5576V2.8125C71.5577 1.91688 71.8023 1.22402 72.292 0.734375C72.7817 0.244728 73.5167 0 74.4961 0ZM77.1748 12.7744H74.8809V10.4453H77.1748V12.7744ZM22.3164 5.21387C21.9887 5.20721 21.6643 5.2802 21.3711 5.42676C21.0777 5.57344 20.8242 5.78931 20.6328 6.05566C20.2028 6.61766 19.9873 7.3582 19.9873 8.27734V8.49219C19.9873 9.42374 20.2086 10.1673 20.6504 10.7227C21.0923 11.278 21.6476 11.5566 22.3164 11.5566C22.9853 11.5566 23.5236 11.2725 23.9297 10.7051C24.3357 10.1377 24.5381 9.36411 24.5381 8.38477C24.5381 7.39339 24.3264 6.61705 23.9023 6.05566C23.4783 5.49426 22.9495 5.21387 22.3164 5.21387ZM31.8984 5.15918C31.2775 5.15927 30.7757 5.37758 30.3936 5.81348C30.0114 6.2494 29.7846 6.80192 29.7129 7.4707H33.9414C33.9175 6.74219 33.7293 6.17463 33.377 5.76855C33.0246 5.36254 32.5314 5.15918 31.8984 5.15918ZM55.6201 5.15918C54.9985 5.15919 54.4968 5.37759 54.1152 5.81348C53.7336 6.2494 53.5069 6.80192 53.4346 7.4707H57.6631C57.6392 6.74219 57.451 6.17463 57.0986 5.76855C56.7463 5.36243 56.2532 5.15918 55.6201 5.15918ZM69.375 2.29395H67.0996V0.34082H69.375V2.29395Z"/></svg>';
+class de extends z {
   constructor(t = {}) {
-    super(), this.cleanups = [], this.soloed = null, this.footerCenter = null, this.footerRight = null, this.fpsEl = null, this.stopFps = null, this.opts = t, this._id = t.id ?? H(t.title ?? "panel");
+    super(), this.cleanups = [], this.soloed = null, this.footerCenter = null, this.footerRight = null, this.fpsEl = null, this.stopFps = null, this.opts = t, this._id = t.id ?? j(t.title ?? "panel");
     const e = t.position ?? (t.container ? "static" : "top-right"), s = ot("ssui-body"), i = o("span", { class: "ssui-panel__title" }, [t.title ?? "Controls"]), n = t.meta ? o("span", { class: "ssui-panel__meta" }, [t.meta]) : null, r = o("span", { class: "ssui-panel__dot", "aria-hidden": "true" });
     this.collapseBtn = o("button", { class: "ssui-panel__collapse", type: "button", "aria-expanded": "true", "aria-controls": s, "aria-label": "Collapse panel" }, [E.chevron()]);
-    const h = o("div", { class: "ssui-panel__toggle" }, [r, i, n]);
-    t.fps && (this.fpsEl = o("span", { class: "ssui-panel__fps", "aria-label": "frames per second" }, ["— fps"])), this.header = o("header", { class: "ssui-panel__header" }, [h, this.fpsEl, this.collapseBtn]), this.subEl = o("div", { class: "ssui-panel__sub" }), this.bodyEl = o("div", { class: "ssui-panel__body", id: s });
-    const c = o("div", { class: "ssui-panel__clip" }, [this.bodyEl]), l = [];
-    if (t.footer instanceof HTMLElement) l.push(t.footer);
+    const l = o("div", { class: "ssui-panel__toggle" }, [r, i, n]);
+    t.fps && (this.fpsEl = o("span", { class: "ssui-panel__fps", "aria-label": "frames per second" }, ["— fps"])), this.header = o("header", { class: "ssui-panel__header" }, [l, this.fpsEl, this.collapseBtn]), this.subEl = o("div", { class: "ssui-panel__sub" }), this.bodyEl = o("div", { class: "ssui-panel__body", id: s });
+    const c = o("div", { class: "ssui-panel__clip" }, [this.bodyEl]), h = [];
+    if (t.footer instanceof HTMLElement) h.push(t.footer);
     else if (t.footer !== !1) {
       const f = document.createElement("template");
-      f.innerHTML = oe, l.push(o("a", { class: "ssui-panel__brand", href: "https://superserif.studio", target: "_blank", rel: "noopener noreferrer", "aria-label": "Super Serif" }, [f.content.firstElementChild])), this.footerCenter = o("div", { class: "ssui-panel__footer-center" }), l.push(this.footerCenter);
-      const g = t.link === void 0 ? { label: "see our work", href: "https://superserif.studio" } : t.link;
-      this.footerRight = o("div", { class: "ssui-panel__footer-right" }, [g ? o("a", { class: "ssui-panel__link", href: g.href, target: "_blank", rel: "noopener noreferrer" }, [g.label]) : o("span", { class: "ssui-panel__meta" }, ["ui"])]), l.push(this.footerRight);
+      f.innerHTML = ue, h.push(o("a", { class: "ssui-panel__brand", href: "https://superserif.studio", target: "_blank", rel: "noopener noreferrer", "aria-label": "Super Serif" }, [f.content.firstElementChild])), this.footerCenter = o("div", { class: "ssui-panel__footer-center" }), h.push(this.footerCenter);
+      const m = t.link === void 0 ? { label: "see our work", href: "https://superserif.studio" } : t.link;
+      this.footerRight = o("div", { class: "ssui-panel__footer-right" }, [m ? o("a", { class: "ssui-panel__link", href: m.href, target: "_blank", rel: "noopener noreferrer" }, [m.label]) : o("span", { class: "ssui-panel__meta" }, ["ui"])]), h.push(this.footerRight);
     }
-    const u = l.length ? o("footer", { class: "ssui-panel__footer" }, l) : null, d = t.resizable === !1 ? null : o("div", { class: "ssui-panel__resize", "aria-hidden": "true" });
-    if (this.el = o("section", { class: "ssui-panel", role: "region", "aria-label": t.title ?? "Controls", "data-ssui-position": e, id: t.id }, [this.header, this.subEl, c, u, d]), t.width && this.el.style.setProperty("--ssui-panel-width", `${t.width}px`), t.tokens) for (const [f, g] of Object.entries(t.tokens)) this.setToken(f, g);
-    this.theme = new te(this.el, t.theme ?? "auto"), this.theme.on("frame", () => this.controllers().forEach((f) => f.onThemeChange())), this.cleanups.push(() => this.theme.dispose()), this.presets = new ne(this, t.storageKey ?? null), this.collapseBtn.addEventListener("click", () => this.toggle()), t.collapsed && (this.collapsed = !0), e !== "static" && t.draggable !== !1 ? this.enableDrag(e) : this.header.style.cursor = "default", d && this.enableResize(d);
+    const u = h.length ? o("footer", { class: "ssui-panel__footer" }, h) : null, d = t.resizable === !1 ? null : o("div", { class: "ssui-panel__resize", "aria-hidden": "true" });
+    if (this.el = o("section", { class: "ssui-panel", role: "region", "aria-label": t.title ?? "Controls", "data-ssui-position": e, id: t.id }, [this.header, this.subEl, c, u, d]), t.width && this.el.style.setProperty("--ssui-panel-width", `${t.width}px`), t.tokens) for (const [f, m] of Object.entries(t.tokens)) this.setToken(f, m);
+    this.theme = new ie(this.el, t.theme ?? "auto"), this.theme.on("frame", () => this.controllers().forEach((f) => f.onThemeChange())), this.cleanups.push(() => this.theme.dispose()), this.presets = new oe(this, t.storageKey ?? null), this.collapseBtn.addEventListener("click", () => this.toggle()), t.collapsed && (this.collapsed = !0), e !== "static" && t.draggable !== !1 ? this.enableDrag(e) : this.header.style.cursor = "default", d && this.enableResize(d);
     const p = t.hotkey === void 0 ? e === "static" ? null : "h" : t.hotkey;
     if (p) {
-      const f = (g) => {
-        g.key.toLowerCase() !== p.toLowerCase() || g.metaKey || g.ctrlKey || g.altKey || St(document.activeElement) || document.querySelector('.ssui-panel [data-ssui-state="editing"]') || this.toggle();
+      const f = (m) => {
+        m.key.toLowerCase() !== p.toLowerCase() || m.metaKey || m.ctrlKey || m.altKey || St(document.activeElement) || document.querySelector('.ssui-panel [data-ssui-state="editing"]') || this.toggle();
       };
       window.addEventListener("keydown", f), this.cleanups.push(() => window.removeEventListener("keydown", f));
     }
     if ((t.container ?? document.body).append(this.el), this.restoreGeometry(), this.startFps(), t.reorderable) {
-      this.cleanups.push(ae(this));
+      this.cleanups.push(le(this));
       const f = t.storageKey ? `ssui:${t.storageKey}:order` : null;
       f && (this.on("reorder", () => {
         try {
@@ -2569,8 +2663,8 @@ class le extends F {
         }
       }), queueMicrotask(() => {
         try {
-          const g = JSON.parse(localStorage.getItem(f) ?? "null");
-          Array.isArray(g) && this.setOrder(g);
+          const m = JSON.parse(localStorage.getItem(f) ?? "null");
+          Array.isArray(m) && this.setOrder(m);
         } catch {
         }
       }));
@@ -2631,7 +2725,7 @@ class le extends F {
   }
   /** preset bar: pinned under the title by default (outside the scrolling body); `placement: 'body'` adds it as a row */
   addPresets(t = {}) {
-    const e = new re(this, t);
+    const e = new he(this, t);
     return t.placement === "body" ? this.attach(e) : (e.el.setAttribute("data-ssui-placement", "header"), this.subEl.replaceChildren(e.el), this.el.setAttribute("data-ssui-has-sub", ""), e);
   }
   // ---- fps ----------------------------------------------------------------
@@ -2654,32 +2748,32 @@ class le extends F {
     if (!this.footerCenter) throw new Error("[ssui] setTransport needs the default footer");
     const [e, s] = t.labels ?? ["Play", "Pause"];
     let i = t.playing ?? !0;
-    const n = o("span", { class: "ssui-transport__icon", "aria-hidden": "true" }, [E.play(), E.pause()]), r = o("span", { class: "ssui-transport__label" }, [i ? s : e]), h = o("button", { class: "ssui-transport__toggle", type: "button", "aria-pressed": String(i) }, [n, r]), c = o("button", { class: "ssui-transport__reset", type: "button", "aria-label": "Reset", title: "Reset" }, [E.refresh()]), l = o("div", { class: "ssui-transport", "data-ssui-playing": i ? "" : null }, [h, c]), u = () => {
-      l.toggleAttribute("data-ssui-playing", i), h.setAttribute("aria-pressed", String(i)), r.textContent = i ? s : e;
+    const n = o("span", { class: "ssui-transport__icon", "aria-hidden": "true" }, [E.play(), E.pause()]), r = o("span", { class: "ssui-transport__label" }, [i ? s : e]), l = o("button", { class: "ssui-transport__toggle", type: "button", "aria-pressed": String(i) }, [n, r]), c = o("button", { class: "ssui-transport__reset", type: "button", "aria-label": "Reset", title: "Reset" }, [E.refresh()]), h = o("div", { class: "ssui-transport", "data-ssui-playing": i ? "" : null }, [l, c]), u = () => {
+      h.toggleAttribute("data-ssui-playing", i), l.setAttribute("aria-pressed", String(i)), r.textContent = i ? s : e;
     };
-    if (h.addEventListener("click", () => {
+    if (l.addEventListener("click", () => {
       i = !i, u(), t.onToggle?.(i);
     }), c.addEventListener("click", () => {
       c.setAttribute("data-ssui-spin", ""), setTimeout(() => c.removeAttribute("data-ssui-spin"), 500), t.onReset ? t.onReset() : this.reset();
-    }), this.footerCenter.replaceChildren(l), t.action && this.footerRight) {
+    }), this.footerCenter.replaceChildren(h), t.action && this.footerRight) {
       const d = o("button", { class: "ssui-transport__action", type: "button" }, [t.action.label]);
       d.addEventListener("click", () => t.action.onClick()), this.footerRight.replaceChildren(d);
     }
     return {
-      el: l,
+      el: h,
       get playing() {
         return i;
       },
       set playing(d) {
         d !== i && (i = d, u());
       },
-      dispose: () => l.remove()
+      dispose: () => h.remove()
     };
   }
   // ---- drag / resize ------------------------------------------------------
   enableDrag(t) {
     let e = 0, s = 0, i = 0, n = 0;
-    this.cleanups.push(D(this.header, {
+    this.cleanups.push(O(this.header, {
       cursor: "grabbing",
       ignore: (r) => !!r.target.closest("button"),
       onStart: () => {
@@ -2687,15 +2781,15 @@ class le extends F {
         this.el.style.left = `${r.left}px`, this.el.style.top = `${r.top}px`, this.el.style.right = "auto", this.el.style.bottom = "auto", e = r.left, s = r.top, i = r.width, n = r.height;
       },
       onMove: (r) => {
-        const h = m(e + r.dx, 0, innerWidth - i), c = m(s + r.dy, 0, innerHeight - Math.min(n, 48));
-        this.el.style.left = `${h}px`, this.el.style.top = `${c}px`;
+        const l = g(e + r.dx, 0, innerWidth - i), c = g(s + r.dy, 0, innerHeight - Math.min(n, 48));
+        this.el.style.left = `${l}px`, this.el.style.top = `${c}px`;
       },
       onEnd: () => this.saveGeometry()
     }));
   }
   enableResize(t) {
     let e = 0;
-    this.cleanups.push(D(t, {
+    this.cleanups.push(O(t, {
       immediate: !0,
       cursor: "ew-resize",
       onStart: () => {
@@ -2733,36 +2827,38 @@ class le extends F {
     this.presets.dispose(), super.dispose();
   }
 }
-const he = "0.1.0";
+const ce = "0.1.1";
 export {
-  ct as ButtonControl,
-  Ht as ColorControl,
-  F as Container,
-  _ as Controller,
-  Ut as CurveControl,
+  pt as ButtonControl,
+  jt as ColorControl,
+  z as Container,
+  x as Controller,
+  Zt as CurveControl,
   nt as Folder,
-  Ot as KnobControl,
-  Zt as MenuControl,
-  Yt as MixerControl,
-  Gt as MonitorControl,
-  S as NumberControl,
+  Tt as KnobControl,
+  Qt as MenuControl,
+  ee as MixerControl,
+  Yt as MonitorControl,
+  A as NumberControl,
   it as Pad2DControl,
-  Qt as PadBankControl,
-  le as Panel,
-  re as PresetBar,
-  ne as PresetStore,
+  se as PadBankControl,
+  de as Panel,
+  he as PresetBar,
+  oe as PresetStore,
+  Pt as RangeControl,
   B as Scheduler,
   lt as SelectControl,
-  $t as SliderControl,
-  Nt as TextControl,
-  te as Theme,
-  Pt as ToggleControl,
+  Ot as SliderControl,
+  Jt as TextControl,
+  ie as Theme,
+  Vt as ToggleControl,
   M as bindKey,
+  Lt as bindPair,
   N as bindValue,
   Ct as bindXY,
   Mt as bindXYObject,
-  ae as makeReorderable,
-  D as trackPointer,
-  he as version
+  le as makeReorderable,
+  O as trackPointer,
+  ce as version
 };
 //# sourceMappingURL=index.js.map

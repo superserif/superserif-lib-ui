@@ -28,6 +28,9 @@ export declare interface Binding<T> {
 
 export declare function bindKey<T>(target: any, key: string, equals?: (a: T, b: T) => boolean): Binding<T>;
 
+/** range form: addRange(obj, 'band') where obj.band = [lo, hi]; mutates the array in place */
+export declare function bindPair(target: any, key: string): Binding<Pair>;
+
 export declare function bindValue<T>(initial: T, equals?: (a: T, b: T) => boolean): Binding<T>;
 
 /** two-key form: addPad2D(obj, 'x', 'y') — writes both keys, never replaces the object */
@@ -155,6 +158,8 @@ export declare abstract class Container extends Emitter<ContainerEvents> {
     add(target: object, key: string, opts?: AddOptions): Controller<any, any>;
     addNumber(target: object, key: string, opts?: NumberOptions): NumberControl;
     addSlider(target: object, key: string, opts: SliderOptions): SliderControl;
+    /** two-thumb slider for a [lo, hi] pair: addRange(obj, 'band', { min: 0, max: 100 }) with obj.band = [20, 80] */
+    addRange(target: object, key: string, opts: RangeOptions): RangeControl;
     addKnob(target: object, key: string, opts?: KnobOptions): KnobControl;
     /** addPad2D(obj, 'offset') for {x,y} objects, or addPad2D(obj, 'x', 'y', opts) for two keys */
     addPad2D(target: object, key: string, yKeyOrOpts?: string | Pad2DOptions, maybeOpts?: Pad2DOptions): Pad2DControl;
@@ -708,6 +713,8 @@ export declare interface PadSpec {
     label?: string;
 }
 
+export declare type Pair = [number, number];
+
 export declare class Panel extends Container {
     readonly el: HTMLElement;
     protected readonly bodyEl: HTMLElement;
@@ -925,6 +932,38 @@ export declare class PresetStore extends Emitter<Events> {
 
 export declare type PreviewFn<T> = (ctx: CanvasRenderingContext2D, value: T, w: number, h: number, t: number, tokens: (name: string) => string) => void;
 
+/** Range = one track, two thumbs; the value is a [lo, hi] pair. */
+export declare class RangeControl extends Controller<Pair, RangeOptions> {
+    min: number;
+    max: number;
+    step: number;
+    precision: number;
+    private track;
+    private loThumb;
+    private hiThumb;
+    private readouts;
+    /** which end the current gesture moves; the pair never crosses */
+    private active;
+    private ro;
+    constructor(binding: Binding<Pair>, opts: RangeOptions);
+    protected render(): HTMLElement;
+    private setEnd;
+    protected sanitize(v: Pair): Pair;
+    protected update(v: Pair): void;
+    /** the Number's edit() targets the hi readout */
+    edit(): void;
+}
+
+export declare interface RangeOptions extends BaseOptions {
+    min: number;
+    max: number;
+    step?: number;
+    precision?: number;
+    unit?: string;
+    /** inline: label + "lo – hi" on one line, full-width track below (same layout as the inline Slider) */
+    inline?: boolean;
+}
+
 export declare type ResolvedTheme = 'light' | 'dark';
 
 export declare type RGBA = {
@@ -1025,7 +1064,7 @@ export declare interface SliderOptions extends NumberOptions {
     max: number;
     /** show "/ max" after the value */
     showRange?: boolean;
-    /** inline: label + "value / max" on one line, full-width bar below (Figma "Sliders Container") */
+    /** inline: label + value on one line, full-width track below (Figma "Sliders Container"); add showRange for "value / max" */
     inline?: boolean;
     /** the "/ max" readout is itself scrubbable, so the range can be raised from the UI (default true when shown) */
     editableMax?: boolean;
@@ -1121,7 +1160,7 @@ export declare interface TransportOptions {
     };
 }
 
-export declare const version = "0.1.0";
+export declare const version = "0.1.1";
 
 export declare interface XY {
     x: number;

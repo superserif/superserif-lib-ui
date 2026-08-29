@@ -1,8 +1,9 @@
 import { Emitter } from './Emitter';
 import { Controller } from './Controller';
-import { bindKey, bindXY, bindXYObject, structuralEquals, type Binding, type XY } from './Binding';
+import { bindKey, bindPair, bindXY, bindXYObject, structuralEquals, type Binding, type XY } from './Binding';
 import { NumberControl, type NumberOptions } from '../controls/NumberControl';
 import { SliderControl, type SliderOptions } from '../controls/SliderControl';
+import { RangeControl, type RangeOptions } from '../controls/RangeControl';
 import { KnobControl, type KnobOptions } from '../controls/KnobControl';
 import { Pad2DControl, type Pad2DOptions } from '../controls/Pad2DControl';
 import { ToggleControl, type ToggleOptions } from '../controls/ToggleControl';
@@ -115,6 +116,9 @@ export abstract class Container extends Emitter<ContainerEvents> {
     if (opts.options) return this.addSelect(target, key, { ...base, options: opts.options } as SelectOptions<any>);
     if (opts.color || (typeof v === 'string' && /^#([0-9a-f]{3,8})$/i.test(v))) return this.addColor(target, key, base);
     if (typeof v === 'string') return this.addText(target, key, base);
+    if (Array.isArray(v) && v.length === 2 && typeof v[0] === 'number' && typeof v[1] === 'number' && opts.min !== undefined && opts.max !== undefined) {
+      return this.addRange(target, key, base as RangeOptions);
+    }
     if (v && typeof v === 'object') {
       if ('type' in v && 'points' in v) return this.addCurve(target, key, base as CurveOptions);
       if (typeof v.x === 'number' && typeof v.y === 'number') return this.addPad2D(target, key, base as Pad2DOptions);
@@ -128,6 +132,10 @@ export abstract class Container extends Emitter<ContainerEvents> {
   }
   addSlider(target: object, key: string, opts: SliderOptions): SliderControl {
     return this.attach(new SliderControl(bindKey<number>(target, key), { label: key, ...opts }));
+  }
+  /** two-thumb slider for a [lo, hi] pair: addRange(obj, 'band', { min: 0, max: 100 }) with obj.band = [20, 80] */
+  addRange(target: object, key: string, opts: RangeOptions): RangeControl {
+    return this.attach(new RangeControl(bindPair(target, key), { label: key, ...opts }));
   }
   addKnob(target: object, key: string, opts: KnobOptions = {}): KnobControl {
     return this.attach(new KnobControl(bindKey<number>(target, key), { label: key, ...opts }));

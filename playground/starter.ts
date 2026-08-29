@@ -29,6 +29,7 @@ const S = {
   // sliders
   speed: 1,
   decay: 0.4,
+  window: [0.15, 0.85] as [number, number],   // the horizontal span the traces draw in
   // pad 2d
   offset: { x: 0, y: 0 },
   // curve: falloff from the centre of the screen outwards
@@ -108,9 +109,11 @@ function buildModule(type: ModuleType, id: string, title: string, isDefault: boo
       if (isDefault) {
         f.addSlider(S, 'speed', { min: 0, max: 3, step: 0.01, inline: true });
         f.addSlider(S, 'decay', { min: 0, max: 1, step: 0.01, inline: true });
+        f.addRange(S, 'window', { min: 0, max: 1, step: 0.01, inline: true });
       } else {
-        const t = slot(id, () => ({ value: 30 }));
+        const t = slot(id, () => ({ value: 30, band: [20, 80] as [number, number] }));
         f.addSlider(t, 'value', { min: 0, max: 100, step: 1, inline: true });
+        f.addRange(t, 'band', { min: 0, max: 100, step: 1, unit: '%', inline: true });
       }
       break;
     }
@@ -177,7 +180,7 @@ panel.on('panel-solo', (f) => { soloId = f ? f.id : null; });
 const rnd = (a: number, b: number, d = 2): number => +(a + Math.random() * (b - a)).toFixed(d);
 function randomize(): void {
   S.amplitude = rnd(0.2, 1); S.frequency = rnd(0.5, 6); S.phase = rnd(0, 360, 0);
-  S.speed = rnd(0.3, 2.5); S.decay = rnd(0, 1);
+  S.speed = rnd(0.3, 2.5); S.decay = rnd(0, 1); S.window = [rnd(0, 0.25), rnd(0.75, 1)];
   S.mix.channels.forEach(c => { c.gain = rnd(20, 100, 0); });
   for (const k of TRACES) S.pads[k] = Math.random() > 0.3;
   panel.refresh();
@@ -227,6 +230,7 @@ function draw(now: number): void {
   // effective parameters (neutral when their block is not playing)
   const A = plays('knobs-02') ? S.amplitude : 0.6, F = plays('knobs-02') ? S.frequency : 2, P = plays('knobs-02') ? S.phase : 0;
   const speed = plays('sliders-04') ? S.speed : 1, decay = plays('sliders-04') ? S.decay : 0;
+  const win = plays('sliders-04') ? S.window : [0, 1];
   const off = plays('pad-05') || !panel.get('pad-05') ? S.offset : { x: 0, y: 0 };
   const fall = plays('curve-06') ? (curveCtrl?.toFunction?.() ?? ((x: number) => x)) : (x: number) => x;
   const gains = TRACES.map((_, i) => plays('mixer-01') ? (S.mix.channels[i]?.gain ?? 70) / 100 : 0.7);
@@ -256,8 +260,10 @@ function draw(now: number): void {
     ctx.globalAlpha = isSel ? 0.9 : 0.45;
     ctx.lineWidth = isSel ? 1.25 : 1;
     const steps = 240;
+    let started = false;
     for (let k = 0; k <= steps; k++) {
       const u = k / steps;
+      if (u < win[0] || u > win[1]) continue;
       const x = cx - span / 2 + u * span;
       const env = fall(1 - Math.abs(u - 0.5) * 2);
       const ph = (P / 360) * Math.PI * 2;
@@ -269,7 +275,7 @@ function draw(now: number): void {
         default:      y = Math.sin(u * Math.PI * 2 * F + t * 2) * A * Math.exp(-decay * u * 4);
       }
       const py = cy + y * g * env * span * 0.22;
-      if (k) ctx.lineTo(x, py); else ctx.moveTo(x, py);
+      if (started) ctx.lineTo(x, py); else { ctx.moveTo(x, py); started = true; }
       if (isSel) { sum += (py - cy) ** 2; count++; }
     }
     ctx.stroke();

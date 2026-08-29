@@ -40,4 +40,16 @@ export function bindXYObject(target: any, key: string): Binding<XY> {
   };
 }
 
+export type Pair = [number, number];
+export const pairEquals = (a: Pair, b: Pair): boolean => a[0] === b[0] && a[1] === b[1];
+
+/** range form: addRange(obj, 'band') where obj.band = [lo, hi]; mutates the array in place */
+export function bindPair(target: any, key: string): Binding<Pair> {
+  return {
+    target, key, equals: pairEquals,
+    read: () => [target[key][0], target[key][1]],
+    write: (v) => { target[key][0] = v[0]; target[key][1] = v[1]; },
+  };
+}
+
 export const structuralEquals = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);

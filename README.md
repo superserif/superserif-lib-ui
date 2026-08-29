@@ -3,7 +3,7 @@
 A control panel for creative dev — parameters, curves, presets — in the spirit of dat.gui, built the Super Serif way: one stylesheet driven by CSS custom properties, light and dark, one type size, two easings, no framework, no dependency.
 
 - **Panel** (drag, resize, collapse, `H`, fps, transport), **Folder** as modules (grid layout, rename, right-click, solo, drag to reorder)
-- **Number** (the digit is the control: scrub, shift ×10, alt ×0.1, click to type), **Slider** (inline mode, editable max), **Knob** (stack layout), **Pad 2D**, **Pads** (on/off bank), **Toggle**, **Select** (with preview canvas), **Color**, **Text**, **Button**, **Menu**, **Curve** (bezier / points → `toFunction()` `toCSS()` `toArray()`), **Monitor** (sparkline), **Mixer** (faders), **Presets** (save / load / export JSON)
+- **Number** (the digit is the control: scrub, shift ×10, alt ×0.1, click to type), **Slider** (inline mode, editable max, two-thumb `addRange` for `[lo, hi]` pairs), **Knob** (stack layout), **Pad 2D**, **Pads** (on/off bank), **Toggle**, **Select** (with preview canvas), **Color**, **Text**, **Button**, **Menu**, **Curve** (bezier / points → `toFunction()` `toCSS()` `toArray()`), **Monitor** (sparkline), **Mixer** (faders), **Presets** (save / load / export JSON)
 
 Live docs and playground: **https://superserif-ui.vercel.app** — components (`/`), the copyable starter (`/starter`), the three compositions (`/prototype`).
 
@@ -75,7 +75,9 @@ const knobs = panel.addFolder('Knobs', { layout: 'grid', columns: 3 });
 knobs.addKnob(S, 'amplitude', { min: 0, max: 1, layout: 'stack', size: 'lg' });
 
 panel.addFolder('Pads').addPads(S, 'pads');                          // S.pads = { amp: true, freq: false, … }
-panel.addFolder('Sliders').addSlider(S, 'speed', { min: 0, max: 3, inline: true });
+const sliders = panel.addFolder('Sliders');
+sliders.addSlider(S, 'speed', { min: 0, max: 3, inline: true });
+sliders.addRange(S, 'band', { min: 0, max: 100, step: 1, unit: '%', inline: true });   // S.band = [20, 80]
 panel.addFolder('Curve').addCurve(S, 'falloff');                      // .toFunction() for your falloff
 panel.addMenu('Add module', [{ label: 'Knobs', onSelect: () => { /* … */ } }], { full: true, variant: 'ghost' });
 panel.setTransport({ playing: true, onToggle: p => (S.playing = p) });

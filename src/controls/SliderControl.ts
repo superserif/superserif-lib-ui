@@ -11,7 +11,7 @@ export interface SliderOptions extends NumberOptions {
   min: number; max: number;
   /** show "/ max" after the value */
   showRange?: boolean;
-  /** inline: label + "value / max" on one line, full-width bar below (Figma "Sliders Container") */
+  /** inline: label + value on one line, full-width track below (Figma "Sliders Container"); add showRange for "value / max" */
   inline?: boolean;
   /** the "/ max" readout is itself scrubbable, so the range can be raised from the UI (default true when shown) */
   editableMax?: boolean;
@@ -50,7 +50,7 @@ export class SliderControl extends NumberControl {
     const inline = !!o.inline;
     const box = h('div', { class: `ssui-slider${inline ? ' ssui-slider--inline' : ''}`, 'data-ssui-state': 'idle' }, [this.track]);
     const readoutWrap = h('div', { class: 'ssui-slider__readout' }, [this.readout.widget]);
-    if (o.showRange || inline) {
+    if (o.showRange) {
       this.rangeEl = h('span', { class: 'ssui-value ssui-slider__range' }, ['/']);
       readoutWrap.append(this.rangeEl);
       if (o.editableMax !== false) {
